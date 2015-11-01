@@ -6,24 +6,25 @@
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="devCat">
-    <title>ssh-tunnel - devCat</title>
+    <title>command - devCat</title>
     <meta name="author" content="warjiang">
     
         <link rel="icon" href="/devcat/assets/images/hexoFavico.ico">
     
     
-    <meta name="description" content="现在有需求,有内网VPS一台,在内网内可以正常通过ssh的方式连接,现在需要让这台VPS可以被外网通过SSH的方式访问,现在有一台机器有公网IP,可以作为跳板为了实现这一需求,可以通过VPN或者SSH-tunnel的形式,通过VPN或者SSH的方式转发流量把充当跳板机器记作middleUserName@middleServeIp密码记作middleUserPassword目标机器记作targetU">
+    <meta name="description" content="apt-get软件卸载如果是apt-get install packageXX,则执行以下命令可以卸载软件12sudo apt-get remove packageXX sudo apt-get autoremove
+如果是sudo aptitude install packageXX,则执行sudo aptitude remove packageXX卸载软件">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="ssh-tunnel">
-<meta property="og:url" content="http://warjiang.github.io/devcat/2015/11/01/ssh-tunnel/index.html">
+<meta property="og:title" content="command">
+<meta property="og:url" content="http://warjiang.github.io/devcat/2015/11/01/command/index.html">
 <meta property="og:site_name" content="devCat">
-<meta property="og:description" content="现在有需求,有内网VPS一台,在内网内可以正常通过ssh的方式连接,现在需要让这台VPS可以被外网通过SSH的方式访问,现在有一台机器有公网IP,可以作为跳板为了实现这一需求,可以通过VPN或者SSH-tunnel的形式,通过VPN或者SSH的方式转发流量把充当跳板机器记作middleUserName@middleServeIp密码记作middleUserPassword目标机器记作targetU">
-<meta property="og:image" content="http://7xlxhl.com1.z0.glb.clouddn.com/myentunnel.png">
-<meta property="og:image" content="http://7xlxhl.com1.z0.glb.clouddn.com/ssh.jpg">
-<meta property="og:updated_time" content="2015-11-01T15:09:25.578Z">
+<meta property="og:description" content="apt-get软件卸载如果是apt-get install packageXX,则执行以下命令可以卸载软件12sudo apt-get remove packageXX sudo apt-get autoremove
+如果是sudo aptitude install packageXX,则执行sudo aptitude remove packageXX卸载软件">
+<meta property="og:updated_time" content="2015-11-01T15:50:14.163Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ssh-tunnel">
-<meta name="twitter:description" content="现在有需求,有内网VPS一台,在内网内可以正常通过ssh的方式连接,现在需要让这台VPS可以被外网通过SSH的方式访问,现在有一台机器有公网IP,可以作为跳板为了实现这一需求,可以通过VPN或者SSH-tunnel的形式,通过VPN或者SSH的方式转发流量把充当跳板机器记作middleUserName@middleServeIp密码记作middleUserPassword目标机器记作targetU">
+<meta name="twitter:title" content="command">
+<meta name="twitter:description" content="apt-get软件卸载如果是apt-get install packageXX,则执行以下命令可以卸载软件12sudo apt-get remove packageXX sudo apt-get autoremove
+如果是sudo aptitude install packageXX,则执行sudo aptitude remove packageXX卸载软件">
     
     
     
@@ -157,11 +158,11 @@
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title" itemprop="headline">
-            ssh-tunnel
+            command
         </h1>
     
     <div class="post-meta">
-    <time itemprop="datePublished" content="Sun Nov 01 2015 21:13:39 GMT+0800">
+    <time itemprop="datePublished" content="Sun Nov 01 2015 23:47:29 GMT+0800">
 	
 		    11月 01, 2015
     	
@@ -172,11 +173,8 @@
     
     <div class="post-content markdown" itemprop="articleBody">
         <div class="main-content-wrap">
-            <p>现在有需求,有内网VPS一台,在内网内可以正常通过ssh的方式连接,现在需要让这台VPS可以被外网通过SSH的方式访问,现在有一台机器有公网IP,可以作为跳板<br>为了实现这一需求,可以通过VPN或者SSH-tunnel的形式,通过VPN或者SSH的方式转发流量<br>把充当跳板机器记作<code>middleUserName@middleServeIp</code>密码记作<code>middleUserPassword</code><br>目标机器记作<code>targetUserName@targetServeIp</code><br>首先执行这条命令,在localhost的localHostPort和跳板机器middleServeIp之间建立一个SSH的tunnel,<code>-f -N</code>两个参数会让SSH tunnel处于一直连接的状态<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -f middleUserName<span class="annotation">@middleServeIp</span> -L <span class="string">localHostPort:</span><span class="string">targetServeIp:</span><span class="number">22</span> -N</span><br></pre></td></tr></table></figure></p>
-<p>这个时候如果是ssh是采用账号密码登录的方式,则执行<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">ssh</span> -p localHostPort targetUserName<span class="variable">@targetServeIp</span></span><br></pre></td></tr></table></figure></p>
-<p>如果是采用pem文件,则执行<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -<span class="tag">p</span> localHostPort targetUserName@targetServeIp -<span class="tag">i</span> path/to/pem/file</span><br></pre></td></tr></table></figure></p>
-<p>这里必须要注意如果是采用pem文件的方式,一定要保证pem文件的权限是400,因为SSH工作的时候一定要保证keyfile不能是别人可见的状态.可以参考<a href="http://stackoverflow.com/questions/8193768/trying-to-ssh-into-an-amazon-ec2-instance-permission-error" target="_blank" rel="external">permission error</a></p>
-<h1 id="补充">补充</h1><p>实际使用由于此方法太过复杂,根据上面的过程,在<a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html" target="_blank" rel="external">putty</a>官网上有一个叫做<a href="http://the.earth.li/~sgtatham/putty/latest/x86/plink.exe" target="_blank" rel="external">plink</a>的工具.后来有人根据plink做了<a href="http://7xlxhl.com1.z0.glb.clouddn.com/myentunnel_setup-3.6.1.exe" target="_blank" rel="external">myentunnel</a>的工具,通过这个工具在启动时修改参数,可以省去输密码的时间<br><img src="http://7xlxhl.com1.z0.glb.clouddn.com/myentunnel.png" alt="myentunnel"><br>这里我的输入参数就是<code>-L localHostPort:targetServeIp:22 -N</code><br>这个时候我们有了隧道,直接在shell里面执行<br><code>ssh -p localHostPort  -i path/to/pem/file root@localhost</code><br><img src="http://7xlxhl.com1.z0.glb.clouddn.com/ssh.jpg" alt="ssh"></p>
+            <h3 id="apt-get软件卸载">apt-get软件卸载</h3><p>如果是<code>apt-get install packageXX</code>,则执行以下命令可以卸载软件<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> <span class="built_in">remove</span> packageXX </span><br><span class="line">sudo apt-<span class="built_in">get</span> autoremove</span><br></pre></td></tr></table></figure></p>
+<p>如果是<code>sudo aptitude install packageXX</code>,则执行<code>sudo aptitude remove packageXX</code>卸载软件</p>
 
             
                 
@@ -189,7 +187,7 @@
             <div class="post-footer-tags">
                 <span class="text-color-light text-small">TAGGED IN</span><br/>
                 
-    <a class="tag tag--primary tag--small t-link" href="/devcat/tags/ssh/">ssh</a> <a class="tag tag--primary tag--small t-link" href="/devcat/tags/tools/">tools</a> <a class="tag tag--primary tag--small t-link" href="/devcat/tags/tunnel/">tunnel</a> <a class="tag tag--primary tag--small t-link" href="/devcat/tags/外网访问内网VPS/">外网访问内网VPS</a>
+    <a class="tag tag--primary tag--small t-link" href="/devcat/tags/command/">command</a> <a class="tag tag--primary tag--small t-link" href="/devcat/tags/linux/">linux</a>
 
             </div>
         
@@ -198,7 +196,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2015/11/01/command/"  data-tooltip="command">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -206,7 +204,7 @@
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2015/11/01/ssh-for-windows/" data-tooltip="ssh_for_windows">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2015/11/01/ssh-tunnel/" data-tooltip="ssh-tunnel">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                     <i class="fa fa-angle-right"></i>
@@ -221,17 +219,17 @@
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2015/11/01/ssh-tunnel/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2015/11/01/command/">
                 <i class="fa fa-google-plus"></i>
             </a>
         </li>
         <li class="post-action hide-xs" style="display:none">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2015/11/01/ssh-tunnel/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2015/11/01/command/">
                 <i class="fa fa-facebook-official"></i>
             </a>
         </li>
         <li class="post-action hide-xs" style="display:none">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2015/11/01/ssh-tunnel/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2015/11/01/command/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
@@ -273,7 +271,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2015/11/01/command/"  data-tooltip="command">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -281,7 +279,7 @@
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2015/11/01/ssh-for-windows/" data-tooltip="ssh_for_windows">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2015/11/01/ssh-tunnel/" data-tooltip="ssh-tunnel">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                     <i class="fa fa-angle-right"></i>
@@ -296,17 +294,17 @@
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2015/11/01/ssh-tunnel/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2015/11/01/command/">
                 <i class="fa fa-google-plus"></i>
             </a>
         </li>
         <li class="post-action hide-xs" style="display:none">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2015/11/01/ssh-tunnel/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2015/11/01/command/">
                 <i class="fa fa-facebook-official"></i>
             </a>
         </li>
         <li class="post-action hide-xs" style="display:none">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2015/11/01/ssh-tunnel/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2015/11/01/command/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
@@ -332,17 +330,17 @@
                 <div id="share-options-bar" class="share-options-bar" data-behavior="4">
     <ul class="share-options">
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2015/11/01/ssh-tunnel/">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2015/11/01/command/">
                 <i class="fa fa-google-plus"></i><span class="">Share on Google Plus</span>
             </a>
         </li>
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2015/11/01/ssh-tunnel/">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2015/11/01/command/">
                 <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
             </a>
         </li>
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2015/11/01/ssh-tunnel/">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2015/11/01/command/">
                 <i class="fa fa-twitter"></i><span>Share on Twitter</span>
             </a>
         </li>
