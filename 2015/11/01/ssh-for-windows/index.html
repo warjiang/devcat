@@ -6,22 +6,23 @@
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="devCat">
-    <title>nvm - devCat</title>
+    <title>ssh_for_windows - devCat</title>
     <meta name="author" content="warjiang">
     
         <link rel="icon" href="/devcat/assets/images/hexoFavico.ico">
     
     
-    <meta name="description" content="node.js加入Joyent公司后更新缓慢,来自社区的更新速度快过发布版的更新速度.同时由于Joyent公司开放的心态,导致了io.js的诞生,并且io.js与node.js从Node.js 0.10.x版本后分离.从此io.js的以高性能、新特性著称,可以在io.js中体验各种js的新特性.两大分支下,我们在开发中导致了我们需要各个版本的Node.js和io.js.cnode社区里面推荐nvm">
+    <meta name="description" content="windows下需要使用ssh 客户端工具,可以使用OpenSSH这款工具,OpenSSHWindows下载链接安装完成后,把安装目录下的bin目录配置的系统的环境变量里面，重新打开power shell就可以执行ssh命令了.如图所示">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="nvm">
-<meta property="og:url" content="http://warjiang.github.io/devcat/2015/08/27/nvm/index.html">
+<meta property="og:title" content="ssh_for_windows">
+<meta property="og:url" content="http://warjiang.github.io/devcat/2015/11/01/ssh-for-windows/index.html">
 <meta property="og:site_name" content="devCat">
-<meta property="og:description" content="node.js加入Joyent公司后更新缓慢,来自社区的更新速度快过发布版的更新速度.同时由于Joyent公司开放的心态,导致了io.js的诞生,并且io.js与node.js从Node.js 0.10.x版本后分离.从此io.js的以高性能、新特性著称,可以在io.js中体验各种js的新特性.两大分支下,我们在开发中导致了我们需要各个版本的Node.js和io.js.cnode社区里面推荐nvm">
-<meta property="og:updated_time" content="2015-08-27T07:06:31.483Z">
+<meta property="og:description" content="windows下需要使用ssh 客户端工具,可以使用OpenSSH这款工具,OpenSSHWindows下载链接安装完成后,把安装目录下的bin目录配置的系统的环境变量里面，重新打开power shell就可以执行ssh命令了.如图所示">
+<meta property="og:image" content="http://7xlxhl.com1.z0.glb.clouddn.com/opensshwindows.png">
+<meta property="og:updated_time" content="2015-11-01T13:12:14.134Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="nvm">
-<meta name="twitter:description" content="node.js加入Joyent公司后更新缓慢,来自社区的更新速度快过发布版的更新速度.同时由于Joyent公司开放的心态,导致了io.js的诞生,并且io.js与node.js从Node.js 0.10.x版本后分离.从此io.js的以高性能、新特性著称,可以在io.js中体验各种js的新特性.两大分支下,我们在开发中导致了我们需要各个版本的Node.js和io.js.cnode社区里面推荐nvm">
+<meta name="twitter:title" content="ssh_for_windows">
+<meta name="twitter:description" content="windows下需要使用ssh 客户端工具,可以使用OpenSSH这款工具,OpenSSHWindows下载链接安装完成后,把安装目录下的bin目录配置的系统的环境变量里面，重新打开power shell就可以执行ssh命令了.如图所示">
     
     
     
@@ -155,28 +156,22 @@
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title" itemprop="headline">
-            nvm
+            ssh_for_windows
         </h1>
     
     <div class="post-meta">
-    <time itemprop="datePublished" content="Thu Aug 27 2015 14:47:42 GMT+0800">
+    <time itemprop="datePublished" content="Sun Nov 01 2015 16:18:00 GMT+0800">
 	
-		    8月 27, 2015
+		    11月 01, 2015
     	
     </time>
-    
-        <span>in </span>
-        
-    <a class="category-link" href="/devcat/categories/node-js/">node.js</a>
-
-
     
 </div>
 </div>
     
     <div class="post-content markdown" itemprop="articleBody">
         <div class="main-content-wrap">
-            <p>node.js加入Joyent公司后更新缓慢,来自社区的更新速度快过发布版的更新速度.同时由于Joyent公司开放的心态,导致了io.js的诞生,并且io.js与node.js从Node.js 0.10.x版本后分离.从此io.js的以高性能、新特性著称,可以在io.js中体验各种js的新特性.两大分支下,我们在开发中导致了我们需要各个版本的Node.js和io.js.cnode社区里面推荐nvm,利用nvm可以使用不同版本的node.js和io.js.关于node.js与io.js之间的故事,可以参考<a href="http://www.infoq.com/cn/articles/node-js-and-io-js/" target="_blank" rel="external">朴大神的info专栏</a><br>nvm(node version manager)<a href="https://github.com/creationix/nvmnvm的github主页" target="_blank" rel="external">nvm的github主页</a><br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//自动安装nvm的脚本</span></span><br><span class="line">curl -o- <span class="string">https:</span><span class="comment">//raw.githubusercontent.com/creationix/nvm/v0.26.1/install.sh | bash</span></span><br><span class="line"><span class="comment">//安装完成后需要激活nvm</span></span><br><span class="line">. <span class="regexp">~/.nvm/</span>nvm.sh</span><br></pre></td></tr></table></figure></p>
+            <p>windows下需要使用ssh 客户端工具,可以使用OpenSSH这款工具,<a href="http://7xlxhl.com1.z0.glb.clouddn.com/OpenSSHWindows53p1-2.msi" target="_blank" rel="external">OpenSSHWindows下载链接</a><br>安装完成后,把安装目录下的bin目录配置的系统的环境变量里面，重新打开power shell就可以执行ssh命令了.如图所示<br><img src="http://7xlxhl.com1.z0.glb.clouddn.com/opensshwindows.png" alt="opensshwindows.png"></p>
 
             
                 
@@ -189,7 +184,7 @@
             <div class="post-footer-tags">
                 <span class="text-color-light text-small">TAGGED IN</span><br/>
                 
-    <a class="tag tag--primary tag--small t-link" href="/devcat/tags/io-js/">io.js</a> <a class="tag tag--primary tag--small t-link" href="/devcat/tags/node-js/">node.js</a>
+    <a class="tag tag--primary tag--small t-link" href="/devcat/tags/openssh/">openssh</a> <a class="tag tag--primary tag--small t-link" href="/devcat/tags/ssh/">ssh</a> <a class="tag tag--primary tag--small t-link" href="/devcat/tags/tools/">tools</a> <a class="tag tag--primary tag--small t-link" href="/devcat/tags/windows/">windows</a>
 
             </div>
         
@@ -198,7 +193,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2015/09/10/hello-world/"  data-tooltip="Hello World">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2015/11/01/ssh-tunnel/"  data-tooltip="ssh-tunnel">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -206,7 +201,7 @@
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2015/08/20/quagga安装/" data-tooltip="quagga安装">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2015/09/21/pip/" data-tooltip="pip">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                     <i class="fa fa-angle-right"></i>
@@ -221,17 +216,17 @@
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2015/08/27/nvm/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2015/11/01/ssh-for-windows/">
                 <i class="fa fa-google-plus"></i>
             </a>
         </li>
         <li class="post-action hide-xs" style="display:none">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2015/08/27/nvm/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2015/11/01/ssh-for-windows/">
                 <i class="fa fa-facebook-official"></i>
             </a>
         </li>
         <li class="post-action hide-xs" style="display:none">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2015/08/27/nvm/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2015/11/01/ssh-for-windows/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
@@ -273,7 +268,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2015/09/10/hello-world/"  data-tooltip="Hello World">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2015/11/01/ssh-tunnel/"  data-tooltip="ssh-tunnel">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -281,7 +276,7 @@
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2015/08/20/quagga安装/" data-tooltip="quagga安装">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2015/09/21/pip/" data-tooltip="pip">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                     <i class="fa fa-angle-right"></i>
@@ -296,17 +291,17 @@
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2015/08/27/nvm/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2015/11/01/ssh-for-windows/">
                 <i class="fa fa-google-plus"></i>
             </a>
         </li>
         <li class="post-action hide-xs" style="display:none">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2015/08/27/nvm/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2015/11/01/ssh-for-windows/">
                 <i class="fa fa-facebook-official"></i>
             </a>
         </li>
         <li class="post-action hide-xs" style="display:none">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2015/08/27/nvm/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2015/11/01/ssh-for-windows/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
@@ -332,17 +327,17 @@
                 <div id="share-options-bar" class="share-options-bar" data-behavior="4">
     <ul class="share-options">
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2015/08/27/nvm/">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2015/11/01/ssh-for-windows/">
                 <i class="fa fa-google-plus"></i><span class="">Share on Google Plus</span>
             </a>
         </li>
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2015/08/27/nvm/">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2015/11/01/ssh-for-windows/">
                 <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
             </a>
         </li>
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2015/08/27/nvm/">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2015/11/01/ssh-for-windows/">
                 <i class="fa fa-twitter"></i><span>Share on Twitter</span>
             </a>
         </li>
