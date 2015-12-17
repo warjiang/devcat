@@ -6,25 +6,33 @@
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="devCat">
-    <title>command - devCat</title>
+    <title>ubuntu使用国内源出现HashSummismatch错误 - devCat</title>
     <meta name="author" content="warjiang">
     
         <link rel="icon" href="/devcat/assets/images/hexoFavico.ico">
     
     
-    <meta name="description" content="apt-get软件卸载如果是apt-get install packageXX,则执行以下命令可以卸载软件12sudo apt-get remove packageXX sudo apt-get autoremove
-如果是sudo aptitude install packageXX,则执行sudo aptitude remove packageXX卸载软件">
+    <meta name="description" content="国内用户使用国内的镜像源速度会快点.但是在使用163等源替换系统的/etc/apt/source.list的源会出现hash sum mistach问题.主要就是GFW的问题，导致了我们获取到的文件和官方源上的文件大小不一致，所以出出现Hash Sum mismatch问题。解决方法
+
+使用代理更新
+使用ali源作为替代附上ali源12345678910deb http://mirrors.ali">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="command">
-<meta property="og:url" content="http://warjiang.github.io/devcat/2015/11/01/command/index.html">
+<meta property="og:title" content="ubuntu使用国内源出现HashSummismatch错误">
+<meta property="og:url" content="http://warjiang.github.io/devcat/2015/12/17/ubuntu使用国内源出现HashSummismatch错误/index.html">
 <meta property="og:site_name" content="devCat">
-<meta property="og:description" content="apt-get软件卸载如果是apt-get install packageXX,则执行以下命令可以卸载软件12sudo apt-get remove packageXX sudo apt-get autoremove
-如果是sudo aptitude install packageXX,则执行sudo aptitude remove packageXX卸载软件">
-<meta property="og:updated_time" content="2015-11-01T15:50:14.163Z">
+<meta property="og:description" content="国内用户使用国内的镜像源速度会快点.但是在使用163等源替换系统的/etc/apt/source.list的源会出现hash sum mistach问题.主要就是GFW的问题，导致了我们获取到的文件和官方源上的文件大小不一致，所以出出现Hash Sum mismatch问题。解决方法
+
+使用代理更新
+使用ali源作为替代附上ali源12345678910deb http://mirrors.ali">
+<meta property="og:image" content="http://7xl7lt.com1.z0.glb.clouddn.com/ubuntu_163source.png">
+<meta property="og:image" content="http://7xl7lt.com1.z0.glb.clouddn.com/source163updateerror.png">
+<meta property="og:updated_time" content="2015-12-17T14:49:56.367Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="command">
-<meta name="twitter:description" content="apt-get软件卸载如果是apt-get install packageXX,则执行以下命令可以卸载软件12sudo apt-get remove packageXX sudo apt-get autoremove
-如果是sudo aptitude install packageXX,则执行sudo aptitude remove packageXX卸载软件">
+<meta name="twitter:title" content="ubuntu使用国内源出现HashSummismatch错误">
+<meta name="twitter:description" content="国内用户使用国内的镜像源速度会快点.但是在使用163等源替换系统的/etc/apt/source.list的源会出现hash sum mistach问题.主要就是GFW的问题，导致了我们获取到的文件和官方源上的文件大小不一致，所以出出现Hash Sum mismatch问题。解决方法
+
+使用代理更新
+使用ali源作为替代附上ali源12345678910deb http://mirrors.ali">
     
     
     
@@ -158,13 +166,13 @@
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title" itemprop="headline">
-            command
+            ubuntu使用国内源出现HashSummismatch错误
         </h1>
     
     <div class="post-meta">
-    <time itemprop="datePublished" content="Sun Nov 01 2015 23:47:29 GMT+0800">
+    <time itemprop="datePublished" content="Thu Dec 17 2015 16:34:12 GMT+0800">
 	
-		    11月 01, 2015
+		    12月 17, 2015
     	
     </time>
     
@@ -173,8 +181,13 @@
     
     <div class="post-content markdown" itemprop="articleBody">
         <div class="main-content-wrap">
-            <h3 id="apt-get软件卸载">apt-get软件卸载</h3><p>如果是<code>apt-get install packageXX</code>,则执行以下命令可以卸载软件<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> <span class="built_in">remove</span> packageXX </span><br><span class="line">sudo apt-<span class="built_in">get</span> autoremove</span><br></pre></td></tr></table></figure></p>
-<p>如果是<code>sudo aptitude install packageXX</code>,则执行<code>sudo aptitude remove packageXX</code>卸载软件</p>
+            <p>国内用户使用国内的镜像源速度会快点.<br><img src="http://7xl7lt.com1.z0.glb.clouddn.com/ubuntu_163source.png" alt="ubuntu_163source"><br>但是在使用163等源替换系统的<code>/etc/apt/source.list</code>的源会出现hash sum mistach问题.主要就是GFW的问题，导致了我们获取到的文件和官方源上的文件大小不一致，所以出出现Hash Sum mismatch问题。解决方法</p>
+<ul>
+<li>使用代理更新</li>
+<li>使用ali源作为替代<br><img src="http://7xl7lt.com1.z0.glb.clouddn.com/source163updateerror.png" alt="source163updateerror"><br>附上ali源<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">deb <span class="string">http:</span><span class="comment">//mirrors.aliyun.com/ubuntu/ trusty main restricted universe multiverse</span></span><br><span class="line">deb <span class="string">http:</span><span class="comment">//mirrors.aliyun.com/ubuntu/ trusty-security main restricted universe multiverse</span></span><br><span class="line">deb <span class="string">http:</span><span class="comment">//mirrors.aliyun.com/ubuntu/ trusty-updates main restricted universe multiverse</span></span><br><span class="line">deb <span class="string">http:</span><span class="comment">//mirrors.aliyun.com/ubuntu/ trusty-proposed main restricted universe multiverse</span></span><br><span class="line">deb <span class="string">http:</span><span class="comment">//mirrors.aliyun.com/ubuntu/ trusty-backports main restricted universe multiverse</span></span><br><span class="line">deb-src <span class="string">http:</span><span class="comment">//mirrors.aliyun.com/ubuntu/ trusty main restricted universe multiverse</span></span><br><span class="line">deb-src <span class="string">http:</span><span class="comment">//mirrors.aliyun.com/ubuntu/ trusty-security main restricted universe multiverse</span></span><br><span class="line">deb-src <span class="string">http:</span><span class="comment">//mirrors.aliyun.com/ubuntu/ trusty-updates main restricted universe multiverse</span></span><br><span class="line">deb-src <span class="string">http:</span><span class="comment">//mirrors.aliyun.com/ubuntu/ trusty-proposed main restricted universe multiverse</span></span><br><span class="line">deb-src <span class="string">http:</span><span class="comment">//mirrors.aliyun.com/ubuntu/ trusty-backports main restricted universe multiverse</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>这里我也自制了一个<a href="http://115.159.122.224/wechat/Demo/Demo/generateUbuntuSource" target="_blank" rel="external">阿里源的生成器</a></p>
 
             
                 
@@ -187,7 +200,7 @@
             <div class="post-footer-tags">
                 <span class="text-color-light text-small">TAGGED IN</span><br/>
                 
-    <a class="tag tag--primary tag--small t-link" href="/devcat/tags/command/">command</a> <a class="tag tag--primary tag--small t-link" href="/devcat/tags/linux/">linux</a>
+    <a class="tag tag--primary tag--small t-link" href="/devcat/tags/aliyun/">aliyun</a> <a class="tag tag--primary tag--small t-link" href="/devcat/tags/apt-get/">apt-get</a> <a class="tag tag--primary tag--small t-link" href="/devcat/tags/ubuntu/">ubuntu</a>
 
             </div>
         
@@ -196,7 +209,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2015/11/11/phpstorm-remote-depolyment/"  data-tooltip="phpstorm_remote_depolyment">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -204,7 +217,7 @@
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2015/11/01/ssh-tunnel/" data-tooltip="ssh-tunnel">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2015/11/11/phpstorm-remote-depolyment/" data-tooltip="phpstorm_remote_depolyment">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                     <i class="fa fa-angle-right"></i>
@@ -219,17 +232,17 @@
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2015/11/01/command/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2015/12/17/ubuntu使用国内源出现HashSummismatch错误/">
                 <i class="fa fa-google-plus"></i>
             </a>
         </li>
         <li class="post-action hide-xs" style="display:none">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2015/11/01/command/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2015/12/17/ubuntu使用国内源出现HashSummismatch错误/">
                 <i class="fa fa-facebook-official"></i>
             </a>
         </li>
         <li class="post-action hide-xs" style="display:none">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2015/11/01/command/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2015/12/17/ubuntu使用国内源出现HashSummismatch错误/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
@@ -271,7 +284,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2015/11/11/phpstorm-remote-depolyment/"  data-tooltip="phpstorm_remote_depolyment">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -279,7 +292,7 @@
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2015/11/01/ssh-tunnel/" data-tooltip="ssh-tunnel">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2015/11/11/phpstorm-remote-depolyment/" data-tooltip="phpstorm_remote_depolyment">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                     <i class="fa fa-angle-right"></i>
@@ -294,17 +307,17 @@
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2015/11/01/command/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2015/12/17/ubuntu使用国内源出现HashSummismatch错误/">
                 <i class="fa fa-google-plus"></i>
             </a>
         </li>
         <li class="post-action hide-xs" style="display:none">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2015/11/01/command/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2015/12/17/ubuntu使用国内源出现HashSummismatch错误/">
                 <i class="fa fa-facebook-official"></i>
             </a>
         </li>
         <li class="post-action hide-xs" style="display:none">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2015/11/01/command/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2015/12/17/ubuntu使用国内源出现HashSummismatch错误/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
@@ -330,17 +343,17 @@
                 <div id="share-options-bar" class="share-options-bar" data-behavior="4">
     <ul class="share-options">
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2015/11/01/command/">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2015/12/17/ubuntu使用国内源出现HashSummismatch错误/">
                 <i class="fa fa-google-plus"></i><span class="">Share on Google Plus</span>
             </a>
         </li>
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2015/11/01/command/">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2015/12/17/ubuntu使用国内源出现HashSummismatch错误/">
                 <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
             </a>
         </li>
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2015/11/01/command/">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2015/12/17/ubuntu使用国内源出现HashSummismatch错误/">
                 <i class="fa fa-twitter"></i><span>Share on Twitter</span>
             </a>
         </li>
