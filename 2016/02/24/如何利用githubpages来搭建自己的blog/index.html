@@ -1,0 +1,436 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="devCat">
+    <title>如何利用githubpages来搭建自己的blog - devCat</title>
+    <meta name="author" content="warjiang">
+    
+        <link rel="icon" href="/devcat/assets/images/hexoFavico.ico">
+    
+    
+    <meta name="description" content="我的blog组成
+github pages 来托管静态的HTML页面
+hexo 用于markdown文档生成html页面，同时hexo整合git工具，可以一条命令就将生成的html页面推送到github上面去
+七牛 用于托管图片等静态资源 我的七牛推广链接
+
+github pagesgithub pages是github提供的用于托管静态页面的服务.github pages目前来说主要有两种用途">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="如何利用githubpages来搭建自己的blog">
+<meta property="og:url" content="http://warjiang.github.io/devcat/2016/02/24/如何利用githubpages来搭建自己的blog/index.html">
+<meta property="og:site_name" content="devCat">
+<meta property="og:description" content="我的blog组成
+github pages 来托管静态的HTML页面
+hexo 用于markdown文档生成html页面，同时hexo整合git工具，可以一条命令就将生成的html页面推送到github上面去
+七牛 用于托管图片等静态资源 我的七牛推广链接
+
+github pagesgithub pages是github提供的用于托管静态页面的服务.github pages目前来说主要有两种用途">
+<meta property="og:image" content="http://7xl7lt.com1.z0.glb.clouddn.com/warjiang.github.io.png">
+<meta property="og:image" content="http://7xl7lt.com1.z0.glb.clouddn.com/warjiang.github.io.master.png">
+<meta property="og:image" content="http://7xl7lt.com1.z0.glb.clouddn.com/warjiang.github.io.devcat.png">
+<meta property="og:image" content="http://7xl7lt.com1.z0.glb.clouddn.com/hexo.theme%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84.png">
+<meta property="og:image" content="http://7xl7lt.com1.z0.glb.clouddn.com/warjiang.githu.io.sshurl.png">
+<meta property="og:updated_time" content="2016-02-25T04:47:36.776Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="如何利用githubpages来搭建自己的blog">
+<meta name="twitter:description" content="我的blog组成
+github pages 来托管静态的HTML页面
+hexo 用于markdown文档生成html页面，同时hexo整合git工具，可以一条命令就将生成的html页面推送到github上面去
+七牛 用于托管图片等静态资源 我的七牛推广链接
+
+github pagesgithub pages是github提供的用于托管静态页面的服务.github pages目前来说主要有两种用途">
+    
+    
+    
+        <meta property="og:image" content="/devcat/assets/images/avatar.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/devcat/assets/css/style.min.css" type="text/css">
+    <!--STYLES END-->
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/devcat/ ">devCat</a>
+    </h1>
+    
+        <a class="header-right-picture" href="/#about">
+            <img class="header-picture" src="/devcat/assets/images/avatar.jpg"/>
+        </a>
+    
+</header>
+            <nav id="sidebar" data-behavior="4">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                
+                    <img class="sidebar-profile-picture" src="/devcat/assets/images/avatar.jpg"/>
+                
+            </a>
+            <span class="sidebar-profile-name">warjiang</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">主页</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/all-categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分类</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">存档</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="/devcat/#search"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                    <span class="sidebar-button-desc">搜索</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/#about"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                    <span class="sidebar-button-desc">关于</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            如何利用githubpages来搭建自己的blog
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Wed Feb 24 2016 23:27:33 GMT+0800">
+	
+		    2月 24, 2016
+    	
+    </time>
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <h3 id="我的blog组成">我的blog组成</h3><ul>
+<li>github pages 来托管静态的HTML页面</li>
+<li>hexo 用于markdown文档生成html页面，同时hexo整合git工具，可以一条命令就将生成的html页面推送到github上面去</li>
+<li>七牛 用于托管图片等静态资源 <a href="https://portal.qiniu.com/signup?code=3lfa6gyc6dob6" target="_blank" rel="external">我的七牛推广链接</a></li>
+</ul>
+<h3 id="github_pages">github pages</h3><p><a href="https://pages.github.com/" target="_blank" rel="external">github pages</a>是github提供的用于托管静态页面的服务.github pages目前来说主要有两种用途</p>
+<ol>
+<li>用于个人或者团体组织的博客<br> 对于用于个人或者团体组织的博客可以有如下形式<ul>
+<li>对于一个叫username的github用户,其可以创建一个叫做username.github.io,在这个repository里面只有一个<strong>master</strong>分支，并不需要<strong>gh-pages</strong>分支,如图所示<br><img src="http://7xl7lt.com1.z0.glb.clouddn.com/warjiang.github.io.png" alt="warjiang.github.io"><br>这个属于一个<strong><em>特殊的repository</em></strong>，github对于这个特殊的repository会做特殊处理。当用户访问<a href="http://username.github.io" target="_blank" rel="external">http://username.github.io</a> 就会映射到我们的这个username.github.io的repository中。比如访问<a href="http://warjiang.github.io">http://warjiang.github.io</a> 就会自动映射到warjiang这个用户的warjiang.github.io的repository下的静态文件。</li>
+</ul>
+</li>
+<li>用于介绍产品<br> 对于这类博客的应用场景为，我们在github上建立一个repository，然后coding做出一个东西，这个时候也需要github pages来做产品介绍，这个时候github对于这样的repository提供了一个<strong><em>特殊的分支gh-pages</em></strong>，对于一个叫做username的用户，其在github上建立了一个叫做product的repository，同时对于product的repository除了master分支，还建立了一个叫做gh-pages的分支,把静态HTML放在这个分支下.当用户访问<a href="http://username.github.io/product" target="_blank" rel="external">http://username.github.io/product</a> 的时候，就会自动映射到gh-pages分支下的文件.<br> <img src="http://7xl7lt.com1.z0.glb.clouddn.com/warjiang.github.io.master.png" alt="warjiang.github.io.master"><br> <img src="http://7xl7lt.com1.z0.glb.clouddn.com/warjiang.github.io.devcat.png" alt="warjiang.github.io.devcat"><br> 如上图所示，devcat这个repository下面的master分支是没有文件的，全部的静态文件都在gh-pages下面。当访问<a href="http://warjiang.github.io/devcat">http://warjiang.github.io/devcat</a> 就会自动映射到warjiang这个用户下的名叫devcat的repository的gh-pages分支的静态文件。</li>
+</ol>
+<h3 id="hexo">hexo</h3><p><a href="https://hexo.io/zh-cn/" target="_blank" rel="external">Hexo</a> 是由台湾大学生开发的一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。</p>
+<ol>
+<li><strong>超快速度</strong> Node.js 所带来的超快生成速度，让上百个页面在几秒内瞬间完成渲染。</li>
+<li><strong>支持 Markdown</strong> Hexo 支持 GitHub Flavored Markdown 的所有功能，甚至可以整合 Octopress 的大多数插件。</li>
+<li><strong>一键部署</strong> 只需一条指令即可部署到 GitHub Pages, Heroku 或其他网站。</li>
+<li><strong>丰富的插件</strong> Hexo 拥有强大的插件系统，安装插件可以让 Hexo 支持 Jade, CoffeeScript。</li>
+</ol>
+<h4 id="hexo安装">hexo安装</h4><p>安装hexo需要确保机器上已经安装了</p>
+<ul>
+<li><a href="https://nodejs.org/en/" target="_blank" rel="external">Node.js</a></li>
+<li><a href="http://git-scm.com/" target="_blank" rel="external">Git</a></li>
+</ul>
+<p>hexo基于<a href="https://nodejs.org/en/" target="_blank" rel="external">Node.js</a>，安装hexo首先要安装nodejs,安装方法不再赘述，windows用户下载exe安装包安装就可以。不过建议安装新版本，新版本基本上都内置了npm(node pakage manager,node包管理工具),安装完测试<code>node -v</code>以及<code>npm -v</code>都可以用就说明nodejs安装完成了。安装完毕nodejs建议按照如下方式切换nodejs源到国内的源<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="operator"><span class="keyword">install</span> -<span class="keyword">g</span> nrm</span><br><span class="line">nrm <span class="keyword">test</span></span><br><span class="line">nrm <span class="keyword">use</span> taobao(这个看具体测试情况如何，选择时延最小的源)</span></span><br></pre></td></tr></table></figure></p>
+<p>安装hexo仅需要一条命令<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="operator"><span class="keyword">install</span> -<span class="keyword">g</span> hexo-cli</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="hexo配置">hexo配置</h4><p>需要配<strong>_config.yml</strong>文件。<br>这里配置按照配置段来看主要需要配置如下段</p>
+<ul>
+<li><strong>Site</strong> 可选 配置站点的title、subtitle、description</li>
+<li><strong>URL</strong>  可选 配置url（<a href="http://username.github.io）" target="_blank" rel="external">http://username.github.io）</a></li>
+<li><strong>Extensions</strong> 可选，这里推荐配置，主要就是把默认的主题换掉,<a href="http://7xl7lt.com1.z0.glb.clouddn.com/tranquilpeak-hexo-theme-built-for-production-1.3.0.zip" target="_blank" rel="external">点击下载我的主题</a>,下载完成后把压缩文件解压缩到themes目录。目录结构如图所示<br><img src="http://7xl7lt.com1.z0.glb.clouddn.com/hexo.theme%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84.png" alt="hexo.theme目录结构"><br>并在_config.yml中的Extensions段下的theme字段修改为主题名tranquilpeak</li>
+<li><strong>Deployment</strong><br>deployment这部分主要以github为主<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">type</span>: git</span><br><span class="line">  <span class="attribute">repo</span>: git<span class="variable">@github</span>.<span class="attribute">com</span>:warjiang/devcat.git</span><br><span class="line">  <span class="attribute">branch</span>: gh-pages</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>repo的地址就是你建立的git仓库的SSH地址（HTTPS地址没有测试过）<br><img src="http://7xl7lt.com1.z0.glb.clouddn.com/warjiang.githu.io.sshurl.png" alt="warjiang.githu.io.sshurl.png"><br>branch的话，根据实际情况，如果是建立的username.github.io就填master，否则就填gh-pages</p>
+<p>下面是我的配置文件<br><figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor"># Hexo Configuration</span></span><br><span class="line"><span class="preprocessor">## Docs: http://hexo.io/docs/configuration.html</span></span><br><span class="line"><span class="preprocessor">## Source: https://github.com/hexojs/hexo/</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># Site</span></span><br><span class="line"><span class="label">title:</span> devCat</span><br><span class="line"><span class="label">subtitle:</span></span><br><span class="line"><span class="label">description:</span> 全端开发</span><br><span class="line"><span class="label">author:</span> warjiang</span><br><span class="line"><span class="label">language:</span> <span class="built_in">zh</span>-cn</span><br><span class="line"><span class="label">timezone:</span> Asia/Shanghai</span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># URL</span></span><br><span class="line"><span class="preprocessor">## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'</span></span><br><span class="line"><span class="label">url:</span> http://warjiang.github.io/devcat</span><br><span class="line"><span class="label">root:</span> /devcat</span><br><span class="line"><span class="label">permalink:</span> :year/:month/:day/:title/</span><br><span class="line"><span class="label">permalink_defaults:</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># Directory</span></span><br><span class="line"><span class="label">source_dir:</span> source</span><br><span class="line"><span class="label">public_dir:</span> public</span><br><span class="line"><span class="label">tag_dir:</span> tags</span><br><span class="line"><span class="label">archive_dir:</span> archives</span><br><span class="line"><span class="label">category_dir:</span> categories</span><br><span class="line"><span class="label">code_dir:</span> downloads/code</span><br><span class="line"><span class="label">i18n_dir:</span> :lang</span><br><span class="line"><span class="label">skip_render:</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># Writing</span></span><br><span class="line"><span class="label">new_post_name:</span> :title.md <span class="preprocessor"># File name of new posts</span></span><br><span class="line"><span class="label">default_layout:</span> post</span><br><span class="line"><span class="label">titlecase:</span> false <span class="preprocessor"># Transform title into titlecase</span></span><br><span class="line"><span class="label">external_link:</span> true <span class="preprocessor"># Open external links in new tab</span></span><br><span class="line"><span class="label">filename_case:</span> <span class="number">0</span></span><br><span class="line"><span class="label">render_drafts:</span> false</span><br><span class="line"><span class="label">post_asset_folder:</span> true</span><br><span class="line"><span class="label">relative_link:</span> false</span><br><span class="line"><span class="label">future:</span> true</span><br><span class="line"><span class="label">highlight:</span></span><br><span class="line">  enable: true</span><br><span class="line">  line_number: true</span><br><span class="line">  auto_detect: true</span><br><span class="line">  tab_replace:</span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># Category &amp; Tag</span></span><br><span class="line"><span class="label">default_category:</span> uncategorized</span><br><span class="line"><span class="label">category_map:</span></span><br><span class="line"><span class="label">tag_map:</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># Date / Time format</span></span><br><span class="line"><span class="preprocessor">## Hexo uses Moment.js to parse and display date</span></span><br><span class="line"><span class="preprocessor">## You can customize the date format as defined in</span></span><br><span class="line"><span class="preprocessor">## http://momentjs.com/docs/#/displaying/format/</span></span><br><span class="line"><span class="label">date_format:</span> YYYY-MM-DD</span><br><span class="line"><span class="label">time_format:</span> HH:mm:ss</span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># Pagination</span></span><br><span class="line"><span class="preprocessor">## Set per_page to 0 to disable pagination</span></span><br><span class="line"><span class="label">per_page:</span> <span class="number">10</span></span><br><span class="line"><span class="label">pagination_dir:</span> page</span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># Extensions</span></span><br><span class="line"><span class="preprocessor">## Plugins: http://hexo.io/plugins/</span></span><br><span class="line"><span class="preprocessor">## Themes: http://hexo.io/themes/</span></span><br><span class="line"><span class="label">theme:</span> tranquilpeak</span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># Deployment</span></span><br><span class="line"><span class="preprocessor">## Docs: http://hexo.io/docs/deployment.html</span></span><br><span class="line"><span class="label">deploy:</span></span><br><span class="line">  type: git</span><br><span class="line">  repo: git@github.com:warjiang/devcat.git</span><br><span class="line">  branch: gh-pages</span><br></pre></td></tr></table></figure></p>
+<h4 id="hexo使用">hexo使用</h4><p>用命令展示一下我的Hexo工作流程<br><figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">cd /path/to/blog/root directory</span><br><span class="line"><span class="preprocessor"># terminal1</span></span><br><span class="line">hexo s启动hexo服务器</span><br><span class="line"><span class="preprocessor"># terminal2</span></span><br><span class="line">hexo <span class="keyword">new</span> postname</span><br><span class="line"><span class="preprocessor"># 最好不要有空，否则会理解成只能解析出最后一个postname，比如写hexo new a b这个时候hexo只能解析出b，而解析不出a</span></span><br><span class="line"><span class="preprocessor"># 打开sublime编辑path/to/blog下的source/_posts目录下的a.md</span></span><br><span class="line">编辑后保存，在浏览器里面访问localhost:<span class="number">4000</span>可以看到你的blog</span><br><span class="line"><span class="preprocessor"># 编辑完成后准备发布到github</span></span><br><span class="line"><span class="preprocessor"># terminal2</span></span><br><span class="line">hexo c</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure></p>
+
+            
+                
+
+            
+        </div>
+    </div>
+    <div class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/devcat/tags/git/">git</a> <a class="tag tag--primary tag--small t-link" href="/devcat/tags/github-pages/">github pages</a> <a class="tag tag--primary tag--small t-link" href="/devcat/tags/hexo/">hexo</a> <a class="tag tag--primary tag--small t-link" href="/devcat/tags/七牛/">七牛</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/02/24/hello-world/" data-tooltip="Hello World">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/02/24/如何利用githubpages来搭建自己的blog/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/02/24/如何利用githubpages来搭建自己的blog/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/02/24/如何利用githubpages来搭建自己的blog/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action" style="display:none">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2016 warjiang. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/02/24/hello-world/" data-tooltip="Hello World">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/02/24/如何利用githubpages来搭建自己的blog/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/02/24/如何利用githubpages来搭建自己的blog/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/02/24/如何利用githubpages来搭建自己的blog/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action" style="display:none">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/02/24/如何利用githubpages来搭建自己的blog/">
+                <i class="fa fa-google-plus"></i><span class="">Share on Google Plus</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/02/24/如何利用githubpages来搭建自己的blog/">
+                <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/02/24/如何利用githubpages来搭建自己的blog/">
+                <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        <div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/devcat/assets/images/avatar.jpg"/>
+        
+            <h4 id="about-card-name">warjiang</h4>
+        
+            <h5 id="about-card-bio"><h2 id="一只有狂想症的fullstack学生汪">一只有狂想症的fullstack学生汪</h2></h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <h2 id="学生汪">学生汪</h2>
+            </h5>
+        
+        
+    </div>
+</div>
+
+        <div id="cover" style="background-image:url('http://7xl7lt.com1.z0.glb.clouddn.com/v1.3.0-cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/devcat/assets/js/script.min.js" type="text/javascript"></script>
+<!--SCRIPTS END-->
+
+
+
+</html>
