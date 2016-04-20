@@ -1,0 +1,427 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="devCat">
+    <title>动手写一个jQuery插件 - devCat</title>
+    <meta name="author" content="warjiang">
+    
+        <link rel="icon" href="/devcat/assets/images/hexoFavico.ico">
+    
+    
+    <meta name="description" content="jQuery插件类型
+通过$.extend()向jQuery添加新的方法常见用法:$.myPlugin().比较典型的有$.ajax()定义形式及调用方法如下所示:
+1234567891011121314$.extend(&amp;#123;		myPlugin : function(a, b)&amp;#123;			return a + b;		&amp;#125;&amp;#125;)//等价为$.myPlugin = f">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="动手写一个jQuery插件">
+<meta property="og:url" content="http://warjiang.github.io/devcat/2016/04/19/动手写一个jQuery插件/index.html">
+<meta property="og:site_name" content="devCat">
+<meta property="og:description" content="jQuery插件类型
+通过$.extend()向jQuery添加新的方法常见用法:$.myPlugin().比较典型的有$.ajax()定义形式及调用方法如下所示:
+1234567891011121314$.extend(&amp;#123;		myPlugin : function(a, b)&amp;#123;			return a + b;		&amp;#125;&amp;#125;)//等价为$.myPlugin = f">
+<meta property="og:image" content="http://7xl7lt.com1.z0.glb.clouddn.com/jquery_plugin_extend.png">
+<meta property="og:image" content="http://7xl7lt.com1.z0.glb.clouddn.com/jquery_plugin_extend1.png">
+<meta property="og:updated_time" content="2016-04-20T05:59:56.297Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="动手写一个jQuery插件">
+<meta name="twitter:description" content="jQuery插件类型
+通过$.extend()向jQuery添加新的方法常见用法:$.myPlugin().比较典型的有$.ajax()定义形式及调用方法如下所示:
+1234567891011121314$.extend(&amp;#123;		myPlugin : function(a, b)&amp;#123;			return a + b;		&amp;#125;&amp;#125;)//等价为$.myPlugin = f">
+    
+    
+    
+        <meta property="og:image" content="/devcat/assets/images/avatar.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/devcat/assets/css/style.min.css" type="text/css">
+    <!--STYLES END-->
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/devcat/ ">devCat</a>
+    </h1>
+    
+        <a class="header-right-picture" href="/#about">
+            <img class="header-picture" src="/devcat/assets/images/avatar.jpg"/>
+        </a>
+    
+</header>
+            <nav id="sidebar" data-behavior="4">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                
+                    <img class="sidebar-profile-picture" src="/devcat/assets/images/avatar.jpg"/>
+                
+            </a>
+            <span class="sidebar-profile-name">warjiang</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">主页</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/all-categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分类</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">存档</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="/devcat/#search"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                    <span class="sidebar-button-desc">搜索</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/#about"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                    <span class="sidebar-button-desc">关于</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            动手写一个jQuery插件
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Tue Apr 19 2016 20:10:01 GMT+0800">
+	
+		    4月 19, 2016
+    	
+    </time>
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <h1 id="jQuery插件类型">jQuery插件类型</h1><ul>
+<li><p>通过<code>$.extend()</code>向jQuery添加新的方法<br>常见用法:<code>$.myPlugin()</code>.比较典型的有<code>$.ajax()</code><br>定义形式及调用方法如下所示:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$.extend(&#123;</span><br><span class="line">		myPlugin : <span class="function"><span class="keyword">function</span>(<span class="params">a, b</span>)</span>&#123;</span><br><span class="line">			<span class="keyword">return</span> a + b;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//等价为</span></span><br><span class="line">$.myPlugin = <span class="function"><span class="keyword">function</span>(<span class="params">a, b</span>)</span>&#123;</span><br><span class="line"> <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line"><span class="comment">//上面两种形式都是给$增加了一个方法</span></span><br><span class="line"><span class="comment">//调用</span></span><br><span class="line">$.myPlugin(<span class="number">1</span>, <span class="number">2</span>)<span class="comment">//3</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>通过<code>$.fn.extend()</code>扩展jQuery对象实现的插件<br>常见用法:<code>$(&quot;#id&quot;).myPlugin()</code><br>定义形式及调用方法如下所示:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">$.fn.extend(&#123;</span><br><span class="line">		myPlugin : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"> 		<span class="comment">// 注意这里this指向 jQuery对象,比如调用者是$('body'),那么this就指向$('body')</span></span><br><span class="line">			<span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">		&#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//等价为</span></span><br><span class="line">$.fn.myPlugin = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"> <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//上面两种形式都是给$('#id')增加了一个方法</span></span><br><span class="line"><span class="comment">//调用</span></span><br><span class="line">$(<span class="string">'body'</span>).myPlugin();<span class="comment">//[body, prevObject: jQuery.fn.jQuery.init[1], context: document, selector: "body"]</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="jQuery插件基本形式">jQuery插件基本形式</h1><p>写jQuery插件的基本形式依赖一个<code>IIFE</code>(Immediately-Invoked Function Express)( <strong>JS中很多的feature都是结合IIFE和闭包完成的</strong> )<br>一个基本的jQuery插件形式如下:<br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">;(<span class="function"><span class="keyword">function</span> <span class="params">($)</span> </span>&#123;</span><br><span class="line">    <span class="comment">/*插件代码*/</span></span><br><span class="line">&#125;)(jQuery);</span><br></pre></td></tr></table></figure></p>
+<p>关于jQuery插件的问题:</p>
+<ol>
+<li>关于开头的<code>;</code>:js代码结束的时候,最后一句是允许不加分号的(比如一个函数的最后一句).如果某个js代码这么做了,那么把它跟另外一个js脚本拼在一起的时候,原来是”最后一句”的,变成了不是最后一句,于是就出现语法错误了.</li>
+<li>关于这个<code>IIEF</code>:用IIEF的好处在于利用闭包的特性,把功能的实现放在闭包中,避免了内部变量影响全局空间.同时通过传入jQuery对象,在内部可以$作为jQuery的别名.</li>
+<li>jQuery插件命名：<code>jquery.myPlugin.js</code></li>
+<li><p>注意<code>jQuery.fn.extend</code>这种往jQuery对象上增加方法的时候的<code>this</code>到底是jQuery元素还是DOM元素</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">;(<span class="function"><span class="keyword">function</span>(<span class="params">$</span>)</span>&#123;</span><br><span class="line">	$.fn.myPlugin = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="comment">//这里的this是jQuery元素</span></span><br><span class="line"></span><br><span class="line">		<span class="keyword">this</span>.toggle(<span class="string">'normal'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">			<span class="comment">//这里的this是DOM元素</span></span><br><span class="line">			<span class="comment">//这点跟jQuery对象上调用方法很像,执行jQuery方法,callback中的this指向当前的DOM元素</span></span><br><span class="line">		&#125;)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;)(jQuery)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>注意jQuery pulugin要保持jquery一贯的<code>chainable</code>的特性(虽然我知道很多人从来不用jQuery的链式调用)<br>说到底jQuery之所以可以链式调用,就是因为jQuery每次方法调用都把自己的jQuery对象返回出来了,从第4点我们可以想到,想要jQuery plugin还能保持链式调用就需要在函数执行完毕把<code>this(当前jQuery对象)</code>返回出来就可以了.</p>
+</li>
+<li><p>jQuery plugin 默认配置及用户自定义配置(使用<code>$.extend()</code>)<br>在jQuery插件实际使用中,我们会设置一个默认配置default,同时会让用户传入一个配置options,需要当用户不传某些属性参数,就使用默认的参数.我们可以使用jQuery中的extend方法.<br><code>$.extend()</code>只包含一个参数的的时候,这个参数会append到jQuery上去,上面所谓的给jQuery扩展方法、属性就是这个方法.<br><code>$.extend()</code>包含多个参数的时候,如<code>$.extend(object1, object2, object3)</code>这个时候object2,object3会合并到object1上面去,</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> object = jQuery.extend(&#123;&#125;,</span><br><span class="line">	&#123;name:<span class="string">'obj1'</span>,password:<span class="string">'pwd1'</span>&#125;, </span><br><span class="line">	&#123;name:<span class="string">'obj2'</span>,password:<span class="string">'pwd2'</span>&#125;);</span><br><span class="line"><span class="comment">//Object &#123;name: "obj2", password: "pwd2"&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//使用jQuery.extend()合并default配置与用户自定义的options配置</span></span><br><span class="line">;(<span class="function"><span class="keyword">function</span>(<span class="params">$</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">var</span> defaults = &#123;</span><br><span class="line">		<span class="string">'selector'</span>: <span class="keyword">this</span>,</span><br><span class="line">        <span class="string">'delay'</span>:    <span class="number">100</span>,</span><br><span class="line">	&#125;;</span><br><span class="line"></span><br><span class="line">	$.fn.myPlugin = <span class="function"><span class="keyword">function</span>(<span class="params">options</span>)</span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(defaults);</span><br><span class="line">		$.extend(defaults, options);</span><br><span class="line">		<span class="built_in">console</span>.log(defaults);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;)(jQuery)</span><br><span class="line"><span class="comment">//上面的写法不是很好,原因在于这样会破坏defaults</span></span><br><span class="line"><span class="comment">//比如$('#id').myPlugin(options),第二次调用的时候defaults是第一次改变的defaults</span></span><br><span class="line"><span class="comment">//相对好一点的写法</span></span><br><span class="line">;(<span class="function"><span class="keyword">function</span>(<span class="params">$</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">var</span> defaults = &#123;</span><br><span class="line">		<span class="string">'selector'</span>: <span class="keyword">this</span>,</span><br><span class="line">        <span class="string">'delay'</span>:    <span class="number">100</span>,</span><br><span class="line">	&#125;;</span><br><span class="line"></span><br><span class="line">	$.fn.myPlugin = <span class="function"><span class="keyword">function</span>(<span class="params">options</span>)</span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(defaults);</span><br><span class="line">		options = $.extend(&#123;&#125;, defaults, options);</span><br><span class="line">		<span class="built_in">console</span>.log(defaults);</span><br><span class="line">		<span class="built_in">console</span>.log(options);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;)(jQuery)</span><br></pre></td></tr></table></figure>
+<p> 两种方式的使用对比:<br> <img src="http://7xl7lt.com1.z0.glb.clouddn.com/jquery_plugin_extend.png" alt="jquery_plugin_extend.png"><br> <img src="http://7xl7lt.com1.z0.glb.clouddn.com/jquery_plugin_extend1.png" alt="jquery_plugin_extend1.png"><br> 可以发现第一种写法会污染defaults配置,而第二中写法并不会污染defaults配置</p>
+</li>
+</ol>
+<h1 id="jQuery插件(type_writer)">jQuery插件(type writer)</h1><p>整个type writer的效果如下<br>代码的github地址:<a href="https://github.com/warjiang/simpletypewriter" target="_blank" rel="external">https://github.com/warjiang/simpletypewriter</a><br><iframe src="http://115.159.122.224/devcat/typewriter/" width="100%" height="300" frameborder="0" allowfullscreen></iframe><br>插件的核心部件如下:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">;(<span class="function"><span class="keyword">function</span>(<span class="params">$</span>)</span>&#123;</span><br><span class="line">	<span class="comment">//默认配置</span></span><br><span class="line">	<span class="keyword">var</span> defaults = &#123;</span><br><span class="line">        <span class="string">'selector'</span>: <span class="keyword">this</span>,</span><br><span class="line">        <span class="string">'delay'</span> :    <span class="number">100</span>,</span><br><span class="line">        <span class="string">'str_arr'</span>: [<span class="string">'每段時刻的選擇影響'</span>,<span class="string">'往往造就了無法想像的結局'</span>,<span class="string">'也謝謝當下的選擇造就了這段愛情'</span>,]</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//在jQuery对象上添加一个typewriter方法</span></span><br><span class="line">    <span class="comment">//调用方式$("#id").typewriter(options);</span></span><br><span class="line">    <span class="comment">//options</span></span><br><span class="line">    <span class="comment">//		delay  	 控制字符显示时间间隔(ms)</span></span><br><span class="line">    <span class="comment">//		str_arr  字符串数组(需要与selector的元素个数对应起来)</span></span><br><span class="line">	$.fn.typewriter = <span class="function"><span class="keyword">function</span>(<span class="params">options</span>)</span>&#123;</span><br><span class="line">		 <span class="comment">//合并用户配置与默认配置</span></span><br><span class="line">		 options = $.extend(&#123;length:<span class="keyword">this</span>.length&#125;, defaults, options);</span><br><span class="line"></span><br><span class="line">		<span class="comment">//对一行不断打印0～i之间的字符串</span></span><br><span class="line">		<span class="comment">//这里用了递归的promise是为了控制多行显示</span></span><br><span class="line">		<span class="comment">//只有上一行的promise resolve了,才能开启下一行的promise并显示字符</span></span><br><span class="line">		<span class="comment">//这里的promise用了jQuery中的defer对象</span></span><br><span class="line">		<span class="function"><span class="keyword">function</span> <span class="title">type_next_character</span>(<span class="params">element,str,i</span>)</span>&#123;</span><br><span class="line">			<span class="keyword">var</span> dfd = $.Deferred();</span><br><span class="line">			<span class="keyword">var</span> t = setInterval(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">				<span class="keyword">if</span>(str.length &gt;= i)&#123;</span><br><span class="line">					<span class="comment">//console.log(str.substr(0, i));</span></span><br><span class="line">					element.html(str.substr(<span class="number">0</span>, i));</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">else</span>&#123;</span><br><span class="line">					<span class="comment">//console.log('clear timer');</span></span><br><span class="line">					clearInterval(t);</span><br><span class="line">					dfd.resolve();</span><br><span class="line">				&#125;</span><br><span class="line">				i++;</span><br><span class="line">			&#125;,options[<span class="string">'delay'</span>])</span><br><span class="line">			<span class="keyword">return</span> dfd.promise();</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">//递归打印下一个jQuery元素</span></span><br><span class="line">		<span class="function"><span class="keyword">function</span> <span class="title">type_next_element</span>(<span class="params">$element,i</span>)</span>&#123;</span><br><span class="line">			type_next_character($element,options[<span class="string">'str_arr'</span>][i],<span class="number">0</span>)</span><br><span class="line">			.then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">				<span class="comment">//用options['length']判断还有没有后续的jQuery元素需要打印</span></span><br><span class="line">				options[<span class="string">'length'</span>]--; </span><br><span class="line">				<span class="keyword">if</span>(options[<span class="string">'length'</span>] &gt; <span class="number">0</span>)&#123;</span><br><span class="line">					<span class="keyword">return</span> type_next_element($element.next(),i+<span class="number">1</span>);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">//触发第一行的打印效果</span></span><br><span class="line">		type_next_element(<span class="keyword">this</span>.first(),<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">		<span class="comment">//维持chainable特性,把this返回出去,持续链式调用</span></span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;)(jQuery);</span><br></pre></td></tr></table></figure></p>
+
+            
+                
+
+            
+        </div>
+    </div>
+    <div class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/devcat/tags/jQuery/">jQuery</a> <a class="tag tag--primary tag--small t-link" href="/devcat/tags/jQuery插件开发/">jQuery插件开发</a> <a class="tag tag--primary tag--small t-link" href="/devcat/tags/prototype/">prototype</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/04/17/hello-world/" data-tooltip="Hello World">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/04/19/动手写一个jQuery插件/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/04/19/动手写一个jQuery插件/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/04/19/动手写一个jQuery插件/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action" style="display:none">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        <!-- 多说评论框 start -->
+<div class="ds-thread" data-thread-key="post-动手写一个jQuery插件" data-title="动手写一个jQuery插件" data-url="http://warjiang.github.io/devcat/2016/04/19/动手写一个jQuery插件/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"devcat"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2016 warjiang. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/04/17/hello-world/" data-tooltip="Hello World">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/04/19/动手写一个jQuery插件/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/04/19/动手写一个jQuery插件/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/04/19/动手写一个jQuery插件/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action" style="display:none">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/04/19/动手写一个jQuery插件/">
+                <i class="fa fa-google-plus"></i><span class="">Share on Google Plus</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/04/19/动手写一个jQuery插件/">
+                <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/04/19/动手写一个jQuery插件/">
+                <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        <div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/devcat/assets/images/avatar.jpg"/>
+        
+            <h4 id="about-card-name">warjiang</h4>
+        
+            <h5 id="about-card-bio"><h2 id="一只有狂想症的fullstack学生汪">一只有狂想症的fullstack学生汪</h2></h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <h2 id="学生汪">学生汪</h2>
+            </h5>
+        
+        
+    </div>
+</div>
+
+        <div id="cover" style="background-image:url('http://7xl7lt.com1.z0.glb.clouddn.com/v1.3.0-cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/devcat/assets/js/script.min.js" type="text/javascript"></script>
+<!--SCRIPTS END-->
+
+
+
+</html>
