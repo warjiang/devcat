@@ -1,0 +1,424 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="devCat">
+    <title>JS传值OR传引用 - devCat</title>
+    <meta name="author" content="warjiang">
+    
+        <link rel="icon" href="/devcat/assets/images/hexoFavico.ico">
+    
+    
+    <meta name="description" content="outline:1. call by value(值传递)2. call by reference(引用传递)3. call by sharing(共享传递)这里我们以C语言为例,比较call by value和call by reference12345678910111213#include &amp;lt;stdio.h&amp;gt;int test(int a1,int *b1)&amp;#123;	a1 =">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="JS传值OR传引用">
+<meta property="og:url" content="http://warjiang.github.io/devcat/2016/04/24/JS传值OR传引用/index.html">
+<meta property="og:site_name" content="devCat">
+<meta property="og:description" content="outline:1. call by value(值传递)2. call by reference(引用传递)3. call by sharing(共享传递)这里我们以C语言为例,比较call by value和call by reference12345678910111213#include &amp;lt;stdio.h&amp;gt;int test(int a1,int *b1)&amp;#123;	a1 =">
+<meta property="og:image" content="http://7xl7lt.com1.z0.glb.clouddn.com/exports_module.png">
+<meta property="og:updated_time" content="2016-04-24T09:04:16.061Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JS传值OR传引用">
+<meta name="twitter:description" content="outline:1. call by value(值传递)2. call by reference(引用传递)3. call by sharing(共享传递)这里我们以C语言为例,比较call by value和call by reference12345678910111213#include &amp;lt;stdio.h&amp;gt;int test(int a1,int *b1)&amp;#123;	a1 =">
+    
+    
+    
+        <meta property="og:image" content="/devcat/assets/images/avatar.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/devcat/assets/css/style.min.css" type="text/css">
+    <!--STYLES END-->
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/devcat/ ">devCat</a>
+    </h1>
+    
+        <a class="header-right-picture" href="/#about">
+            <img class="header-picture" src="/devcat/assets/images/avatar.jpg"/>
+        </a>
+    
+</header>
+            <nav id="sidebar" data-behavior="4">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                
+                    <img class="sidebar-profile-picture" src="/devcat/assets/images/avatar.jpg"/>
+                
+            </a>
+            <span class="sidebar-profile-name">warjiang</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">主页</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/all-categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分类</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">存档</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="/devcat/#search"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                    <span class="sidebar-button-desc">搜索</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/#about"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                    <span class="sidebar-button-desc">关于</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            JS传值OR传引用
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Sun Apr 24 2016 14:50:36 GMT+0800">
+	
+		    4月 24, 2016
+    	
+    </time>
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <h1 id="outline:">outline:</h1><h4 id="1-_call_by_value(值传递)">1. call by value(值传递)</h4><h4 id="2-_call_by_reference(引用传递)">2. call by reference(引用传递)</h4><h4 id="3-_call_by_sharing(共享传递)">3. call by sharing(共享传递)</h4><p>这里我们以C语言为例,比较call by value和call by reference<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">test</span><span class="params">(<span class="keyword">int</span> a1,<span class="keyword">int</span> *b1)</span></span>&#123;</span><br><span class="line">	a1 = <span class="number">3</span>;</span><br><span class="line">	*b1 = <span class="number">4</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">int</span> b = <span class="number">2</span>;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"a = %d, b = %d\n"</span>,a, b);<span class="comment">//a=1,b=2;</span></span><br><span class="line">	test(a, &amp;b);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"a = %d, b = %d\n"</span>,a, b);<span class="comment">//a=1,b=4;</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在上面这段C代码中,<br>a =&gt; a1,按照值传递(call by value)的方式,修改a1并不影响a<br>b =&gt; b1,按照引用传递(call by reference)的方式,修改b1影响b</p>
+<p><strong>那么JS中到底是按照什么方式传值呢?</strong><br>先看一段代码<br><figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">var a = <span class="number">1</span>;</span><br><span class="line">var o1 = &#123;</span><br><span class="line">	name : 'jiang1',</span><br><span class="line">	age : <span class="number">22</span></span><br><span class="line">&#125;;</span><br><span class="line">var o2 = &#123;</span><br><span class="line">	name : 'jiang2',</span><br><span class="line">	age : <span class="number">23</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span><span class="params">(a,o1,o2)</span>&#123;</span></span><br><span class="line">	a = <span class="number">2</span>;</span><br><span class="line">	o1.age = <span class="number">23</span>;</span><br><span class="line">	o2 = &#123;</span><br><span class="line">		name: 'jiang3',</span><br><span class="line">		age:<span class="number">24</span></span><br><span class="line">	&#125;;</span><br><span class="line">&#125;</span><br><span class="line">console.<span class="built_in">log</span><span class="params">(a)</span>;<span class="comment">//1</span></span><br><span class="line">console.<span class="built_in">log</span><span class="params">(o1)</span>;<span class="comment">//&#123;name: "jiang1", age: 22&#125;</span></span><br><span class="line">console.<span class="built_in">log</span><span class="params">(o2)</span>;<span class="comment">//&#123;name: "jiang2", age: 23&#125;</span></span><br><span class="line">foo<span class="params">(a,o1,o2)</span>;</span><br><span class="line">console.<span class="built_in">log</span><span class="params">(a)</span>;<span class="comment">//1</span></span><br><span class="line">console.<span class="built_in">log</span><span class="params">(o1)</span>;<span class="comment">//&#123;name: "jiang1", age: 23&#125;</span></span><br><span class="line">console.<span class="built_in">log</span><span class="params">(o2)</span>;<span class="comment">//&#123;name: "jiang2", age: 23&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>这里我们把a,o1,o2的foo函数执行前后变化情况列出来,如表所示：</p>
+<p><table><tr><th>变量</th><th>是否是对象</th><th>foo执行前</th><th>foo执行后</th></tr><tr><td>a</td><td>否</td><td>1</td><td>1</td></tr><tr><td>o1</td><td>是</td><td>{name: “jiang1”, age: 22}</td><td>{name: “jiang1”, age: 23}</td></tr><tr><td>o2</td><td>是</td><td>{name: “jiang2”, age: 23}</td><td>{name: “jiang2”, age: 23}</td></tr></table><br>从表中,我们可以初步看出几条rules:</p>
+<ol>
+<li>对于非对象的变量,传递的方式跟值传递是一样的效果,foo中的a并不会影响外面的a的值</li>
+<li>对于对象类型的变量,传递的方式有点像值传递(比如o2),但是又有点像引用传递(比如o1),我们可以分为两中情况:<ul>
+<li>对于形如o1的,函数接受对象o1,在函数内修改o1的属性,这个时候外面o1会受到影响.</li>
+<li>对于形如o2的,函数接受对象o2,在函数内修改o2的指向,令o2指向一个新的对象,这种情况外面的o2不受影响.<br>这种兼具<code>call by value</code>和<code>call by reference</code>的传递方式,我们就称为<code>call by sharing</code>.<br>对于这种特殊的传递方式,我们可以<a href="http://stackoverflow.com/questions/6605640/javascript-by-reference-vs-by-value" target="_blank" rel="external">stackoverflow总结</a>的去理解.没想到跟我们列表总结的3条rules是一样.</li>
+</ul>
+</li>
+</ol>
+<p>下面我们在来看一个实际的例子<strong>关于nodejs为什么要有exports和module</strong><br>这个例子我们只有两个js,分别是test.js和x.js<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//test.js</span></span><br><span class="line"><span class="keyword">var</span> x = <span class="built_in">require</span>(<span class="string">'./x.js'</span>);</span><br><span class="line"><span class="built_in">console</span>.dir(x)</span><br></pre></td></tr></table></figure></p>
+<p>首先我们通过一个简单的log看下exports和module的关系：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//x.js</span></span><br><span class="line"><span class="built_in">console</span>.log(exports===<span class="built_in">module</span>.exports)</span><br><span class="line"><span class="built_in">console</span>.dir(<span class="built_in">module</span>);</span><br></pre></td></tr></table></figure></p>
+<p>得到如下结果<br><img src="http://7xl7lt.com1.z0.glb.clouddn.com/exports_module.png" alt="exports_module.png"><br>我们可以肯定</p>
+<ol>
+<li>exports就是module.exports </li>
+<li>外面的test.js中require得到的是exports.</li>
+</ol>
+<p>那么为啥那么这里又要exports又要module.exports呢,感觉多次一举.这里结合我们上面所说的call by sharing,我想大家应该能想到点什么.考虑两个场景,</p>
+<ol>
+<li>我们要修改exports的属性又要是外面的exports生效(即require可以看到我们给exports绑定的属性)</li>
+<li>我们要修改exports同时又要外面的exports生效(即require可以看到我们给exports赋予的新的值)<br>对于第一种情况,大家的代码通常都能实现,比如<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//x.js</span></span><br><span class="line"><span class="keyword">var</span> test = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">"test"</span>);</span><br><span class="line">&#125;</span><br><span class="line">exports.test = test;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>这个时候我们结合call by sharing想一想,是不是我们改变了exports的属性就可以改变外面的exports.<br>那么对于第二种情况,我们有该怎么办呢?也许有的说我可以直接复制<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//x.js</span></span><br><span class="line"><span class="keyword">var</span> test = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">"test"</span>);</span><br><span class="line">&#125;</span><br><span class="line">exports = test;</span><br></pre></td></tr></table></figure></p>
+<p>很可惜,并没什么卵用.这种用法和我们上面的o2不是一样的情况么?其实估计聪明的读者有的可能已经想到了,exports是moudle的属性,既然我改exports没有用,那么我来改module.exports不久可以了么.bingo!就是这样的<br><figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//x.js</span></span><br><span class="line">var test = <span class="function"><span class="keyword">function</span><span class="params">()</span>&#123;</span></span><br><span class="line">	console.<span class="built_in">log</span><span class="params">(<span class="string">"test"</span>)</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">module</span>.<span class="title">exports</span> =</span> test;</span><br></pre></td></tr></table></figure></p>
+<p>到这里,我想读者们应该明白了为什么要有exports和module了吧.<br>对于js里的传值,我想总结为<strong><em>默认情况下就按照值传递去理解,如果想要实现引用传递,那么就去找这个对象、属性所属的对象就好啦</em></strong>.</p>
+
+            
+                
+
+            
+        </div>
+    </div>
+    <div class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/devcat/tags/call-by-reference/">call by reference</a> <a class="tag tag--primary tag--small t-link" href="/devcat/tags/call-by-sharing/">call by sharing</a> <a class="tag tag--primary tag--small t-link" href="/devcat/tags/call-by-value/">call by value</a> <a class="tag tag--primary tag--small t-link" href="/devcat/tags/javascript/">javascript</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/04/20/promise优化异步回调/" data-tooltip="promise优化异步回调">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/04/24/JS传值OR传引用/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/04/24/JS传值OR传引用/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/04/24/JS传值OR传引用/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action" style="display:none">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        <!-- 多说评论框 start -->
+<div class="ds-thread" data-thread-key="post-JS传值OR传引用" data-title="JS传值OR传引用" data-url="http://warjiang.github.io/devcat/2016/04/24/JS传值OR传引用/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"devcat"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2016 warjiang. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/04/20/promise优化异步回调/" data-tooltip="promise优化异步回调">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/04/24/JS传值OR传引用/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/04/24/JS传值OR传引用/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/04/24/JS传值OR传引用/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action" style="display:none">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/04/24/JS传值OR传引用/">
+                <i class="fa fa-google-plus"></i><span class="">Share on Google Plus</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/04/24/JS传值OR传引用/">
+                <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/04/24/JS传值OR传引用/">
+                <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        <div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/devcat/assets/images/avatar.jpg"/>
+        
+            <h4 id="about-card-name">warjiang</h4>
+        
+            <h5 id="about-card-bio"><h2 id="一只有狂想症的fullstack学生汪">一只有狂想症的fullstack学生汪</h2></h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <h2 id="学生汪">学生汪</h2>
+            </h5>
+        
+        
+    </div>
+</div>
+
+        <div id="cover" style="background-image:url('http://7xl7lt.com1.z0.glb.clouddn.com/v1.3.0-cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/devcat/assets/js/script.min.js" type="text/javascript"></script>
+<!--SCRIPTS END-->
+
+
+
+</html>
