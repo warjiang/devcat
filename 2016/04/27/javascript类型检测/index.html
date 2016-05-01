@@ -1,0 +1,446 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="devCat">
+    <title>javascript类型检测 - devCat</title>
+    <meta name="author" content="warjiang">
+    
+        <link rel="icon" href="/devcat/assets/images/hexoFavico.ico">
+    
+    
+    <meta name="description" content="JavaScript是弱类型的,很多情况下我们需要做类型检测.然而做类型检测有很多方法,但是这些类型检测都有自己的局限性,这里我们将介绍一下JavaScript中的类型检测方法,并指出这些类型检测方法的优点和缺点.
+outline
+typeof 
+instanceof/constructor
+duck-typing
+Object.prototype.toString
+
+typeof做类型检测typ">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="javascript类型检测">
+<meta property="og:url" content="http://warjiang.github.io/devcat/2016/04/27/javascript类型检测/index.html">
+<meta property="og:site_name" content="devCat">
+<meta property="og:description" content="JavaScript是弱类型的,很多情况下我们需要做类型检测.然而做类型检测有很多方法,但是这些类型检测都有自己的局限性,这里我们将介绍一下JavaScript中的类型检测方法,并指出这些类型检测方法的优点和缺点.
+outline
+typeof 
+instanceof/constructor
+duck-typing
+Object.prototype.toString
+
+typeof做类型检测typ">
+<meta property="og:updated_time" content="2016-05-01T07:23:15.084Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="javascript类型检测">
+<meta name="twitter:description" content="JavaScript是弱类型的,很多情况下我们需要做类型检测.然而做类型检测有很多方法,但是这些类型检测都有自己的局限性,这里我们将介绍一下JavaScript中的类型检测方法,并指出这些类型检测方法的优点和缺点.
+outline
+typeof 
+instanceof/constructor
+duck-typing
+Object.prototype.toString
+
+typeof做类型检测typ">
+    
+    
+    
+        <meta property="og:image" content="/devcat/assets/images/avatar.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/devcat/assets/css/style.min.css" type="text/css">
+    <!--STYLES END-->
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/devcat/ ">devCat</a>
+    </h1>
+    
+        <a class="header-right-picture" href="/#about">
+            <img class="header-picture" src="/devcat/assets/images/avatar.jpg"/>
+        </a>
+    
+</header>
+            <nav id="sidebar" data-behavior="4">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                
+                    <img class="sidebar-profile-picture" src="/devcat/assets/images/avatar.jpg"/>
+                
+            </a>
+            <span class="sidebar-profile-name">warjiang</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">主页</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/all-categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分类</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">存档</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="/devcat/#search"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                    <span class="sidebar-button-desc">搜索</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/#about"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                    <span class="sidebar-button-desc">关于</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            javascript类型检测
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Wed Apr 27 2016 17:11:33 GMT+0800">
+	
+		    4月 27, 2016
+    	
+    </time>
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <p>JavaScript是弱类型的,很多情况下我们需要做类型检测.然而做类型检测有很多方法,但是这些类型检测都有自己的局限性,这里我们将介绍一下JavaScript中的类型检测方法,并指出这些类型检测方法的优点和缺点.</p>
+<h1 id="outline">outline</h1><ol>
+<li>typeof </li>
+<li>instanceof/constructor</li>
+<li>duck-typing</li>
+<li>Object.prototype.toString</li>
+</ol>
+<h1 id="typeof做类型检测">typeof做类型检测</h1><p>typeof方法返回变量类型,比如:<br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//基本类型检测</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="number">3</span> <span class="comment">// "number"</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="string">"abc"</span> <span class="comment">// "string"</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="literal">true</span> <span class="comment">// "boolean"</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="literal">undefined</span> <span class="comment">// "undefined"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//对象类型检测</span></span><br><span class="line"><span class="keyword">typeof</span> &#123;&#125; <span class="comment">// "object"</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;&#125; <span class="comment">// "function"</span></span><br></pre></td></tr></table></figure></p>
+<p>这一切看起来都十分美好,直到出现了null:<br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typeof</span> <span class="literal">null</span> <span class="comment">//object</span></span><br></pre></td></tr></table></figure></p>
+<p>在往下看:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typeof</span> <span class="keyword">new</span> <span class="built_in">String</span>(<span class="string">"1"</span>) <span class="comment">// "object"</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="keyword">new</span> <span class="built_in">Number</span>(<span class="number">1</span>) <span class="comment">// "object"</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="keyword">new</span> <span class="built_in">Date</span>() <span class="comment">// "object"</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="keyword">new</span> <span class="built_in">Boolean</span>(<span class="literal">true</span>)</span><br><span class="line"><span class="keyword">typeof</span> /x/ <span class="comment">// "object"</span></span><br><span class="line"><span class="keyword">typeof</span> [<span class="number">1</span>,<span class="number">2</span>,<span class="number">4</span>] <span class="comment">// "object"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//用户自定义类型</span></span><br><span class="line"><span class="keyword">var</span> A = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.name = <span class="string">"A"</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> A();</span><br><span class="line"><span class="keyword">typeof</span> a <span class="comment">// "object"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//DOM</span></span><br><span class="line"><span class="keyword">var</span> div = <span class="built_in">document</span>.getElementById(<span class="string">"div"</span>);</span><br><span class="line"><span class="keyword">typeof</span> div <span class="comment">// "object"</span></span><br></pre></td></tr></table></figure></p>
+<p>法克,都是object!!!!从上面我们可以看出:</p>
+<ol>
+<li>对于基本类型(string,number,boolean,null,undefined),除了null外(typeof对于null会误判为object),typeof都能返回正确结果.</li>
+<li>对于Object类型(非基本类型),typeof对于Function类型有较好的效果,除此之外,typeof无法区分String、Number、Date、Boolean、RegExp、Array、用户自定义类型、DOM元素等(返回都是object)</li>
+<li>typeof可以区分Object类型和基本类型(除了null).</li>
+</ol>
+<h1 id="instanceof/constructor做类型检测">instanceof/constructor做类型检测</h1><p><code>object instanceof constructor</code><br>js会在object的原型链上查找是否存在constructor的原型<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">A</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.showA = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="string">'A function'</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">B</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.showB = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="string">'B function'</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">A.prototype = <span class="keyword">new</span> B();</span><br><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> A();</span><br><span class="line"></span><br><span class="line">a.__proto__ === A.prototype</span><br><span class="line"><span class="comment">//true	都是B&#123;&#125;</span></span><br><span class="line"></span><br><span class="line">a.__proto__.__proto__ === B.prototype </span><br><span class="line"><span class="comment">//true	都是Object&#123;constructor: function B()&#123;&#125;,__proto__:Object&#125;</span></span><br><span class="line"></span><br><span class="line">a.__proto__.__proto__.__proto__ === <span class="built_in">Object</span>.prototype </span><br><span class="line"><span class="comment">//true	都是Object</span></span><br><span class="line"></span><br><span class="line">a.__proto__.__proto__.__proto__.__proto__ === <span class="literal">null</span> </span><br><span class="line"><span class="comment">//true</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">a <span class="keyword">instanceof</span> A <span class="comment">//true	因为a.__proto__ === A.prototype</span></span><br><span class="line">a <span class="keyword">instanceof</span> B <span class="comment">//true	因为a.__proto__.__proto__ === B.prototype</span></span><br><span class="line">a <span class="keyword">instanceof</span> <span class="built_in">Object</span> <span class="comment">//true	因为a.__proto__.__proto__.__proto__ === Object.prototype</span></span><br></pre></td></tr></table></figure></p>
+<p>constructor做类型检测,大致就像下面这样:<br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">A</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> A();</span><br><span class="line">a.constructor === A<span class="comment">//true</span></span><br></pre></td></tr></table></figure></p>
+<p>但是用constructor的方式检测有两点不好:<br>1.constructor不会遍历原型链(相对于instanceof)</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">A</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">B</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">B.prototype = <span class="keyword">new</span> A()</span><br><span class="line">B.prototype.constructor = B</span><br><span class="line"><span class="keyword">var</span> b = <span class="keyword">new</span> B()</span><br><span class="line"></span><br><span class="line">b <span class="keyword">instanceof</span> B<span class="comment">//true</span></span><br><span class="line">b <span class="keyword">instanceof</span> A<span class="comment">//true</span></span><br><span class="line"></span><br><span class="line">b.constructor === B<span class="comment">//true</span></span><br><span class="line">b.constructor === A<span class="comment">//false</span></span><br></pre></td></tr></table></figure>
+<p>2.constructor对于null、undefined会出现<code>TypeError</code>的问题<br>所以说constructor检测还不如instanceof检测来的好,但是instanceof对于基本类型的检测就不太友好了(除了null和undefined,因为null和undefined不是任何对象的实例,所以检测结果一直是false),比如:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">3</span> <span class="keyword">instanceof</span> <span class="built_in">Number</span> <span class="comment">// false</span></span><br><span class="line"><span class="literal">true</span> <span class="keyword">instanceof</span> <span class="built_in">Boolean</span> <span class="comment">// false</span></span><br><span class="line"><span class="string">'abc'</span> <span class="keyword">instanceof</span> <span class="built_in">String</span> <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line"><span class="literal">null</span> <span class="keyword">instanceof</span> <span class="built_in">Boolean</span> <span class="comment">// false</span></span><br><span class="line"><span class="literal">undefined</span> <span class="keyword">instanceof</span> <span class="built_in">Array</span> <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line">(<span class="number">3</span>).constructor === <span class="built_in">Number</span> <span class="comment">// true</span></span><br><span class="line"><span class="literal">true</span>.constructor === <span class="built_in">Boolean</span> <span class="comment">// true</span></span><br><span class="line"><span class="string">'abc'</span>.constructor === <span class="built_in">String</span> <span class="comment">// true</span></span><br></pre></td></tr></table></figure></p>
+<p>从这里我们也能看出instanceof对于基本类型(string,number,boolean)检测是不太友好的,null和undefined除外,null和undefined能够正确检测完全就是个意外,但是这里如果我们用constructor的方式检测又会很有效.如果想让instanceof对基本类型生效(string,number,boolean),则可以给基本类型加上一层wrapper:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="built_in">Number</span>(<span class="number">3</span>) <span class="keyword">instanceof</span> <span class="built_in">Number</span> <span class="comment">// true</span></span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Boolean</span>(<span class="literal">true</span>) <span class="keyword">instanceof</span> <span class="built_in">Boolean</span> <span class="comment">// true</span></span><br><span class="line"><span class="keyword">new</span> <span class="built_in">String</span>(<span class="string">'abc'</span>) <span class="keyword">instanceof</span> <span class="built_in">String</span> <span class="comment">//true</span></span><br></pre></td></tr></table></figure></p>
+<p>但是这样的检测又是没有任何用的,因为我们事先已经知道了变量的类型(鸡生蛋,蛋生鸡问题)<br>同时instanceof还存在<code>cross-window</code>的问题:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> iframe = <span class="built_in">document</span>.createElement(<span class="string">'iframe'</span>)</span><br><span class="line"><span class="built_in">document</span>.body.appendChild(iframe)</span><br><span class="line"><span class="keyword">var</span> iWindow = iframe.contentWindow</span><br><span class="line">iWindow.document.write(<span class="string">'&lt;script&gt;var arr = [1, 2, 3]&lt;/script&gt;'</span>)</span><br><span class="line">iWindow.arr <span class="comment">// [1, 2, 3]</span></span><br><span class="line">iWindow.arr <span class="keyword">instanceof</span> <span class="built_in">Array</span> <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Array</span> === iWindow.Array <span class="comment">// false</span></span><br><span class="line">iWindow.arr <span class="keyword">instanceof</span> iWindow.Array <span class="comment">// true</span></span><br></pre></td></tr></table></figure></p>
+<p>这里主要凸显出来的问题就是window和iWindow是两个全局对象.如果我们执行<code>iWindow.arr instanceof Array</code>相当于执行<code>iWindow.arr instanceof Window.Array</code>,<br>同时Window.Array === iWindow.Array是不成立的,所以<code>iWindow.arr instanceof Array</code>返回是false,<br>当执行<code>iWindow.arr instanceof iWindow.Array</code>就会返回true了.</p>
+<h1 id="duck-typing利用鸭子类型做类型检测">duck-typing利用鸭子类型做类型检测</h1><p>简单来说,利用鸭子类型做类型检测就是说,比如你有喉结,那么我就可以认为你是一个男性.也是一样的,如果你有length属性,那么我就认为你是一个Array类型的变量.<br><figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function <span class="built_in">isArray</span>(obj)&#123;</span><br><span class="line">	<span class="keyword">return</span> obj!=<span class="literal">null</span> &amp;&amp; typeof obj === <span class="string">'object'</span>&amp;&amp; typeof obj.length === <span class="string">'number'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">isArray</span>([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]) //<span class="literal">true</span></span><br><span class="line"><span class="built_in">isArray</span>(&#123;&#125;) //<span class="literal">false</span></span><br><span class="line"><span class="built_in">isArray</span>(<span class="literal">true</span>) //<span class="literal">false</span></span><br><span class="line"><span class="built_in">isArray</span>(<span class="number">1</span>) //<span class="literal">false</span></span><br><span class="line"><span class="built_in">isArray</span>(<span class="literal">null</span>) //<span class="literal">false</span></span><br><span class="line"><span class="built_in">isArray</span>(undefined) //<span class="literal">false</span></span><br></pre></td></tr></table></figure></p>
+<p>但是这么做也有明显的缺陷:<br><figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var o = &#123;&#125;<span class="comment">;</span></span><br><span class="line">o.length = 1<span class="comment">;</span></span><br><span class="line">isArray(o)<span class="comment">;</span></span><br></pre></td></tr></table></figure></p>
+<p>但是这里o明显是一个Object,而不是一个Array.鸭子类型的检测方式很容易被绕过去,同时用于测试的属性不一定每个人都是认可的.</p>
+<h1 id="Object-prototype-toString做类型检测">Object.prototype.toString做类型检测</h1><p>Object.prototype.toString检测的原理在于<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="number">3</span>) <span class="comment">// "[object Number]"</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="literal">true</span>) <span class="comment">// "[object Boolean]"</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="string">''</span>) <span class="comment">// "[object String]"</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="literal">null</span>) <span class="comment">// "[object Null]"</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="literal">undefined</span>) <span class="comment">// "[object Undefined]"</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;) <span class="comment">// "[object Function]"</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]) <span class="comment">// "[object Array]"</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(&#123;&#125;) <span class="comment">// "[object Object]"</span></span><br></pre></td></tr></table></figure></p>
+<p>Object.prototype.toString是Object上的一个方法,通常情况下会被子类覆盖掉(原型链上子类重写toString方法,比如String.prototype.toString).Object.prototype.toString可以可靠的区分各种基本类型和内置的Object类型.可以避免<code>cross-window</code>的问题<br><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> iframe = <span class="built_in">document</span>.createElement(<span class="string">'iframe'</span>);</span><br><span class="line"><span class="built_in">document</span>.body.appendChild(iframe);</span><br><span class="line"><span class="keyword">var</span> iWindow = iframe.contentWindow;</span><br><span class="line">iWindow.<span class="built_in">document</span>.write(<span class="string">'&lt;script&gt;var arr = [1,2,3]&lt;/script&gt;'</span>)</span><br><span class="line">iWindow.arr;</span><br><span class="line">console.log(<span class="built_in">Object</span>.prototype.toString.call(iWindow.arr)) <span class="comment">// [object Array]</span></span><br></pre></td></tr></table></figure></p>
+<p>但在区分用户自定义的类型的时候,Object.prototype.toString都是返回[object Object]<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">A</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">B</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> A();</span><br><span class="line"><span class="keyword">var</span> b = <span class="keyword">new</span> B();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.prototype.toString.call(a)) <span class="comment">// [object Object]</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.prototype.toString.call(b)) <span class="comment">// [object Object]</span></span><br></pre></td></tr></table></figure></p>
+<p>总的来说,Object.prototype.toString是一个做类型检测相对可靠的方法.同时对于浏览器端的类型检测并有没有一个全部都可行的方法.类型检测还是要第三方的库.比如浏览器端用<code>underscore</code>去做类型检测,服务端用<code>lodash</code></p>
+
+            
+                
+
+            
+        </div>
+    </div>
+    <div class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/devcat/tags/javascript/">javascript</a> <a class="tag tag--primary tag--small t-link" href="/devcat/tags/类型检测方法/">类型检测方法</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/04/27/说说JS中的浅拷贝与深拷贝/" data-tooltip="说说JS中的浅拷贝与深拷贝">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/04/27/javascript类型检测/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/04/27/javascript类型检测/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/04/27/javascript类型检测/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action" style="display:none">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        <!-- 多说评论框 start -->
+<div class="ds-thread" data-thread-key="post-javascript类型检测" data-title="javascript类型检测" data-url="http://warjiang.github.io/devcat/2016/04/27/javascript类型检测/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"devcat"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2016 warjiang. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/04/27/说说JS中的浅拷贝与深拷贝/" data-tooltip="说说JS中的浅拷贝与深拷贝">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/04/27/javascript类型检测/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/04/27/javascript类型检测/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/04/27/javascript类型检测/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action" style="display:none">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/04/27/javascript类型检测/">
+                <i class="fa fa-google-plus"></i><span class="">Share on Google Plus</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/04/27/javascript类型检测/">
+                <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/04/27/javascript类型检测/">
+                <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        <div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/devcat/assets/images/avatar.jpg"/>
+        
+            <h4 id="about-card-name">warjiang</h4>
+        
+            <h5 id="about-card-bio"><h2 id="一只有狂想症的fullstack学生汪">一只有狂想症的fullstack学生汪</h2></h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <h2 id="学生汪">学生汪</h2>
+            </h5>
+        
+        
+    </div>
+</div>
+
+        <div id="cover" style="background-image:url('http://7xl7lt.com1.z0.glb.clouddn.com/v1.3.0-cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/devcat/assets/js/script.min.js" type="text/javascript"></script>
+<!--SCRIPTS END-->
+
+
+
+</html>
