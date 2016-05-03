@@ -1,0 +1,449 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="devCat">
+    <title>你真的懂JSON.stringify与JSON.parse么 - devCat</title>
+    <meta name="author" content="warjiang">
+    
+        <link rel="icon" href="/devcat/assets/images/hexoFavico.ico">
+    
+    
+    <meta name="description" content="outline
+Using native JSON
+MDN’s JSON
+用JSON.stringify来dump对象
+
+Using native JSON这里介绍是兼容ECMAScript 5 标准的原生JSON对象.原生的JSON对象包含两个关键方法1.JSON.parse()          解析JSON字符串,并且重构为JavaScript对象.具体使用如下:
+123var jsonSt">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="你真的懂JSON.stringify与JSON.parse么">
+<meta property="og:url" content="http://warjiang.github.io/devcat/2016/05/03/你真的懂JSON-stringify与JSON-parse么/index.html">
+<meta property="og:site_name" content="devCat">
+<meta property="og:description" content="outline
+Using native JSON
+MDN’s JSON
+用JSON.stringify来dump对象
+
+Using native JSON这里介绍是兼容ECMAScript 5 标准的原生JSON对象.原生的JSON对象包含两个关键方法1.JSON.parse()          解析JSON字符串,并且重构为JavaScript对象.具体使用如下:
+123var jsonSt">
+<meta property="og:image" content="http://7xl7lt.com1.z0.glb.clouddn.com/dumpobject.png">
+<meta property="og:updated_time" content="2016-05-03T16:55:16.175Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="你真的懂JSON.stringify与JSON.parse么">
+<meta name="twitter:description" content="outline
+Using native JSON
+MDN’s JSON
+用JSON.stringify来dump对象
+
+Using native JSON这里介绍是兼容ECMAScript 5 标准的原生JSON对象.原生的JSON对象包含两个关键方法1.JSON.parse()          解析JSON字符串,并且重构为JavaScript对象.具体使用如下:
+123var jsonSt">
+    
+    
+    
+        <meta property="og:image" content="/devcat/assets/images/avatar.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/devcat/assets/css/style.min.css" type="text/css">
+    <!--STYLES END-->
+    
+    
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?57b6d23a689855c11566203b2da0f5a7";
+        var s = document.getElementsByTagName("script")[0]; 
+        s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+</head>
+
+    <body>
+        <div id="blog">
+            <header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/devcat/ ">devCat</a>
+    </h1>
+    
+        <a class="header-right-picture" href="/#about">
+            <img class="header-picture" src="/devcat/assets/images/avatar.jpg"/>
+        </a>
+    
+</header>
+            <nav id="sidebar" data-behavior="4">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                
+                    <img class="sidebar-profile-picture" src="/devcat/assets/images/avatar.jpg"/>
+                
+            </a>
+            <span class="sidebar-profile-name">warjiang</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">主页</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/all-categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分类</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">存档</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="/devcat/#search"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                    <span class="sidebar-button-desc">搜索</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/#about"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                    <span class="sidebar-button-desc">关于</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            你真的懂JSON.stringify与JSON.parse么
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Tue May 03 2016 23:27:45 GMT+0800">
+	
+		    5月 03, 2016
+    	
+    </time>
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <h1 id="outline">outline</h1><ol>
+<li>Using native JSON</li>
+<li>MDN’s JSON</li>
+<li>用JSON.stringify来dump对象</li>
+</ol>
+<h1 id="Using_native_JSON">Using native JSON</h1><p>这里介绍是<strong><em>兼容ECMAScript 5 标准的原生JSON对象</em></strong>.<br>原生的JSON对象包含两个关键方法<br>1.JSON.parse()          解析JSON字符串,并且重构为JavaScript对象.具体使用如下:</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable"><span class="keyword">var</span> jsonString</span> = '&#123;<span class="string">"bar"</span>:<span class="string">"property"</span>,<span class="string">"baz"</span>:<span class="number">3</span>&#125;';</span><br><span class="line"><span class="variable"><span class="keyword">var</span> jsObject</span> = JSON.parse(jsonString);</span><br><span class="line">console.log(jsObject)   <span class="comment">//Object &#123;bar: "property", baz: 3&#125;</span></span><br></pre></td></tr></table></figure>
+<blockquote><p>JSON.parse()不允许最后一个键值对后面存在逗号</p>
+</blockquote>
+<p>具体来说就是下面这样:<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> jsObject = JSON.<span class="keyword">parse</span>(<span class="string">"[1, 2, 3, 4, ]"</span>);   </span><br><span class="line"><span class="comment">//Uncaught SyntaxError: Unexpected token ] in JSON at position 13</span></span><br><span class="line"><span class="keyword">var</span> jsObject = JSON.<span class="keyword">parse</span>(<span class="string">"&#123; \"</span>foo\<span class="string">" : 1, &#125;"</span>);  </span><br><span class="line"><span class="comment">//Uncaught SyntaxError: Unexpected token &#125; in JSON at position 13</span></span><br></pre></td></tr></table></figure></p>
+<p>2.JSON.stringify()     将javascript对象转换为等价的JSON字符串.</p>
+<figure class="highlight cal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = &#123;bar:<span class="variable">"new property"</span>,baz:<span class="number">3</span>&#125;;</span><br><span class="line"><span class="keyword">var</span> jsonString = JSON.stringify(foo);</span><br><span class="line">console.log(jsonString);//&#123;<span class="variable">"bar"</span>:<span class="variable">"new property"</span>,<span class="variable">"baz"</span>:<span class="number">3</span>&#125;</span><br></pre></td></tr></table></figure>
+<blockquote><p>注意:由于JSON规范的限制,如果一个对象存在属性值为函数的属性,则在使用JSON.stringify()方法对该对象进行序列化时.这个属性将不会被遍历到.</p>
+</blockquote>
+<p>具体来说就是下面这样:<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var foo = &#123;bar:<span class="string">"new property"</span>,baz:<span class="number">3</span>,getName:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;<span class="keyword">return</span> <span class="string">'foo'</span>&#125;&#125;;</span><br><span class="line">var jsonString = JSON.stringify(foo);</span><br><span class="line">console.log(jsonString);</span><br><span class="line">//&#123;<span class="string">"bar"</span>:<span class="string">"new property"</span>,<span class="string">"baz"</span>:<span class="number">3</span>&#125;</span><br><span class="line">//这里是不会显示&#123;<span class="string">"bar"</span>:<span class="string">"new property"</span>,<span class="string">"baz"</span>:<span class="number">3</span>,<span class="string">"getName"</span>:<span class="function"><span class="keyword">function</span>...&#125;的</span><br><span class="line">//<span class="title">TODO</span>留个问题,如果我们想强制<span class="title">JSON.stringify</span>显示"<span class="title">getName</span>":"<span class="title">function</span> <span class="params">()</span></span>&#123;<span class="keyword">return</span> <span class="string">'foo'</span>&#125;<span class="string">"该怎么办</span></span><br></pre></td></tr></table></figure></p>
+<p>同时注意一下下面这两段代码:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//test的值是undefined的情况</span></span><br><span class="line"><span class="comment">//则做JSON.stringify的时候不显示test这个字段</span></span><br><span class="line"><span class="keyword">var</span> foo = &#123;bar:<span class="string">"new property"</span>,baz:<span class="number">3</span>,getName:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="keyword">return</span> <span class="string">'foo'</span>&#125;,test:<span class="literal">undefined</span>&#125;;</span><br><span class="line"><span class="keyword">var</span> jsonString = <span class="built_in">JSON</span>.stringify(foo);</span><br><span class="line"><span class="built_in">console</span>.log(jsonString);<span class="comment">//&#123;"bar":"new property","baz":3&#125;</span></span><br><span class="line"><span class="comment">//&#123;"bar":"new property","baz":3&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//但是如果test的值是null则会显示</span></span><br><span class="line"><span class="keyword">var</span> foo = &#123;bar:<span class="string">"new property"</span>,baz:<span class="number">3</span>,getName:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="keyword">return</span> <span class="string">'foo'</span>&#125;,test:<span class="literal">null</span>&#125;;</span><br><span class="line"><span class="keyword">var</span> jsonString = <span class="built_in">JSON</span>.stringify(foo);</span><br><span class="line"><span class="built_in">console</span>.log(jsonString);<span class="comment">//&#123;"bar":"new property","baz":3&#125;</span></span><br><span class="line"><span class="comment">//&#123;"bar":"new property","baz":3,"test":null&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>上面这段代码主要说下默认情况下,如果属性值是undefined的时候,即表示属性值还没有被赋值,JSON.stringify是不会显示这个属性值,但是null表示变量是被赋值的,表示一个空值,执行JSON.stringify的时候会显示.</p>
+<h1 id="MDN’s_JSON">MDN’s JSON</h1><p>MDN上这样定义<code>JSON.parse(jsonString)</code>,<code>JSON.stringify(value [, replacer [, space]])</code>,这里JSON.parse(jsonString)没什么好说的,使用的时候注意]和}之前不要加莫名其妙的<code>,</code>就好.这里重点看看JSON.stringify<br><blockquote><p>value<br>    将要转为JSON字符串的javascript对象.<br>replacer<br>    该参数可以是多种类型,如果是一个函数,则它可以改变一个javascript对象在字符串化过程中的行为, 如果是一个包含 String 和 Number 对象的数组,则它将作为一个白名单.只有那些键存在域该白名单中的键值对才会被包含进最终生成的JSON字符串中.如果该参数值为null或者被省略,则所有的键值对都会被包含进最终生成的JSON字符串中.<br>space<br>    该参数可以是一个 String 或 Number 对象,作用是为了在输出的JSON字符串中插入空白符来增强可读性. 如果是Number对象, 则表示用多少个空格来作为空白符; 最大可为10,大于10的数值也取10.最小可为1,小于1的数值无效,则不会显示空白符. 如果是个 String对象, 则该字符串本身会作为空白符,字符串最长可为10个字符.超过的话会截取前十个字符. 如果该参数被省略 (或者为null), 则不会显示空白符</p>
+<footer><strong>MDN</strong></footer></blockquote><br>看到这边,相信大家对于这个用法可能有些疑惑,TMD的原来JSON.stringify还能这样用.下面我来举几个例子,一方面解决我上面留的两个问题,另一方面展示一下MDN关于JSON.stringify的定义.废话不多说,直接上代码.首先我们来看replacer<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//replacer为函数的情况,我们顺便把上面的两个问题解决下</span></span><br><span class="line"><span class="comment">//对于第一个问题,默认情况下JSON.stringify对于类型是function的属性是不显示的.</span></span><br><span class="line"><span class="comment">//下面我们写个replacer函数</span></span><br><span class="line"><span class="keyword">var</span> censor = <span class="function"><span class="keyword">function</span>(<span class="params">key,value</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">typeof</span>(value) == <span class="string">'function'</span>)&#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="built_in">Function</span>.prototype.toString.call(value)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> value;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> foo = &#123;bar:<span class="string">"new property"</span>,baz:<span class="number">3</span>,getName:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="keyword">return</span> <span class="string">'foo'</span>&#125;&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(foo,censor))</span><br><span class="line"><span class="comment">//&#123;"bar":"new property","baz":3,"getName":"function ()&#123;return 'foo'&#125;"&#125;</span></span><br><span class="line"><span class="comment">//这里我们用replacer函数改变了JSON.stringify的默认行为.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//对于第二个问题,看了第一个题目的解决思路,大家可能都会了</span></span><br><span class="line"><span class="comment">//还是加上判断,给出对于undefined的情况下的处理方式</span></span><br><span class="line"><span class="comment">//但是注意下这里不能直接返回undefined,否则对应的属性还是不出现</span></span><br><span class="line"><span class="comment">//这里我们返回一个'undefined'字符串表示这个属性是undefined</span></span><br><span class="line"><span class="keyword">var</span> censor = <span class="function"><span class="keyword">function</span>(<span class="params">key,value</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(value === <span class="literal">undefined</span>)&#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="string">'undefined'</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> value;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> foo = &#123;bar:<span class="string">"new property"</span>,baz:<span class="number">3</span>,test:<span class="literal">undefined</span>&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(foo,censor))</span><br><span class="line"><span class="comment">//&#123;"bar":"new property","baz":3,"test":"undefined"&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>这里总结下,当replacer参数为函数的情况下,可以修改JSON.stringify的默认行为.<br>当replacer参数不为function的时候:<br><figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">//当replacer参数为包含 <span class="built_in">String</span> 和 <span class="built_in">Number</span> 对象的数组的情况下:</span><br><span class="line">var foo = &#123;a:<span class="string">"1"</span>,b:<span class="number">2</span>,c:<span class="literal">true</span>&#125;<span class="comment">;</span></span><br><span class="line">console.<span class="built_in">log</span>(JSON.stringify(foo,[<span class="string">'a'</span>,<span class="string">'c'</span>]))</span><br><span class="line">//&#123;<span class="string">"a"</span>:<span class="string">"1"</span>,<span class="string">"c"</span>:<span class="literal">true</span>&#125;</span><br><span class="line"></span><br><span class="line">//当replacer参数为<span class="literal">null</span>的情况下:</span><br><span class="line">console.<span class="built_in">log</span>(JSON.stringify(foo,<span class="literal">null</span>))</span><br><span class="line">//&#123;<span class="string">"a"</span>:<span class="string">"1"</span>,<span class="string">"b"</span>:<span class="number">2</span>,<span class="string">"c"</span>:<span class="literal">true</span>&#125;</span><br><span class="line"></span><br><span class="line">//当replacer忽略的情况下:</span><br><span class="line">console.<span class="built_in">log</span>(JSON.stringify(foo))</span><br><span class="line">//&#123;<span class="string">"a"</span>:<span class="string">"1"</span>,<span class="string">"b"</span>:<span class="number">2</span>,<span class="string">"c"</span>:<span class="literal">true</span>&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里replacer参数不为function类型的参数时,忽略该参数或者为null的时候,执行JSON.stringify的默认行为;如果为Sting、Number类型的数组时,相当于一个IP白名单,只有数组列出来的属性才能被显示.</p>
+<p>下面我们来说说space参数<br>1.如果space参数为String类型的情况下,则默认取前String的前10个字符作为分割符<br>2.如果space参数为Number类型的情况下,则表示space个空格(space&lt;=10,大于10取10)<br>直接看效果:<br><figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">//space参数为<span class="built_in">String</span>的情况下:</span><br><span class="line">var foo = &#123;a:<span class="string">"1"</span>,b:<span class="number">2</span>,c:<span class="literal">true</span>&#125;<span class="comment">;</span></span><br><span class="line">console.<span class="built_in">log</span>(JSON.stringify(foo,<span class="literal">null</span>,<span class="string">'test'</span>))</span><br><span class="line">/*</span><br><span class="line">&#123;</span><br><span class="line">test<span class="string">"a"</span>: <span class="string">"1"</span>,</span><br><span class="line">test<span class="string">"b"</span>: <span class="number">2</span>,</span><br><span class="line">test<span class="string">"c"</span>: <span class="literal">true</span></span><br><span class="line">&#125;</span><br><span class="line">*/</span><br><span class="line">//space参数为<span class="built_in">Number</span>的情况下:</span><br><span class="line">var foo = &#123;a:<span class="string">"1"</span>,b:<span class="number">2</span>,c:<span class="literal">true</span>&#125;<span class="comment">;</span></span><br><span class="line">console.<span class="built_in">log</span>(JSON.stringify(foo,<span class="literal">null</span>,<span class="number">4</span>))</span><br><span class="line">/*</span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"a"</span>: <span class="string">"1"</span>,</span><br><span class="line">    <span class="string">"b"</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="string">"c"</span>: <span class="literal">true</span></span><br><span class="line">&#125;</span><br><span class="line">*/</span><br></pre></td></tr></table></figure></p>
+<p>在上面这段代码中,很偶然的我们使用4个空白符可以很好的dump对象(4个空白符不是正好就是一个tab么)</p>
+<h1 id="用JSON-stringify来dump对象">用JSON.stringify来dump对象</h1><p>在日常是用中,我们可能会dump一些复杂的对象,这些对象往往对象内嵌套对象.直接看起来并不那么直观,结合上面的的replacer和space参数,我们可以这样dump复杂对象<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> censor = <span class="function"><span class="keyword">function</span>(<span class="params">key,value</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">typeof</span>(value) == <span class="string">'function'</span>)&#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="built_in">Function</span>.prototype.toString.call(value)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> value;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> foo = &#123;bar:<span class="string">"new property"</span>,baz:<span class="number">3</span>,o:&#123;name:<span class="string">'warjiang'</span>,age:<span class="number">23</span>,info:&#123;sex:<span class="string">'male'</span>,getSex:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="keyword">return</span> <span class="string">'sex'</span>;&#125;&#125;&#125;&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(foo,censor,<span class="number">4</span>))</span><br></pre></td></tr></table></figure></p>
+<p>效果如下:<br><img src="http://7xl7lt.com1.z0.glb.clouddn.com/dumpobject.png" alt="dumpobject.png"><br>哎,是不是很清晰！</p>
+
+            
+                
+
+            
+        </div>
+    </div>
+    <div class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/devcat/tags/JSON/">JSON</a> <a class="tag tag--primary tag--small t-link" href="/devcat/tags/MDN/">MDN</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/05/02/从零写一个npm包/" data-tooltip="从零写一个npm包">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/05/03/你真的懂JSON-stringify与JSON-parse么/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/05/03/你真的懂JSON-stringify与JSON-parse么/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/05/03/你真的懂JSON-stringify与JSON-parse么/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action" style="display:none">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        <!-- 多说评论框 start -->
+<div class="ds-thread" data-thread-key="post-你真的懂JSON-stringify与JSON-parse么" data-title="你真的懂JSON.stringify与JSON.parse么" data-url="http://warjiang.github.io/devcat/2016/05/03/你真的懂JSON-stringify与JSON-parse么/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"devcat"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2016 warjiang. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/05/02/从零写一个npm包/" data-tooltip="从零写一个npm包">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/05/03/你真的懂JSON-stringify与JSON-parse么/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/05/03/你真的懂JSON-stringify与JSON-parse么/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/05/03/你真的懂JSON-stringify与JSON-parse么/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action" style="display:none">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/05/03/你真的懂JSON-stringify与JSON-parse么/">
+                <i class="fa fa-google-plus"></i><span class="">Share on Google Plus</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/05/03/你真的懂JSON-stringify与JSON-parse么/">
+                <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/05/03/你真的懂JSON-stringify与JSON-parse么/">
+                <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        <div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/devcat/assets/images/avatar.jpg"/>
+        
+            <h4 id="about-card-name">warjiang</h4>
+        
+            <h5 id="about-card-bio"><h2 id="一只有狂想症的fullstack学生汪">一只有狂想症的fullstack学生汪</h2></h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <h2 id="学生汪">学生汪</h2>
+            </h5>
+        
+        
+    </div>
+</div>
+
+        <div id="cover" style="background-image:url('http://7xl7lt.com1.z0.glb.clouddn.com/v1.3.0-cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/devcat/assets/js/script.min.js" type="text/javascript"></script>
+<!--SCRIPTS END-->
+
+
+
+</html>
