@@ -6,7 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="devCat">
-    <title>Tag : javascript - devCat</title>
+    <title>Tag : JavaScript - devCat</title>
     <meta name="author" content="warjiang">
     
         <link rel="icon" href="/devcat/assets/images/hexoFavico.ico">
@@ -15,7 +15,7 @@
     <meta name="description" content="全端开发">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="devCat">
-<meta property="og:url" content="http://warjiang.github.io/devcat/tags/javascript/index.html">
+<meta property="og:url" content="http://warjiang.github.io/devcat/tags/JavaScript/index.html">
 <meta property="og:site_name" content="devCat">
 <meta property="og:description" content="全端开发">
 <meta name="twitter:card" content="summary">
@@ -171,13 +171,13 @@
                 <div class="postShorten-header">
                     <h1 class="postShorten-title" itemprop="headline">
                         
-                                <a class="link-unstyled" href="/devcat/2016/04/27/javascript类型检测/">javascript类型检测</a>
+                                <a class="link-unstyled" href="/devcat/2016/05/05/JavaScript没有块级作用域/">JavaScript没有块级作用域</a>
                         
                     </h1>
                     <div class="postShorten-meta">
-    <time itemprop="datePublished" content="Wed Apr 27 2016 17:11:33 GMT+0800">
+    <time itemprop="datePublished" content="Thu May 05 2016 22:13:02 GMT+0800">
 	
-		    4月 27, 2016
+		    5月 05, 2016
     	
     </time>
     
@@ -186,99 +186,16 @@
                 <div class="postShorten-excerpt" itemprop="articleBody">
                     
                         <p>
-                            JavaScript是弱类型的,很多情况下我们需要做类型检测.然而做类型检测有很多方法,但是这些类型检测都有自己的局限性,这里我们将介绍一下JavaScript中的类型检测方法,并指出这些类型检测方法的优点和缺点.
-outline
-typeof 
-instanceof/constructor
-duck-typing
-Object.prototype.toString
+                            最近在看ES2015 实战,里面有句话是这么说的
 
-typeof做类型检测typ<br>
-                    
-                    
-                        
-                            <a href="/devcat/2016/04/27/javascript类型检测/" class="postShorten-excerpt_link link ">继续阅读</a>
-                            
-                        
-                    
-                    
-                        </p>
-                    
-                </div>
-            </div>
-            
-        </article>
-    
-        
-        
-                <article class="postShorten" itemscope itemType="http://schema.org/BlogPosting">
-        
-            <div class="postShorten-wrap">
-                <div class="postShorten-header">
-                    <h1 class="postShorten-title" itemprop="headline">
-                        
-                                <a class="link-unstyled" href="/devcat/2016/04/24/JS传值OR传引用/">JS传值OR传引用</a>
-                        
-                    </h1>
-                    <div class="postShorten-meta">
-    <time itemprop="datePublished" content="Sun Apr 24 2016 14:50:36 GMT+0800">
-	
-		    4月 24, 2016
-    	
-    </time>
-    
-</div>
-                </div>
-                <div class="postShorten-excerpt" itemprop="articleBody">
-                    
-                        <p>
-                            outline:1. call by value(值传递)2. call by reference(引用传递)3. call by sharing(共享传递)这里我们以C语言为例,比较call by value和call by reference12345678910111213#include &lt;stdio.h&gt;int test(int a1,int *b1)&#123;	a1 = <br>
-                    
-                    
-                        
-                            <a href="/devcat/2016/04/24/JS传值OR传引用/" class="postShorten-excerpt_link link ">继续阅读</a>
-                            
-                        
-                    
-                    
-                        </p>
-                    
-                </div>
-            </div>
-            
-        </article>
-    
-        
-        
-                <article class="postShorten" itemscope itemType="http://schema.org/BlogPosting">
-        
-            <div class="postShorten-wrap">
-                <div class="postShorten-header">
-                    <h1 class="postShorten-title" itemprop="headline">
-                        
-                                <a class="link-unstyled" href="/devcat/2016/04/16/JSLecture/">JSLecture</a>
-                        
-                    </h1>
-                    <div class="postShorten-meta">
-    <time itemprop="datePublished" content="Sat Apr 16 2016 14:09:32 GMT+0800">
-	
-		    4月 16, 2016
-    	
-    </time>
-    
-</div>
-                </div>
-                <div class="postShorten-excerpt" itemprop="articleBody">
-                    
-                        <p>
-                            outline1 JS常见使用场景2 JS的重要概念(包含IIEF、JS原型链、this(call/apply)、闭包)最后我们结合闭包和call函数完成一个类型检测3 浏览器端的javascript(包括原生DOM操作、用模板来完成原生DOM操作、jQuery操,基于此我们完成一个简单的单页应用)4 其他
+JavaScript 中没有块级作用域
 
-JS常见使用场景  a. 使用jQuery修改DOM
-  12345&lt;script<br>
+可能会对这个问题大家可能有点不理解,先看个例子1234567var a = []for(var i = 0; i &lt; 10; i++)&#123;	a[i] = function()&#123;		console.log(i);	&#125;&#125;a[6]();
+我想很多人会觉得这个问题的结果<br>
                     
                     
                         
-                            <a href="/devcat/2016/04/16/JSLecture/" class="postShorten-excerpt_link link ">继续阅读</a>
+                            <a href="/devcat/2016/05/05/JavaScript没有块级作用域/" class="postShorten-excerpt_link link ">继续阅读</a>
                             
                         
                     

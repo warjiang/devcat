@@ -1,0 +1,442 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="devCat">
+    <title>JavaScript没有块级作用域 - devCat</title>
+    <meta name="author" content="warjiang">
+    
+        <link rel="icon" href="/devcat/assets/images/hexoFavico.ico">
+    
+    
+    <meta name="description" content="最近在看ES2015 实战,里面有句话是这么说的
+
+JavaScript 中没有块级作用域
+
+可能会对这个问题大家可能有点不理解,先看个例子1234567var a = []for(var i = 0; i &amp;lt; 10; i++)&amp;#123;	a[i] = function()&amp;#123;		console.log(i);	&amp;#125;&amp;#125;a[6]();
+我想很多人会觉得这个问题的结果">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="JavaScript没有块级作用域">
+<meta property="og:url" content="http://warjiang.github.io/devcat/2016/05/05/JavaScript没有块级作用域/index.html">
+<meta property="og:site_name" content="devCat">
+<meta property="og:description" content="最近在看ES2015 实战,里面有句话是这么说的
+
+JavaScript 中没有块级作用域
+
+可能会对这个问题大家可能有点不理解,先看个例子1234567var a = []for(var i = 0; i &amp;lt; 10; i++)&amp;#123;	a[i] = function()&amp;#123;		console.log(i);	&amp;#125;&amp;#125;a[6]();
+我想很多人会觉得这个问题的结果">
+<meta property="og:image" content="http://7xl7lt.com1.z0.glb.clouddn.com/%E5%9D%97%E7%BA%A7%E4%BD%9C%E7%94%A8%E5%9F%9F1.png">
+<meta property="og:image" content="http://7xl7lt.com1.z0.glb.clouddn.com/%E5%9D%97%E7%BA%A7%E4%BD%9C%E7%94%A8%E5%9F%9F2.png">
+<meta property="og:image" content="http://7xl7lt.com1.z0.glb.clouddn.com/%E5%9D%97%E7%BA%A7%E4%BD%9C%E7%94%A8%E5%9F%9F3.png">
+<meta property="og:image" content="http://7xl7lt.com1.z0.glb.clouddn.com/%E5%9D%97%E7%BA%A7%E4%BD%9C%E7%94%A8%E5%9F%9F4.png">
+<meta property="og:updated_time" content="2016-05-05T16:34:41.429Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript没有块级作用域">
+<meta name="twitter:description" content="最近在看ES2015 实战,里面有句话是这么说的
+
+JavaScript 中没有块级作用域
+
+可能会对这个问题大家可能有点不理解,先看个例子1234567var a = []for(var i = 0; i &amp;lt; 10; i++)&amp;#123;	a[i] = function()&amp;#123;		console.log(i);	&amp;#125;&amp;#125;a[6]();
+我想很多人会觉得这个问题的结果">
+    
+    
+    
+        <meta property="og:image" content="/devcat/assets/images/avatar.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/devcat/assets/css/style.min.css" type="text/css">
+    <!--STYLES END-->
+    
+    <meta name="baidu-site-verification" content="K5SGaxveG1" />
+
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?57b6d23a689855c11566203b2da0f5a7";
+        var s = document.getElementsByTagName("script")[0]; 
+        s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+</head>
+
+    <body>
+        <div id="blog">
+            <header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/devcat/ ">devCat</a>
+    </h1>
+    
+        <a class="header-right-picture" href="/#about">
+            <img class="header-picture" src="/devcat/assets/images/avatar.jpg"/>
+        </a>
+    
+</header>
+            <nav id="sidebar" data-behavior="4">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                
+                    <img class="sidebar-profile-picture" src="/devcat/assets/images/avatar.jpg"/>
+                
+            </a>
+            <span class="sidebar-profile-name">warjiang</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">主页</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/all-categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分类</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">存档</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="/devcat/#search"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                    <span class="sidebar-button-desc">搜索</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/#about"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                    <span class="sidebar-button-desc">关于</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            JavaScript没有块级作用域
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Thu May 05 2016 22:13:02 GMT+0800">
+	
+		    5月 05, 2016
+    	
+    </time>
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <p>最近在<a href="http://gank.io/post/564151c1f1df1210001c9161" target="_blank" rel="external">看ES2015 实战</a>,里面有句话是这么说的</p>
+<blockquote>
+<p>JavaScript 中没有块级作用域</p>
+</blockquote>
+<p>可能会对这个问题大家可能有点不理解,先看个例子<br><figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var a = []</span><br><span class="line"><span class="keyword">for</span><span class="params">(var i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++)</span>&#123;</span><br><span class="line">	a[i] = <span class="function"><span class="keyword">function</span><span class="params">()</span>&#123;</span></span><br><span class="line">		console.<span class="built_in">log</span><span class="params">(i)</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">a[<span class="number">6</span>]<span class="params">()</span>;</span><br></pre></td></tr></table></figure></p>
+<p>我想很多人会觉得这个问题的结果是<code>6</code>,然而很不幸,答案是<code>10</code>.在试试别的呢.<code>a[7]()</code>、<code>a[8]()</code>、<code>a[8]()</code>结果都是<code>10</code>!!<br>由于JS在处理primitive的变量的时候,很多时候会把primitive变量包装成对应的对象来处理,比如对于<code>var str  = &quot;hello world&quot;;str.slice(1)</code>.<br>JS真正的处理过程大概是<code>var str = &quot;hello world&quot;;new String(str).slice(1)</code>.这样的过程可能会对我们理解问题造成困扰.<br>这里为了解释这个问题,同时i属于primitive类型中的number类型,我就显式的声明为Number类型.由于基本类型的赋值过程就是重新申请内存,修改变量的指向的过程,对于这一过程我们也用重新new Number对象的过程来模拟.修改过后的代码如下:<br><figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var a = []</span><br><span class="line">var i = new Number<span class="params">(<span class="number">0</span>)</span>;</span><br><span class="line"><span class="keyword">for</span><span class="params">(; i &lt; <span class="number">10</span>; i = new Number<span class="params">(i+<span class="number">1</span>)</span>)</span>&#123;</span><br><span class="line">	a[i] = <span class="function"><span class="keyword">function</span><span class="params">()</span>&#123;</span></span><br><span class="line">		console.<span class="built_in">log</span><span class="params">(i.toString<span class="params">()</span>)</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">a[<span class="number">6</span>]<span class="params">()</span>; <span class="comment">// 10</span></span><br><span class="line">a[<span class="number">7</span>]<span class="params">()</span>; <span class="comment">// 10</span></span><br><span class="line">a[<span class="number">8</span>]<span class="params">()</span>; <span class="comment">// 10</span></span><br><span class="line">a[<span class="number">9</span>]<span class="params">()</span>; <span class="comment">// 10</span></span><br></pre></td></tr></table></figure></p>
+<p>下面结合一段程序,我们来看看这些这变量的相对内存地址<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> id = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">generateId</span>(<span class="params"></span>) </span>&#123; <span class="keyword">return</span> id++;&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">Object</span>.prototype.id = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> newId = generateId();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>.id = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="keyword">return</span> newId; &#125;;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> newId;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;)();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = []</span><br><span class="line"><span class="keyword">var</span> i = <span class="keyword">new</span> <span class="built_in">Number</span>(<span class="number">0</span>);</span><br><span class="line"><span class="built_in">console</span>.log(i.id());<span class="comment">// 0</span></span><br><span class="line"><span class="keyword">for</span>(; i &lt; <span class="number">10</span>; i = <span class="keyword">new</span> <span class="built_in">Number</span>(i+<span class="number">1</span>),i.id())&#123;</span><br><span class="line"></span><br><span class="line">	a[i] = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(i.id());</span><br><span class="line">		<span class="built_in">console</span>.log(i.toString());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">a[<span class="number">6</span>](); <span class="comment">// 10 10</span></span><br><span class="line">a[<span class="number">7</span>](); <span class="comment">// 10 10</span></span><br><span class="line">a[<span class="number">8</span>](); <span class="comment">// 10 10</span></span><br><span class="line">a[<span class="number">9</span>](); <span class="comment">// 10 10</span></span><br><span class="line"><span class="built_in">console</span>.log(i.id())<span class="comment">// 10</span></span><br></pre></td></tr></table></figure></p>
+<p>这边我们的i的整个的”赋值”的效果我们确实是模拟出来了,i的相对地址从0变到10(最后还需要加一次才可以跳出for循环).<br>在看i的相对地址的同时,我们发现一个问题:<code>a[x]</code>(x:0~9)对应的函数在执行的时候,所引用的i的相对地址都为10.为什么呢?<br>这里就要牵扯出<code>块级作用域</code>问题来,这里我们引用阮一峰在<a href="http://es6.ruanyifeng.com/" target="_blank" rel="external">ES6入门</a>中的一段话:</p>
+<blockquote>
+<p>ES5只有全局作用域和函数作用域,没有块级作用域.</p>
+</blockquote>
+<p>ES5就是大家使用最广泛的JS的版本.这句话说在javascript中,是不存在块作用域的.只存在全局作用域和块级作用域.<br>怎么理解呢?举个例子<br><figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span><span class="params">(var i = <span class="number">0</span>;i &lt; <span class="number">10</span>; i++)</span>&#123;</span><br><span class="line">	console.<span class="built_in">log</span><span class="params">(i)</span>;</span><br><span class="line">&#125;</span><br><span class="line">console.<span class="built_in">log</span><span class="params">(i)</span>;<span class="comment">//10</span></span><br><span class="line">console.<span class="built_in">log</span><span class="params">(window.i)</span>;<span class="comment">//10</span></span><br></pre></td></tr></table></figure></p>
+<p>直观的看,我们觉得for循环是一个代码块,应该属于一个块级作用域.但是这里不仅能正常的输出0～9,居然还可以在for循环的外部输出10.同时我们发现,虽然我们是在for循环上定义的i,但是似乎i是挂在了全局的window对象上(如果是nodejs的执行环境,就会挂到global对象上)<br>所以说在JavaScript中for循环之类的block并不会起到一个块级作用域的效果,在for循环之类的代码块中定义变量,跟在当前所在的作用域中直接定义变量没什么区别.<br>但是我们可以通过函数隔离出作用域出来:<br><figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">function</span><span class="list">()</span><span class="collection">&#123;</span><br><span class="line">	for<span class="list">(<span class="keyword"><span class="built_in">var</span></span> i = <span class="number">0</span><span class="comment">;i &lt; 10; i++)&#123;</span></span><br><span class="line">		console.log<span class="list">(<span class="keyword">i</span>)</span><span class="comment">;</span></span><br><span class="line">	&#125;</span><br><span class="line">	console.log<span class="list">(<span class="keyword">i</span>)</span><span class="comment">;</span></span><br><span class="line">&#125;)</span><span class="list">()</span></span><br><span class="line">console.log<span class="list">(<span class="keyword">i</span>)</span><span class="comment">;////i is not defined</span></span></span></span><br></pre></td></tr></table></figure></p>
+<p>同时如果执行<code>console.log(window.i);</code>会得到undefined的结果.这里我们用一个立即执行函数来形成一个作用域.起到类似于代码块的作用,出了这个函数作用域,就不再可以访问i这个变量.但是在函数作用域内可以任意访问i.<br>回到之前的问题,同时结合JavaScript中只有全局作用域和块级作用域再来理解一下.我们在for循环中,定义的i肯定是定义在当前作用域的,也就是window作用域.在循环体中,我们给a[i]赋值了一个函数,当我们执行这个函数时,情况如下:<br><img src="http://7xl7lt.com1.z0.glb.clouddn.com/%E5%9D%97%E7%BA%A7%E4%BD%9C%E7%94%A8%E5%9F%9F1.png" alt="块级作用域1.png"><br>function中不存在i,于是顺着作用域链去window作用域找得到了i.我们这个时候输出的i就是这个i.由于i在跳出循环最后一次的+1,使得i变成了10,所以输出结果一直都是10.但是我们真正需要的i不是最后的i,而是中间过程中的i.如果要解决这个问题,我们需要抛开i这个变量(因为最后的i不可避免的变成10).我们要让a[0]对应的function引用0这个值,让a[1]对应的function引用1这个值.如下图所示:<br><img src="http://7xl7lt.com1.z0.glb.clouddn.com/%E5%9D%97%E7%BA%A7%E4%BD%9C%E7%94%A8%E5%9F%9F2.png" alt="块级作用域2.png"><br>在回到我们之前的代码.<br><img src="http://7xl7lt.com1.z0.glb.clouddn.com/%E5%9D%97%E7%BA%A7%E4%BD%9C%E7%94%A8%E5%9F%9F3.png" alt="块级作用域3.png"><br>我们在图中的箭头出是可以正确的访问i(0~9).这里由于for循环并没有自己形成一个块级作用域.导致了我们顺着作用域链去访问i的时候就访问到了for循环定义的i.<br>这里我们用一个立即执行函数包裹我们的代码,就可以形成一个作用域,同时我们为其传值i.如下:<br><figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">var a = []</span><br><span class="line">var i = new Number<span class="params">(<span class="number">0</span>)</span>;</span><br><span class="line">console.<span class="built_in">log</span><span class="params">(i.id<span class="params">()</span>)</span>;<span class="comment">// 0</span></span><br><span class="line"><span class="keyword">for</span><span class="params">(; i &lt; <span class="number">10</span>; i = new Number<span class="params">(i+<span class="number">1</span>)</span>,i.id<span class="params">()</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="params">(function<span class="params">(i)</span>&#123;</span><br><span class="line">		a[i] = function<span class="params">()</span>&#123;</span><br><span class="line">			console.log<span class="params">(i.id<span class="params">()</span>)</span>;</span><br><span class="line">			console.log<span class="params">(i.toString<span class="params">()</span>)</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;)</span><span class="params">(i)</span>;</span><br><span class="line">a[<span class="number">6</span>]<span class="params">()</span>; <span class="comment">// 6 6</span></span><br><span class="line">a[<span class="number">7</span>]<span class="params">()</span>; <span class="comment">// 7 7</span></span><br><span class="line">a[<span class="number">8</span>]<span class="params">()</span>; <span class="comment">// 8 8</span></span><br><span class="line">a[<span class="number">9</span>]<span class="params">()</span>; <span class="comment">// 9 9</span></span><br><span class="line">console.<span class="built_in">log</span><span class="params">(i.id<span class="params">()</span>)</span>;<span class="comment">// 10</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>由于这个立即执行函数引用着数值0~9,当我们执行函数a[i]的时候,会顺着作用域链先找到这个立即执行函数的作用域.立即执行函数维护着0~9的数值引用,我们就可以在函数a[i]中正确的输出i的值.通过执行结果,我们可以看到,不光执行结果是对的,同时我们引用的值的相对内存地址也都是对的.接着我们把原来为了测试显式声明的Number对象改回去.如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = [];</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++)&#123;</span><br><span class="line">	(<span class="function"><span class="keyword">function</span>(<span class="params">i</span>)</span>&#123;</span><br><span class="line">		a[i] = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">			<span class="built_in">console</span>.log(i);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;)(i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>最后我们再来看看ES6的语法中推荐用let代替var以及经过bable编译生成ES5的代码是如何的:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//ES6代码</span></span><br><span class="line"><span class="keyword">var</span> a = []</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++)&#123;</span><br><span class="line">	a[i] = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(i);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">a[<span class="number">6</span>]();</span><br><span class="line"></span><br><span class="line"><span class="comment">//babel编译生成的ES5代码</span></span><br><span class="line"><span class="pi">"use strict"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = [];</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> _loop = <span class="function"><span class="keyword">function</span> <span class="title">_loop</span>(<span class="params">i</span>) </span>&#123;</span><br><span class="line">	a[i] = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(i);</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">	_loop(i);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">a[<span class="number">6</span>]();</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://7xl7lt.com1.z0.glb.clouddn.com/%E5%9D%97%E7%BA%A7%E4%BD%9C%E7%94%A8%E5%9F%9F4.png" alt="块级作用域4.png"><br>看~我们的解决方法和ES6的解决方法是不是很像.这里我们的立即执行函数相当于生成的ES5代码中的_loop函数以及_loop(i)的执行.</p>
+
+            
+                
+
+            
+        </div>
+    </div>
+    <div class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/devcat/tags/JavaScript/">JavaScript</a> <a class="tag tag--primary tag--small t-link" href="/devcat/tags/作用域/">作用域</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/05/03/你真的懂JSON-stringify与JSON-parse么/" data-tooltip="你真的懂JSON.stringify与JSON.parse么">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/05/05/JavaScript没有块级作用域/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/05/05/JavaScript没有块级作用域/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/05/05/JavaScript没有块级作用域/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action" style="display:none">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        <!-- 多说评论框 start -->
+<div class="ds-thread" data-thread-key="post-JavaScript没有块级作用域" data-title="JavaScript没有块级作用域" data-url="http://warjiang.github.io/devcat/2016/05/05/JavaScript没有块级作用域/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"devcat"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2016 warjiang. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/05/03/你真的懂JSON-stringify与JSON-parse么/" data-tooltip="你真的懂JSON.stringify与JSON.parse么">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/05/05/JavaScript没有块级作用域/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/05/05/JavaScript没有块级作用域/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/05/05/JavaScript没有块级作用域/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action" style="display:none">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/05/05/JavaScript没有块级作用域/">
+                <i class="fa fa-google-plus"></i><span class="">Share on Google Plus</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/05/05/JavaScript没有块级作用域/">
+                <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/05/05/JavaScript没有块级作用域/">
+                <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        <div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/devcat/assets/images/avatar.jpg"/>
+        
+            <h4 id="about-card-name">warjiang</h4>
+        
+            <h5 id="about-card-bio"><h2 id="一只有狂想症的fullstack学生汪">一只有狂想症的fullstack学生汪</h2></h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <h2 id="学生汪">学生汪</h2>
+            </h5>
+        
+        
+    </div>
+</div>
+
+        <div id="cover" style="background-image:url('http://7xl7lt.com1.z0.glb.clouddn.com/v1.3.0-cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/devcat/assets/js/script.min.js" type="text/javascript"></script>
+<!--SCRIPTS END-->
+
+
+
+</html>
