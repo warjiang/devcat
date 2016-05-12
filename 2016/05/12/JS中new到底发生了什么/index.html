@@ -1,0 +1,460 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="devCat">
+    <title>JS中new到底发生了什么 - devCat</title>
+    <meta name="author" content="warjiang">
+    
+        <link rel="icon" href="/devcat/assets/images/hexoFavico.ico">
+    
+    
+    <meta name="description" content="outline
+prototype与__proto__
+function与object
+new到底发生了什么
+
+prototype与__proto__首先说下在JS中比较容易让人困惑的prototype和__proto____proto__就是JavaScript中所谓的原型.
+
+一个对象的__proto__ 属性和自己的内部属性[[Prototype]]指向一个相同的值 (通常称这个值为原型),">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="JS中new到底发生了什么">
+<meta property="og:url" content="http://warjiang.github.io/devcat/2016/05/12/JS中new到底发生了什么/index.html">
+<meta property="og:site_name" content="devCat">
+<meta property="og:description" content="outline
+prototype与__proto__
+function与object
+new到底发生了什么
+
+prototype与__proto__首先说下在JS中比较容易让人困惑的prototype和__proto____proto__就是JavaScript中所谓的原型.
+
+一个对象的__proto__ 属性和自己的内部属性[[Prototype]]指向一个相同的值 (通常称这个值为原型),">
+<meta property="og:image" content="http://7xl7lt.com1.z0.glb.clouddn.com/__proto__%E4%B8%8Eprototype.png">
+<meta property="og:image" content="http://7xl7lt.com1.z0.glb.clouddn.com/new_a.jpg">
+<meta property="og:updated_time" content="2016-05-12T15:20:34.397Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JS中new到底发生了什么">
+<meta name="twitter:description" content="outline
+prototype与__proto__
+function与object
+new到底发生了什么
+
+prototype与__proto__首先说下在JS中比较容易让人困惑的prototype和__proto____proto__就是JavaScript中所谓的原型.
+
+一个对象的__proto__ 属性和自己的内部属性[[Prototype]]指向一个相同的值 (通常称这个值为原型),">
+    
+    
+    
+        <meta property="og:image" content="/devcat/assets/images/avatar.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/devcat/assets/css/style.min.css" type="text/css">
+    <!--STYLES END-->
+    
+    <meta name="baidu-site-verification" content="K5SGaxveG1" />
+
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?57b6d23a689855c11566203b2da0f5a7";
+        var s = document.getElementsByTagName("script")[0]; 
+        s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+</head>
+
+    <body>
+        <div id="blog">
+            <header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/devcat/ ">devCat</a>
+    </h1>
+    
+        <a class="header-right-picture" href="/#about">
+            <img class="header-picture" src="/devcat/assets/images/avatar.jpg"/>
+        </a>
+    
+</header>
+            <nav id="sidebar" data-behavior="4">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                
+                    <img class="sidebar-profile-picture" src="/devcat/assets/images/avatar.jpg"/>
+                
+            </a>
+            <span class="sidebar-profile-name">warjiang</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">主页</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/all-categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分类</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">存档</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="/devcat/#search"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                    <span class="sidebar-button-desc">搜索</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/#about"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                    <span class="sidebar-button-desc">关于</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            JS中new到底发生了什么
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Thu May 12 2016 21:19:03 GMT+0800">
+	
+		    5月 12, 2016
+    	
+    </time>
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <h1 id="outline">outline</h1><ol>
+<li><code>prototype</code>与<code>__proto__</code></li>
+<li><code>function</code>与<code>object</code></li>
+<li><code>new</code>到底发生了什么</li>
+</ol>
+<h1 id="prototype与__proto__"><code>prototype</code>与<code>__proto__</code></h1><p>首先说下在JS中比较容易让人困惑的<code>prototype</code>和<code>__proto__</code><br><code>__proto__</code>就是JavaScript中所谓的原型.</p>
+<blockquote>
+<p>一个对象的<code>__proto__</code> 属性和自己的内部属性[[Prototype]]指向一个相同的值 (通常称这个值为原型),原型的值可以是一个对象值也可以是null(比如说<code>Object.prototype.__proto__</code>的值就是null).该属性可能会引发一些错误,因为用户可能会不知道该属性的特殊性,而给它赋值,从而改变了这个对象的原型. 如果需要访问一个对象的原型,应该使用方法Object.getPrototypeOf.</p>
+</blockquote>
+<p>firefox、chrome等浏览器把对象内部属性[[Prototype]]用<code>__proto__</code>的形式暴露了出来.(老版本的IE并不支持<code>__proto__</code>,IE11中已经加上了<code>__proto__</code>属性)</p>
+<p><code>prototype</code>是function中特有的.什么意思呢?举个例子:<br><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span></span> A(<span class="keyword">name</span>)&#123;</span><br><span class="line">	this.<span class="keyword">name</span> = <span class="keyword">name</span>;</span><br><span class="line">&#125;</span><br><span class="line">console.dir(A);</span><br></pre></td></tr></table></figure></p>
+<p>我们得到如下结果:<br><img src="http://7xl7lt.com1.z0.glb.clouddn.com/__proto__%E4%B8%8Eprototype.png" alt="__proto__与prototype.png"><br>首先看A是一个函数,自然A的原型链就应该指向一个函数对象.<br>其次我们还看到当我们定义了function A的时候,A上会有一个<code>prototype</code>的属性.这个属性是我们定义function的时候就默认带上的.A的<code>prototype</code>指向一个对象,这个对象的包含一个<code>constructor</code>属性以及一个<code>__proto__</code>(<code>__proto__</code>指向Object表示这是一个对象).默认的constructor属性指向function A.<br>看起来有点混乱是不？这边只要记住一点:<code>__proto__</code> <strong> 是原型,prototype是函数默认的一个属性,它指向一个对象,这个对象的constructor属性指向函数本身.</strong></p>
+<h1 id="function与object">function与object</h1><p>首先看一个例子<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">A</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.name = name;</span><br><span class="line">	<span class="keyword">this</span>.getName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> b = <span class="string">'test'</span>;</span><br><span class="line">	<span class="built_in">console</span>.log(b);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> A(<span class="string">'testa'</span>);</span><br><span class="line">A(<span class="string">'TESTA'</span>);</span><br></pre></td></tr></table></figure></p>
+<p>当执行<code>var a = new A(&#39;testa&#39;);</code>得到的a是这样的:<br><img src="http://7xl7lt.com1.z0.glb.clouddn.com/new_a.jpg" alt="new_a.jpg"><br>而我们执行<code>A(&#39;TESTA&#39;);</code>相当于:<br><figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">//</span><span class="built_in">window</span>.name = <span class="string">'TESTA'</span>(由于非strict模式下,<span class="keyword">this</span>默认指向<span class="built_in">window</span>)</span><br><span class="line"><span class="regexp">//</span><span class="built_in">window</span>.getName = function()&#123;<span class="built_in">console</span>.log(<span class="keyword">this</span>.name);&#125;</span><br></pre></td></tr></table></figure></p>
+<p>我们的函数A既可以直接执行,又可以new一下返回一个对象.function和object到底是什么关系,new的时候发生了什么?</p>
+<h1 id="new到底发生了什么">new到底发生了什么</h1><p>还是我们上面的问题,当我们执行<code>var a = new A(&#39;testa&#39;)</code>到底发生了什么.MDN上是这么说的<br>对于<code>var o = new Foo();</code><br><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//JavaScript 实际上执行的是：</span><br><span class="line">var o = new Object();</span><br><span class="line">o.<span class="string">[[Prototype]]</span> = Foo.prototype;</span><br><span class="line">Foo.call(o);</span><br></pre></td></tr></table></figure></p>
+<p>这样大概就明白了,当我们执行<code>new A(&#39;testa&#39;)</code>的时候<br>JS会这样做</p>
+<ol>
+<li>var o = new Object();</li>
+<li>o.<code>__proto__</code> = A.prototype;//这里还记得之那个function里面的默认的属性么?</li>
+<li>A.call(o)//由于这里this是指向o,可以把什么this.name/getName绑定到o上.</li>
+<li>把这个o返回给a;//完成var a = new A()的过程.</li>
+</ol>
+<p>这里注意下,上面所谓的第4步其实是一个简化的说法.真正的过程是在第3步之后,如果发现A返回是一个Object类型(非primitive类型,即非string,boolean,number,null,undefined类型就是Object类型),则直接返回A的返回值,否则把第1步new的Object返回出去.(默认情况下,JS中函数默认返回值是undefined)<br>举个例子</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">A</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.name = name;</span><br><span class="line">	<span class="keyword">this</span>.getName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> b = <span class="string">'test'</span>;</span><br><span class="line">	<span class="built_in">console</span>.log(b);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> A(<span class="string">'testa'</span>);<span class="comment">//&#123;&#125;</span></span><br></pre></td></tr></table></figure>
+<p>这里我们把A函数的返回值设置为一个Object类型,则这个时候执行new A返回的就是A函数的返回值{}.如果我们把A的返回值设置为return [];那么我们在new A的时候也相应的得到一个空数组.</p>
+<p>用<a href="http://stackoverflow.com/questions/12272239/javascript-function-returning-an-object" target="_blank" rel="external">stackoverflow</a>上一个人的回答来总结下就是:</p>
+<blockquote>
+<p>In JavaScript, most functions are both callable and instantiable: they have both a [[Call]] and [[Construct]] internal methods.</p>
+</blockquote>
+<p>在JS中,绝大多数的函数都是既可以调用也可以实例化的.我们既可以直接执行函数得到函数的返回值.也可以通过new操作符得到一个对象.</p>
+
+            
+                
+
+            
+        </div>
+    </div>
+    <div class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/devcat/tags/function/">function</a> <a class="tag tag--primary tag--small t-link" href="/devcat/tags/javascript/">javascript</a> <a class="tag tag--primary tag--small t-link" href="/devcat/tags/new/">new</a> <a class="tag tag--primary tag--small t-link" href="/devcat/tags/object/">object</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/05/05/JavaScript没有块级作用域/" data-tooltip="JavaScript没有块级作用域">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/05/12/JS中new到底发生了什么/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/05/12/JS中new到底发生了什么/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/05/12/JS中new到底发生了什么/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action" style="display:none">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        <!-- 多说评论框 start -->
+<div class="ds-thread" data-thread-key="post-JS中new到底发生了什么" data-title="JS中new到底发生了什么" data-url="http://warjiang.github.io/devcat/2016/05/12/JS中new到底发生了什么/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"devcat"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2016 warjiang. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/05/05/JavaScript没有块级作用域/" data-tooltip="JavaScript没有块级作用域">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/05/12/JS中new到底发生了什么/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/05/12/JS中new到底发生了什么/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/05/12/JS中new到底发生了什么/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action" style="display:none">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/05/12/JS中new到底发生了什么/">
+                <i class="fa fa-google-plus"></i><span class="">Share on Google Plus</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/05/12/JS中new到底发生了什么/">
+                <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/05/12/JS中new到底发生了什么/">
+                <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        <div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/devcat/assets/images/avatar.jpg"/>
+        
+            <h4 id="about-card-name">warjiang</h4>
+        
+            <h5 id="about-card-bio"><h2 id="一只有狂想症的fullstack学生汪">一只有狂想症的fullstack学生汪</h2></h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <h2 id="学生汪">学生汪</h2>
+            </h5>
+        
+        
+    </div>
+</div>
+
+        <div id="cover" style="background-image:url('http://7xl7lt.com1.z0.glb.clouddn.com/v1.3.0-cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/devcat/assets/js/script.min.js" type="text/javascript"></script>
+<!--SCRIPTS END-->
+
+
+
+</html>
