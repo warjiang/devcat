@@ -1,0 +1,474 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="devCat">
+    <title>JavaScript变量提升 - devCat</title>
+    <meta name="author" content="warjiang">
+    
+        <link rel="icon" href="/devcat/assets/images/hexoFavico.ico">
+    
+    
+    <meta name="description" content="outline
+引子
+Scoping in JavaScript
+Hoisting in JavaScript
+ES6
+
+引子
+原文参考https://segmentfault.com/a/1190000003114255
+
+最近在阮一峰的ES6,里面在讲let的时候提到了变量提升,看了下,感觉可以解释清楚不少以前没有理解的东西.先看个例子12345678var foo = 1;function">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="JavaScript变量提升">
+<meta property="og:url" content="http://warjiang.github.io/devcat/2016/05/21/JavaScript变量提升/index.html">
+<meta property="og:site_name" content="devCat">
+<meta property="og:description" content="outline
+引子
+Scoping in JavaScript
+Hoisting in JavaScript
+ES6
+
+引子
+原文参考https://segmentfault.com/a/1190000003114255
+
+最近在阮一峰的ES6,里面在讲let的时候提到了变量提升,看了下,感觉可以解释清楚不少以前没有理解的东西.先看个例子12345678var foo = 1;function">
+<meta property="og:updated_time" content="2016-05-21T16:13:46.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript变量提升">
+<meta name="twitter:description" content="outline
+引子
+Scoping in JavaScript
+Hoisting in JavaScript
+ES6
+
+引子
+原文参考https://segmentfault.com/a/1190000003114255
+
+最近在阮一峰的ES6,里面在讲let的时候提到了变量提升,看了下,感觉可以解释清楚不少以前没有理解的东西.先看个例子12345678var foo = 1;function">
+    
+    
+    
+        <meta property="og:image" content="/devcat/assets/images/avatar.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/devcat/assets/css/style.min.css" type="text/css">
+    <!--STYLES END-->
+    
+    <meta name="baidu-site-verification" content="K5SGaxveG1" />
+
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?57b6d23a689855c11566203b2da0f5a7";
+        var s = document.getElementsByTagName("script")[0]; 
+        s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+</head>
+
+    <body>
+        <div id="blog">
+            <header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/devcat/ ">devCat</a>
+    </h1>
+    
+        <a class="header-right-picture" href="/#about">
+            <img class="header-picture" src="/devcat/assets/images/avatar.jpg"/>
+        </a>
+    
+</header>
+            <nav id="sidebar" data-behavior="4">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                
+                    <img class="sidebar-profile-picture" src="/devcat/assets/images/avatar.jpg"/>
+                
+            </a>
+            <span class="sidebar-profile-name">warjiang</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">主页</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/all-categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分类</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">存档</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="/devcat/#search"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                    <span class="sidebar-button-desc">搜索</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/#about"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                    <span class="sidebar-button-desc">关于</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            JavaScript变量提升
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Sat May 21 2016 20:33:41 GMT+0800">
+	
+		    5月 21, 2016
+    	
+    </time>
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <h1 id="outline">outline</h1><ol>
+<li>引子</li>
+<li>Scoping in JavaScript</li>
+<li>Hoisting in JavaScript</li>
+<li>ES6</li>
+</ol>
+<h1 id="引子">引子</h1><blockquote>
+<p>原文参考<a href="https://segmentfault.com/a/1190000003114255" target="_blank" rel="external">https://segmentfault.com/a/1190000003114255</a></p>
+</blockquote>
+<p>最近在阮一峰的ES6,里面在讲let的时候提到了<strong>变量提升</strong>,看了下,感觉可以解释清楚不少以前没有理解的东西.<br>先看个例子<br><figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var foo = <span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span><span class="params">()</span> &#123;</span></span><br><span class="line">    <span class="keyword">if</span> <span class="params">(!foo)</span> &#123;</span><br><span class="line">        var foo = <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    console.<span class="built_in">log</span><span class="params">(foo)</span>;</span><br><span class="line">&#125;</span><br><span class="line">bar<span class="params">()</span>;</span><br></pre></td></tr></table></figure></p>
+<p>有人认为这里!foo是false,那么赋值语句应该不执行.那么输出结果应该是1,however,结果是10！<br>再来一个例子<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">b</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    a = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line">b();</span><br><span class="line"><span class="built_in">console</span>.log(a);</span><br></pre></td></tr></table></figure></p>
+<p>看到这个例子,大家会认为,哎,这里里面的a = 10会覆盖外面的a = 1,觉得答案是10.但是~,答案是1！！<br>估计这两个例子,可能很多人都会觉得不理解,不理解就对了,往下看!</p>
+<h1 id="Scoping_in_JavaScript">Scoping in JavaScript</h1><p>关于JavaScipt中的作用域问题,可以参考我的这篇文章<a href="http://warjiang.github.io/devcat/2016/05/05/JavaScript%E6%B2%A1%E6%9C%89%E5%9D%97%E7%BA%A7%E4%BD%9C%E7%94%A8%E5%9F%9F/">JavaScript没有块级作用域</a>.这里我就提下,在JavaScript中只有两种作用域:全局作用域与function作用域.<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> x = <span class="number">1</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, x); <span class="comment">// 1</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">int</span> x = <span class="number">2</span>;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, x); <span class="comment">// 2</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, x); <span class="comment">// 1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>类似于上面的C代码中的依靠<code>{}</code>来形成作用域在JavaScript中是不成立的.来看一段跟上面功能类似的JavaScript代码<br><figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var x = <span class="number">1</span>;</span><br><span class="line">console.<span class="built_in">log</span><span class="params">(x)</span>;<span class="comment">//1</span></span><br><span class="line"><span class="keyword">if</span><span class="params">(<span class="number">1</span>)</span>&#123;</span><br><span class="line">	var x = <span class="number">2</span>;</span><br><span class="line">	console.<span class="built_in">log</span><span class="params">(x)</span>;<span class="comment">//2</span></span><br><span class="line">&#125;</span><br><span class="line">console.<span class="built_in">log</span><span class="params">(x)</span>;<span class="comment">//2</span></span><br></pre></td></tr></table></figure></p>
+<p>类似的代码却得不到一样的结果的根源在于在上面的JS代码中,<code>{}</code>中<code>var x = 2</code>和<code>{}</code>外面的<code>var x = 1;</code>其实是同一个x,<code>{}</code>中修改<code>{}</code>里面的x影响了<code>{}</code>外面的x的.<br>正如上面所说的JS中只有global和function两种作用域,那么这里,我们也可以通过function作用域来隔离<code>{}</code>内外两个x<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">1</span>;</span><br><span class="line"><span class="built_in">console</span>.log(x);<span class="comment">//1</span></span><br><span class="line"><span class="keyword">if</span>(<span class="number">1</span>)&#123;</span><br><span class="line">	(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="keyword">var</span> x = <span class="number">2</span>;</span><br><span class="line">		<span class="built_in">console</span>.log(x);<span class="comment">//2</span></span><br><span class="line">	&#125;)()</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(x);<span class="comment">//1</span></span><br></pre></td></tr></table></figure></p>
+<p>这里我们用一个function作用域来隔离内外的x,避免内部x赋值对外部的x的影响.</p>
+<h1 id="Hoisting_in_JavaScript">Hoisting in JavaScript</h1><p>在Javascript中,变量进入一个作用域可以通过下面四种方式:</p>
+<ol>
+<li>语言自定义变量:所有的函数作用域中都存在this和arguments这两个默认变量</li>
+<li>函数形参:函数的形参存在函数作用域中</li>
+<li>函数声明:<code>function foo() {}</code></li>
+<li>变量定义:<code>var foo</code></li>
+</ol>
+<p>JS代码真正执行过程中,<strong>在代码运行前，函数声明和变量定义通常会被解释器移动到其所在作用域的最顶部.</strong><br>这就是所谓的变量提升,对于<code>var a = 1</code>这句话而言,我们可以拆分成两部分来看<strong>变量定义</strong>与<strong>变量赋值</strong>.不管<code>var a = 1</code>在作用域的什么地方,变量定义会被<strong>提升</strong>到到当前作用域的顶部来执行.<br>举个例子：<br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    bar();</span><br><span class="line">    <span class="keyword">var</span> x = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>对于这段代码JS会这样认为：<br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">var</span> x;</span><br><span class="line">	bar();</span><br><span class="line">	x = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>对于<code>var x = 1</code>,<code>var x</code>被提到<code>bar()</code>之前的过程就是<strong>变量提升(hoist)</strong>,这里要主要提升不仅包含<code>var a</code>这种变量,还包括<code>function a(){}</code>;</p>
+<p>对于JS中函数定义,我们可以采取<code>function foo(){}</code>或者采取<code>var foo = function(){}</code>(这里我们不谈var foo = new Function()这么烦的方式).这两种方式有什么区别?<br><figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span><span class="params">()</span> &#123;</span></span><br><span class="line">    foo<span class="params">()</span>; <span class="comment">// TypeError "foo is not a function"</span></span><br><span class="line">    bar<span class="params">()</span>; <span class="comment">// "this will run!"</span></span><br><span class="line">    var foo = <span class="function"><span class="keyword">function</span> <span class="params">()</span> &#123;</span> <span class="comment">// function expression assigned to local variable 'foo'</span></span><br><span class="line">        console.<span class="built_in">log</span><span class="params">(<span class="string">"this won't run!"</span>)</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">bar</span><span class="params">()</span> &#123;</span> <span class="comment">// function declaration, given the name 'bar'</span></span><br><span class="line">        console.<span class="built_in">log</span><span class="params">(<span class="string">"this will run!"</span>)</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">test<span class="params">()</span>;</span><br></pre></td></tr></table></figure></p>
+<p>这里例子等价于<br><figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span><span class="params">()</span> &#123;</span></span><br><span class="line">	<span class="comment">//hoist variable foo and function bar</span></span><br><span class="line">	var foo;	<span class="comment">//undefined</span></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">bar</span><span class="params">()</span> &#123;</span> </span><br><span class="line">		console.<span class="built_in">log</span><span class="params">(<span class="string">"this will run!"</span>)</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	foo<span class="params">()</span>; </span><br><span class="line">	bar<span class="params">()</span>; </span><br><span class="line">	foo = <span class="function"><span class="keyword">function</span> <span class="params">()</span> &#123;</span></span><br><span class="line">		console.<span class="built_in">log</span><span class="params">(<span class="string">"this won't run!"</span>)</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">test<span class="params">()</span>;</span><br></pre></td></tr></table></figure></p>
+<p>从这个等价函数中,我们可以很轻松的看出函数bar被提升,所以后面可以正常的执行.但是<code>var foo = function(){}</code>的方式提升的是foo这个变量,并且初始值为undefined,所以后面执行的时候就相当于执行foo()的时候,就会出现 foo is not a function().<br><code>function foo(){}</code>提升的是整个函数定义.<br><code>var foo = function(){}</code>提升的是foo变量的定义.</p>
+<p>结合JS作用域以及JS变量提升,回头来看之前引子中的例子<br><figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var foo = <span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span><span class="params">()</span> &#123;</span></span><br><span class="line">    <span class="keyword">if</span> <span class="params">(!foo)</span> &#123;</span><br><span class="line">        var foo = <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    console.<span class="built_in">log</span><span class="params">(foo)</span>;</span><br><span class="line">&#125;</span><br><span class="line">bar<span class="params">()</span>;</span><br></pre></td></tr></table></figure></p>
+<p>这里例子等价于<br><figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var foo;</span><br><span class="line">foo = <span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span><span class="params">()</span>&#123;</span></span><br><span class="line">	var foo;<span class="comment">//undefined</span></span><br><span class="line">	<span class="keyword">if</span><span class="params">(!foo)</span>&#123;</span><br><span class="line">		foo = <span class="number">10</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	console.<span class="built_in">log</span><span class="params">(foo)</span>;</span><br><span class="line">&#125;</span><br><span class="line">bar<span class="params">()</span>;</span><br></pre></td></tr></table></figure></p>
+<p>在函数bar外面foo为1,但在函数bar内,定义一个新的foo,这个时候foo是undefined,<code>！foo</code>就变成了true,执行赋值操作,foo=10;这个时候输出的foo是函数bar内刚定义的foo,输出的值为10;<br>另外一个例子:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">b</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    a = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line">b();</span><br><span class="line"><span class="built_in">console</span>.log(a);</span><br></pre></td></tr></table></figure></p>
+<p>等价于<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a;</span><br><span class="line">a = <span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">b</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line">	a = <span class="number">10</span>;</span><br><span class="line">	<span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line">b();</span><br><span class="line"><span class="built_in">console</span>.log(a);</span><br></pre></td></tr></table></figure></p>
+<p>这里函数b的外部定义了a,值为1.函数b内,声明函数a的过程被提升(hoist),之后a被赋值为10;由于是函数b中新定义了a,所以对函数b外部的a并不造成影响,最后得console.log(a)输出的值还是1;</p>
+<h1 id="ES6">ES6</h1><p>在ES6中,通过语法糖可以帮助开发者避免一些作用域以及变量提升带来的问题.比如let的使用.这里举两个例子,一个关于变量的,一个关于函数的</p>
+<h3 id="ES6中关于变量的例子：">ES6中关于变量的例子：</h3><p>用let替换之前例子中的var<br><figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">let</span> foo = <span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span><span class="params">()</span> &#123;</span></span><br><span class="line">    <span class="keyword">if</span> <span class="params">(!foo)</span> &#123;</span><br><span class="line">        <span class="built_in">let</span> foo = <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    console.<span class="built_in">log</span><span class="params">(foo)</span>;</span><br><span class="line">&#125;</span><br><span class="line">bar<span class="params">()</span>;</span><br></pre></td></tr></table></figure></p>
+<p>babel编译后生成:<br><figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var foo = <span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span><span class="params">()</span> &#123;</span></span><br><span class="line">    <span class="keyword">if</span> <span class="params">(!foo)</span> &#123;</span><br><span class="line">        var _foo = <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    console.<span class="built_in">log</span><span class="params">(foo)</span>;</span><br><span class="line">&#125;</span><br><span class="line">bar<span class="params">()</span>;</span><br></pre></td></tr></table></figure></p>
+<p>执行结果是1;</p>
+<h3 id="ES6中关于函数的例子：">ES6中关于函数的例子：</h3><figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span><span class="params">()</span> &#123;</span> console.<span class="built_in">log</span><span class="params">('I am outside!')</span>; &#125;</span><br><span class="line"><span class="keyword">if</span><span class="params">(<span class="literal">true</span>)</span> &#123;</span><br><span class="line">   <span class="comment">// 重复声明一次函数f</span></span><br><span class="line">   <span class="function"><span class="keyword">function</span> <span class="title">f</span><span class="params">()</span> &#123;</span> console.<span class="built_in">log</span><span class="params">('I am inside!')</span>; &#125;</span><br><span class="line">&#125;</span><br><span class="line">f<span class="params">()</span>;</span><br></pre></td></tr></table></figure>
+<p>ES5执行结果是<code>I am inside!</code>,两次function f(){}的声明都被提升了,赋值取最后一次赋值.所以执行结果是<code>I am inside!</code><br>ES6以babel编译为例,编译出来结果是<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="pi">'use strict'</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">   <span class="built_in">console</span>.log(<span class="string">'I am outside!'</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">   <span class="comment">// 重复声明一次函数f</span></span><br><span class="line"></span><br><span class="line">   <span class="keyword">var</span> _f = <span class="function"><span class="keyword">function</span> <span class="title">_f</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'I am inside!'</span>);</span><br><span class="line">   &#125;;</span><br><span class="line">&#125;</span><br><span class="line">f();</span><br></pre></td></tr></table></figure></p>
+<p>babel编译自动把里面同名函数f变成了_f.执行结果是<code>I am outside!</code></p>
+
+            
+                
+
+            
+        </div>
+    </div>
+    <div class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/devcat/tags/javascript/">javascript</a> <a class="tag tag--primary tag--small t-link" href="/devcat/tags/转载/">转载</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/05/12/JS中new到底发生了什么/" data-tooltip="JS中new到底发生了什么">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/05/21/JavaScript变量提升/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/05/21/JavaScript变量提升/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/05/21/JavaScript变量提升/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action" style="display:none">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        <!-- 多说评论框 start -->
+<div class="ds-thread" data-thread-key="post-JavaScript变量提升" data-title="JavaScript变量提升" data-url="http://warjiang.github.io/devcat/2016/05/21/JavaScript变量提升/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"devcat"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2016 warjiang. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/05/12/JS中new到底发生了什么/" data-tooltip="JS中new到底发生了什么">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/05/21/JavaScript变量提升/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/05/21/JavaScript变量提升/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/05/21/JavaScript变量提升/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action" style="display:none">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/05/21/JavaScript变量提升/">
+                <i class="fa fa-google-plus"></i><span class="">Share on Google Plus</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/05/21/JavaScript变量提升/">
+                <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/05/21/JavaScript变量提升/">
+                <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        <div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/devcat/assets/images/avatar.jpg"/>
+        
+            <h4 id="about-card-name">warjiang</h4>
+        
+            <h5 id="about-card-bio"><h2 id="一只有狂想症的fullstack学生汪">一只有狂想症的fullstack学生汪</h2></h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <h2 id="学生汪">学生汪</h2>
+            </h5>
+        
+        
+    </div>
+</div>
+
+        <div id="cover" style="background-image:url('http://7xl7lt.com1.z0.glb.clouddn.com/v1.3.0-cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/devcat/assets/js/script.min.js" type="text/javascript"></script>
+<!--SCRIPTS END-->
+
+
+
+</html>
