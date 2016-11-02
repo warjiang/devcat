@@ -1,0 +1,430 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="devCat">
+    <title>linux下C结构体初始化 - devCat</title>
+    <meta name="author" content="warjiang">
+    
+        <link rel="icon" href="/devcat/assets/images/hexoFavico.ico">
+    
+    
+    <meta name="description" content="引子在看Linux netlink部分的时候看到了这样的写法123456struct netlink_kernel_cfg cfg = &amp;#123;	.groups = RTNLGRP_MAX,	.input = rtnetlink_rcv,	.cb_mutext = &amp;amp;rtnl_mutex,	.flags = NL_CFG_NONROOT_RECV&amp;#125;;
+同时我由找到相关结构体定">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="linux下C结构体初始化">
+<meta property="og:url" content="http://warjiang.github.io/devcat/2016/11/02/linux下C结构体初始化/index.html">
+<meta property="og:site_name" content="devCat">
+<meta property="og:description" content="引子在看Linux netlink部分的时候看到了这样的写法123456struct netlink_kernel_cfg cfg = &amp;#123;	.groups = RTNLGRP_MAX,	.input = rtnetlink_rcv,	.cb_mutext = &amp;amp;rtnl_mutex,	.flags = NL_CFG_NONROOT_RECV&amp;#125;;
+同时我由找到相关结构体定">
+<meta property="og:updated_time" content="2016-11-02T14:10:41.988Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="linux下C结构体初始化">
+<meta name="twitter:description" content="引子在看Linux netlink部分的时候看到了这样的写法123456struct netlink_kernel_cfg cfg = &amp;#123;	.groups = RTNLGRP_MAX,	.input = rtnetlink_rcv,	.cb_mutext = &amp;amp;rtnl_mutex,	.flags = NL_CFG_NONROOT_RECV&amp;#125;;
+同时我由找到相关结构体定">
+    
+    
+    
+        <meta property="og:image" content="/devcat/assets/images/avatar.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/devcat/assets/css/style.min.css" type="text/css">
+    <!--STYLES END-->
+    
+    <meta name="baidu-site-verification" content="K5SGaxveG1" />
+
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?57b6d23a689855c11566203b2da0f5a7";
+        var s = document.getElementsByTagName("script")[0]; 
+        s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+</head>
+
+    <body>
+        <div id="blog">
+            <header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/devcat/ ">devCat</a>
+    </h1>
+    
+        <a class="header-right-picture" href="/#about">
+            <img class="header-picture" src="/devcat/assets/images/avatar.jpg"/>
+        </a>
+    
+</header>
+            <nav id="sidebar" data-behavior="4">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                
+                    <img class="sidebar-profile-picture" src="/devcat/assets/images/avatar.jpg"/>
+                
+            </a>
+            <span class="sidebar-profile-name">warjiang</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">主页</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/all-categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分类</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">存档</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="/devcat/#search"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                    <span class="sidebar-button-desc">搜索</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/#about"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                    <span class="sidebar-button-desc">关于</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            linux下C结构体初始化
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Wed Nov 02 2016 21:41:58 GMT+0800">
+	
+		    11月 02, 2016
+    	
+    </time>
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <h1 id="引子">引子</h1><p>在看Linux netlink部分的时候看到了这样的写法<br><figure class="highlight roboconf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="component">struct netlink_kernel_cfg cfg = &#123;</span><br><span class="line">	<span class="string">.groups</span> = RTNLGRP_MAX,</span><br><span class="line">	<span class="string">.input</span> = rtnetlink_rcv,</span><br><span class="line">	<span class="string">.cb_mutext</span> = &amp;rtnl_mutex,</span><br><span class="line">	<span class="string">.flags</span> = NL_CFG_NONROOT_RECV</span><br><span class="line">&#125;</span>;</span><br></pre></td></tr></table></figure></p>
+<p>同时我由找到相关结构体定义<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> netlink_kernel_cfg &#123;</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> groups;</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> flags;</span><br><span class="line">	<span class="keyword">void</span> (*input)(<span class="keyword">struct</span> sk_buff *skb);</span><br><span class="line">	<span class="keyword">struct</span> mutex *cb_mutext;</span><br><span class="line">	<span class="keyword">int</span> (*bind)(<span class="keyword">struct</span> net *net, <span class="keyword">int</span> group);</span><br><span class="line">	<span class="keyword">void</span> (*unbind)(<span class="keyword">struct</span> net *net,<span class="keyword">int</span> group);</span><br><span class="line">	<span class="keyword">bool</span> (*compare)(<span class="keyword">struct</span> net *net, <span class="keyword">struct</span> sock, *sk);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>通常情况下初始化一个结构体是按序初始化，比如<code>struct netlink_kernel_cfg cfg = { RTNLGRP_MAX,...}</code>,对于这种初始化方式，很是好奇，于是查了下，发现linux下struct结构体初始化总的来说可以分为<strong>顺序方式</strong> 和 <strong>乱序</strong> 两种方式进行初始化，而乱序方式进行初始又分为两种形式，分别为’.’和’:’的两种方式。</p>
+<h1 id="概念">概念</h1><ol>
+<li><p>顺序初始化<br> 教科书上讲C语言结构体初始化是按照顺序方式来讲的，没有涉及到乱序的方式。顺序初始化struct必须要按照成员的顺序进行，缺一不可，如果结构体比较大，很容易出现错误，而且表现形式不直观，不能一眼看出各个struct各个数据成员的值。比如这样</p>
+ <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> _data&#123;</span><br><span class="line">	<span class="keyword">int</span> a;</span><br><span class="line">	<span class="keyword">int</span> b;</span><br><span class="line">&#125;data;</span><br><span class="line">data d = &#123;<span class="number">10</span>,<span class="number">20</span>&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>乱序初始化<br>乱序初始化是C99标准新加的，比较直观的一种初始化方式。相比顺序初始化而言，乱序初始化就如其名，成员可以<strong>不按照顺序初始化</strong>，而且可以<strong>只初始化部分成员</strong>，扩展性较好。linux内核中采用这种方式初始化struct。’.’方式是C99标准，’:’方式是GCC的扩展，建议使用第一种方式。</p>
+<ul>
+<li><p>‘.’方式初始化<br>比如</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="label">typedef</span> <span class="keyword">struct </span>_<span class="preprocessor">data</span>&#123;</span><br><span class="line">	int a<span class="comment">;</span></span><br><span class="line">	int <span class="keyword">b;</span><br><span class="line"></span>&#125;<span class="preprocessor">data</span><span class="comment">;</span></span><br><span class="line"><span class="label">data</span> <span class="literal">d1</span> = &#123;</span><br><span class="line">	.<span class="keyword">b </span>= <span class="number">10</span>,</span><br><span class="line">	.a = <span class="number">20</span></span><br><span class="line">&#125;<span class="comment">;</span></span><br><span class="line">// 或者</span><br><span class="line"><span class="label">data</span> <span class="literal">d2</span> = &#123;</span><br><span class="line">	.<span class="keyword">b </span>= <span class="number">10</span>,</span><br><span class="line">&#125;<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>‘:’方式初始化<br>比如</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="label">typedef</span> <span class="keyword">struct </span>_<span class="preprocessor">data</span>&#123;</span><br><span class="line">	int a<span class="comment">;</span></span><br><span class="line">	int <span class="keyword">b;</span><br><span class="line"></span>&#125;<span class="preprocessor">data</span><span class="comment">;</span></span><br><span class="line"><span class="label">data</span> <span class="literal">d1</span> = &#123;</span><br><span class="line">	<span class="keyword">b </span>: <span class="number">10</span>,</span><br><span class="line">	a : <span class="number">20</span></span><br><span class="line">&#125;<span class="comment">;</span></span><br><span class="line">// 或者</span><br><span class="line"><span class="label">data</span> <span class="literal">d2</span> = &#123;</span><br><span class="line">	<span class="keyword">b </span>: <span class="number">10</span>,</span><br><span class="line">&#125;<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<h1 id="举个栗子">举个栗子</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1.c</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义函数指针</span></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">int</span> <span class="params">(*calculate_func)</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义结构体</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> _oper &#123;</span><br><span class="line">    <span class="keyword">int</span> a;</span><br><span class="line">    <span class="keyword">int</span> b;</span><br><span class="line">    calculate_func cal;</span><br><span class="line">&#125; oper;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 加法函数</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">add</span> <span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (a + b);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> ret = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">// 顺序方式初始化</span></span><br><span class="line">    oper oper_one = &#123;<span class="number">10</span>, <span class="number">20</span>, add&#125;;</span><br><span class="line">    <span class="comment">// 乱序方式初始化</span></span><br><span class="line">    <span class="comment">// .方式</span></span><br><span class="line">    oper oper_two = &#123;</span><br><span class="line">        .b = <span class="number">30</span>,</span><br><span class="line">        .a = <span class="number">20</span>,</span><br><span class="line">        .cal = &amp;add,</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="comment">// :方式</span></span><br><span class="line">    oper oper_three = &#123;</span><br><span class="line">        cal : &amp;add,</span><br><span class="line">        a : <span class="number">40</span>,</span><br><span class="line">        b : <span class="number">20</span>,</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    ret = oper_one.cal(oper_one.a, oper_two.b);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"oper_one calculate ret = %d\n"</span>, ret);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    ret = oper_two.cal(oper_two.a, oper_two.b);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"oper_two calculate ret = %d\n"</span>, ret);</span><br><span class="line"></span><br><span class="line">    ret = oper_three.cal(oper_three.a, oper_three.b);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"oper_three calculate ret = %d\n"</span>, ret);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 编译执行</span></span><br><span class="line"><span class="comment">// gcc 1.c</span></span><br><span class="line"><span class="comment">// ./a.out</span></span><br></pre></td></tr></table></figure>
+<p>执行结果为<br><figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">oper_one calculate <span class="keyword">ret</span> = <span class="number">40</span></span><br><span class="line">oper_two calculate <span class="keyword">ret</span> = <span class="number">50</span></span><br><span class="line">oper_three calculate <span class="keyword">ret</span> = <span class="number">60</span></span><br></pre></td></tr></table></figure></p>
+<p>对于乱序方式，无论是’.’方式还是’:’方式，都是可以初始化部分成员的。</p>
+
+            
+                
+
+            
+        </div>
+    </div>
+    <div class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/devcat/tags/c/">c</a> <a class="tag tag--primary tag--small t-link" href="/devcat/tags/linux/">linux</a> <a class="tag tag--primary tag--small t-link" href="/devcat/tags/结构体/">结构体</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/05/21/JavaScript变量提升/" data-tooltip="JavaScript变量提升">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/11/02/linux下C结构体初始化/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/11/02/linux下C结构体初始化/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/11/02/linux下C结构体初始化/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action" style="display:none">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        <!-- 多说评论框 start -->
+<div class="ds-thread" data-thread-key="post-linux下C结构体初始化" data-title="linux下C结构体初始化" data-url="http://warjiang.github.io/devcat/2016/11/02/linux下C结构体初始化/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"devcat"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2016 warjiang. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/05/21/JavaScript变量提升/" data-tooltip="JavaScript变量提升">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/11/02/linux下C结构体初始化/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/11/02/linux下C结构体初始化/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/11/02/linux下C结构体初始化/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action" style="display:none">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/11/02/linux下C结构体初始化/">
+                <i class="fa fa-google-plus"></i><span class="">Share on Google Plus</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/11/02/linux下C结构体初始化/">
+                <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/11/02/linux下C结构体初始化/">
+                <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        <div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/devcat/assets/images/avatar.jpg"/>
+        
+            <h4 id="about-card-name">warjiang</h4>
+        
+            <h5 id="about-card-bio"><h2 id="一只有狂想症的fullstack学生汪">一只有狂想症的fullstack学生汪</h2></h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <h2 id="学生汪">学生汪</h2>
+            </h5>
+        
+        
+    </div>
+</div>
+
+        <div id="cover" style="background-image:url('http://7xl7lt.com1.z0.glb.clouddn.com/v1.3.0-cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/devcat/assets/js/script.min.js" type="text/javascript"></script>
+<!--SCRIPTS END-->
+
+
+
+</html>

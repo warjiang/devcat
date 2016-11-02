@@ -6,7 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="devCat">
-    <title>All archives : 2016 - devCat</title>
+    <title>All archives : 2016/11 - devCat</title>
     <meta name="author" content="warjiang">
     
         <link rel="icon" href="/devcat/assets/images/hexoFavico.ico">
@@ -15,7 +15,7 @@
     <meta name="description" content="全端开发">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="devCat">
-<meta property="og:url" content="http://warjiang.github.io/devcat/archives/2016/page/2/index.html">
+<meta property="og:url" content="http://warjiang.github.io/devcat/archives/2016/11/index.html">
 <meta property="og:site_name" content="devCat">
 <meta property="og:description" content="全端开发">
 <meta name="twitter:card" content="summary">
@@ -171,13 +171,13 @@
                 <div class="postShorten-header">
                     <h1 class="postShorten-title" itemprop="headline">
                         
-                                <a class="link-unstyled" href="/devcat/2016/04/20/promise优化异步回调/">promise优化异步回调</a>
+                                <a class="link-unstyled" href="/devcat/2016/11/02/linux下C结构体初始化/">linux下C结构体初始化</a>
                         
                     </h1>
                     <div class="postShorten-meta">
-    <time itemprop="datePublished" content="Wed Apr 20 2016 20:09:02 GMT+0800">
+    <time itemprop="datePublished" content="Wed Nov 02 2016 21:41:58 GMT+0800">
 	
-		    4月 20, 2016
+		    11月 02, 2016
     	
     </time>
     
@@ -186,139 +186,12 @@
                 <div class="postShorten-excerpt" itemprop="articleBody">
                     
                         <p>
-                            javascript是事件驱动的.在实际开发中,浏览器端经常会用到ajax异步回调,或者动画的嵌套执行,服务端更是频繁的使用异步回调,如果每一次的异步回调都写成异步回调嵌套异步回调,就会出现回调黑洞或者回调金字塔,异步代码如下所示:12345678doAsync1(function () &#123;	doAsync2(function () &#123;		doAsync3(function (<br>
+                            引子在看Linux netlink部分的时候看到了这样的写法123456struct netlink_kernel_cfg cfg = &#123;	.groups = RTNLGRP_MAX,	.input = rtnetlink_rcv,	.cb_mutext = &amp;rtnl_mutex,	.flags = NL_CFG_NONROOT_RECV&#125;;
+同时我由找到相关结构体定<br>
                     
                     
                         
-                            <a href="/devcat/2016/04/20/promise优化异步回调/" class="postShorten-excerpt_link link ">继续阅读</a>
-                            
-                        
-                    
-                    
-                        </p>
-                    
-                </div>
-            </div>
-            
-        </article>
-    
-        
-        
-                <article class="postShorten" itemscope itemType="http://schema.org/BlogPosting">
-        
-            <div class="postShorten-wrap">
-                <div class="postShorten-header">
-                    <h1 class="postShorten-title" itemprop="headline">
-                        
-                                <a class="link-unstyled" href="/devcat/2016/04/19/动手写一个jQuery插件/">动手写一个jQuery插件</a>
-                        
-                    </h1>
-                    <div class="postShorten-meta">
-    <time itemprop="datePublished" content="Tue Apr 19 2016 20:10:01 GMT+0800">
-	
-		    4月 19, 2016
-    	
-    </time>
-    
-</div>
-                </div>
-                <div class="postShorten-excerpt" itemprop="articleBody">
-                    
-                        <p>
-                            jQuery插件类型
-通过$.extend()向jQuery添加新的方法常见用法:$.myPlugin().比较典型的有$.ajax()定义形式及调用方法如下所示:
-1234567891011121314$.extend(&#123;		myPlugin : function(a, b)&#123;			return a + b;		&#125;&#125;)//等价为$.myPlugin = f<br>
-                    
-                    
-                        
-                            <a href="/devcat/2016/04/19/动手写一个jQuery插件/" class="postShorten-excerpt_link link ">继续阅读</a>
-                            
-                        
-                    
-                    
-                        </p>
-                    
-                </div>
-            </div>
-            
-        </article>
-    
-        
-        
-                <article class="postShorten" itemscope itemType="http://schema.org/BlogPosting">
-        
-            <div class="postShorten-wrap">
-                <div class="postShorten-header">
-                    <h1 class="postShorten-title" itemprop="headline">
-                        
-                                <a class="link-unstyled" href="/devcat/2016/04/16/JSLecture/">JSLecture</a>
-                        
-                    </h1>
-                    <div class="postShorten-meta">
-    <time itemprop="datePublished" content="Sat Apr 16 2016 14:09:32 GMT+0800">
-	
-		    4月 16, 2016
-    	
-    </time>
-    
-</div>
-                </div>
-                <div class="postShorten-excerpt" itemprop="articleBody">
-                    
-                        <p>
-                            outline1 JS常见使用场景2 JS的重要概念(包含IIEF、JS原型链、this(call/apply)、闭包)最后我们结合闭包和call函数完成一个类型检测3 浏览器端的javascript(包括原生DOM操作、用模板来完成原生DOM操作、jQuery操,基于此我们完成一个简单的单页应用)4 其他
-
-JS常见使用场景  a. 使用jQuery修改DOM
-  12345&lt;script<br>
-                    
-                    
-                        
-                            <a href="/devcat/2016/04/16/JSLecture/" class="postShorten-excerpt_link link ">继续阅读</a>
-                            
-                        
-                    
-                    
-                        </p>
-                    
-                </div>
-            </div>
-            
-        </article>
-    
-        
-        
-                <article class="postShorten" itemscope itemType="http://schema.org/BlogPosting">
-        
-            <div class="postShorten-wrap">
-                <div class="postShorten-header">
-                    <h1 class="postShorten-title" itemprop="headline">
-                        
-                                <a class="link-unstyled" href="/devcat/2016/02/24/如何利用githubpages来搭建自己的blog/">如何利用githubpages来搭建自己的blog</a>
-                        
-                    </h1>
-                    <div class="postShorten-meta">
-    <time itemprop="datePublished" content="Wed Feb 24 2016 23:27:33 GMT+0800">
-	
-		    2月 24, 2016
-    	
-    </time>
-    
-</div>
-                </div>
-                <div class="postShorten-excerpt" itemprop="articleBody">
-                    
-                        <p>
-                            我的blog组成
-github pages 来托管静态的HTML页面
-hexo 用于markdown文档生成html页面，同时hexo整合git工具，可以一条命令就将生成的html页面推送到github上面去
-七牛 用于托管图片等静态资源 我的七牛推广链接
-
-github pagesgithub pages是github提供的用于托管静态页面的服务.github pages目前来说主要有两种用途
-<br>
-                    
-                    
-                        
-                            <a href="/devcat/2016/02/24/如何利用githubpages来搭建自己的blog/" class="postShorten-excerpt_link link ">继续阅读</a>
+                            <a href="/devcat/2016/11/02/linux下C结构体初始化/" class="postShorten-excerpt_link link ">继续阅读</a>
                             
                         
                     
@@ -333,17 +206,8 @@ github pagesgithub pages是github提供的用于托管静态页面的服务.gith
     <div class="pagination-bar">
     <ul class="pagination">
         
-        <li class="pagination-prev">
-            
-                <a class="btn btn--default btn--small" href="/devcat/ ">
-            
-                <i class="fa fa-angle-left text-base icon-mr"></i>
-                    <span>NEWER POSTS</span>
-            </a>
-        </li>
         
-        
-        <li class="pagination-number">page 2 of 2</li>
+        <li class="pagination-number">page 1 of 1</li>
     </ul>
 </div>
 
