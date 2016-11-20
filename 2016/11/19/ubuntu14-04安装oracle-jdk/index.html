@@ -6,24 +6,43 @@
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="devCat">
-    <title> 2&gt;&amp;1什么鬼 - devCat</title>
+    <title>ubuntu14.04安装oracle jdk - devCat</title>
     <meta name="author" content="warjiang">
     
         <link rel="icon" href="/devcat/assets/images/hexoFavico.ico">
     
     
-    <meta name="description" content="intro我们在linux下经常会碰到nohup command&amp;gt;/dev/null 2&amp;gt;&amp;amp;1 &amp;amp;这样形式的命令。首先我们把这条命令大概分解下首先就是一个nohup表示当前用户和系统的回话下的进城忽略响应HUP消息。&amp;amp;是把该命令以后台的job的形式运行。那么就剩下command&amp;gt;/dev/null 2&amp;gt;&amp;amp;1,command&amp;gt;/dev/n">
+    <meta name="description" content="这里只记录下ubuntu14.04LTS 版本安装oracle版本的jdk
+
+到oracle的官网上下载jdk
+建jvm目录，拷贝jdk
+1234cd /usr/libsudo mkdir -p jvmcp path/to/jdk8u45_linux_x64.tar.gz /usr/lib/jvmsudo tar xvf jdk8u45_linux_x64.tar.gz
+
+设置path路径
+123">
 <meta property="og:type" content="blog">
-<meta property="og:title" content=" 2>&1什么鬼">
-<meta property="og:url" content="http://warjiang.github.io/devcat/2016/11/09/2-1什么鬼/index.html">
+<meta property="og:title" content="ubuntu14.04安装oracle jdk">
+<meta property="og:url" content="http://warjiang.github.io/devcat/2016/11/19/ubuntu14-04安装oracle-jdk/index.html">
 <meta property="og:site_name" content="devCat">
-<meta property="og:description" content="intro我们在linux下经常会碰到nohup command&amp;gt;/dev/null 2&amp;gt;&amp;amp;1 &amp;amp;这样形式的命令。首先我们把这条命令大概分解下首先就是一个nohup表示当前用户和系统的回话下的进城忽略响应HUP消息。&amp;amp;是把该命令以后台的job的形式运行。那么就剩下command&amp;gt;/dev/null 2&amp;gt;&amp;amp;1,command&amp;gt;/dev/n">
-<meta property="og:image" content="http://img.spotty.com.cn/sh_res1.jpg">
-<meta property="og:image" content="http://img.spotty.com.cn/sh_res2.jpg">
-<meta property="og:updated_time" content="2016-11-09T03:03:12.319Z">
+<meta property="og:description" content="这里只记录下ubuntu14.04LTS 版本安装oracle版本的jdk
+
+到oracle的官网上下载jdk
+建jvm目录，拷贝jdk
+1234cd /usr/libsudo mkdir -p jvmcp path/to/jdk8u45_linux_x64.tar.gz /usr/lib/jvmsudo tar xvf jdk8u45_linux_x64.tar.gz
+
+设置path路径
+123">
+<meta property="og:updated_time" content="2016-11-20T08:30:48.972Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content=" 2>&1什么鬼">
-<meta name="twitter:description" content="intro我们在linux下经常会碰到nohup command&amp;gt;/dev/null 2&amp;gt;&amp;amp;1 &amp;amp;这样形式的命令。首先我们把这条命令大概分解下首先就是一个nohup表示当前用户和系统的回话下的进城忽略响应HUP消息。&amp;amp;是把该命令以后台的job的形式运行。那么就剩下command&amp;gt;/dev/null 2&amp;gt;&amp;amp;1,command&amp;gt;/dev/n">
+<meta name="twitter:title" content="ubuntu14.04安装oracle jdk">
+<meta name="twitter:description" content="这里只记录下ubuntu14.04LTS 版本安装oracle版本的jdk
+
+到oracle的官网上下载jdk
+建jvm目录，拷贝jdk
+1234cd /usr/libsudo mkdir -p jvmcp path/to/jdk8u45_linux_x64.tar.gz /usr/lib/jvmsudo tar xvf jdk8u45_linux_x64.tar.gz
+
+设置path路径
+123">
     
     
     
@@ -169,13 +188,13 @@
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title" itemprop="headline">
-             2&gt;&amp;1什么鬼
+            ubuntu14.04安装oracle jdk
         </h1>
     
     <div class="post-meta">
-    <time itemprop="datePublished" content="Wed Nov 09 2016 10:05:05 GMT+0800">
+    <time itemprop="datePublished" content="Sat Nov 19 2016 00:10:48 GMT+0800">
 	
-		    11月 09, 2016
+		    11月 19, 2016
     	
     </time>
     
@@ -184,21 +203,15 @@
     
     <div class="post-content markdown" itemprop="articleBody">
         <div class="main-content-wrap">
-            <h1 id="intro">intro</h1><p>我们在linux下经常会碰到<code>nohup command&gt;/dev/null 2&gt;&amp;1 &amp;</code>这样形式的命令。首先我们把这条命令大概分解下首先就是一个<code>nohup</code>表示当前用户和系统的回话下的进城忽略响应HUP消息。<code>&amp;</code>是把该命令以后台的job的形式运行。那么就剩下<code>command&gt;/dev/null 2&gt;&amp;1</code>,<code>command&gt;/dev/null</code>较好理解，<code>/dev/null</code>表示一个空设备，就是说吧command的执行结果重定向到空设备中，说白了就是不显示任何信息。那么<code>2&gt;&amp;1</code>又是什么含义?</p>
-<h1 id="2&gt;&amp;1">2&gt;&amp;1</h1><h2 id="几个基本符号及其含义">几个基本符号及其含义</h2><ul>
-<li>/dev/null 表示空设备文件</li>
-<li>0         表示stdin标准输入</li>
-<li>1         表示stdout标准输出</li>
-<li>2            表示stderr标准错误</li>
-</ul>
-<h2 id="从command&gt;/dev/null说起">从command&gt;/dev/null说起</h2><p>其实这条命令是一个缩写版，对于一个重定向命令，肯定是<code>a &gt; b</code>这种形式，那么<code>command &gt; /dev/null</code>难道是command充当a的角色，/dev/null充当b的角色。这样看起来比较合理，其实一条命令肯定是充当不了a，肯定是command执行产生的输出来充当a，其实就是标准输出stdout。所以<code>command &gt; /dev/null</code>相当于执行了<code>command 1 &gt; /dev/null</code>。执行command产生了标准输出stdout(用1表示)，重定向到/dev/null的设备文件中。</p>
-<h2 id="说说2&gt;&amp;1">说说2&gt;&amp;1</h2><p>通过上面<code>command &gt; /dev/null</code>等价于<code>command 1 &gt; /dev/null</code>,那么对于 <code>2&gt;&amp;1</code>也就好理解了，2就是标准错误，1是标准输出，那么这条命令不就是相当于把标准错误重定向到标准输出么。等等是&amp;1而不是1，这里&amp;是什么？这里<code>&amp;</code>相当于<strong>等效于标准输出</strong>。这里有点不好理解，先看下面。</p>
-<h2 id="command&gt;a_2&gt;a_与_command&gt;a_2&gt;&amp;1的区别">command&gt;a 2&gt;a 与 command&gt;a  2&gt;&amp;1的区别</h2><p>通过上面的分析，对于<code>command&gt;a 2&gt;&amp;1</code>这条命令，等价于<code>command 1&gt;a 2&gt;&amp;1</code>可以理解为执行command产生的标准输入重定向到文件a中，标准错误也重定向到文件a中。那么是否就说<code>command 1&gt;a 2&gt;&amp;1</code>等价于<code>command 1&gt;a 2&gt;a</code>呢。其实不是，<code>command 1&gt;a 2&gt;&amp;1</code>与<code>command 1&gt;a 2&gt;a</code>还是有区别的，区别就在于前者只打开一次文件a，后者会打开文件两次，并导致stdout被stderr覆盖。<code>&amp;1</code>的含义就可以理解为用标准输出的引用，引用的就是重定向标准输出产生打开的a。从IO效率上来讲，<code>command 1&gt;a 2&gt;&amp;1</code>比<code>command 1&gt;a 2&gt;a</code>的效率更高。</p>
-<h1 id="举个栗子">举个栗子</h1><p>来个shell<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//test.sh</span><br><span class="line"><span class="shebang">#!/bin/sh</span></span><br><span class="line">t</span><br><span class="line">date</span><br></pre></td></tr></table></figure></p>
-<p><code>chmod +x test.sh</code>为test.sh增加执行权限。这里我们弄了两条命令，其中t指令并不存在，执行会报错，会输出到stderr。date能正常执行，执行会输出当前时间，会输出到stdout。</p>
-<p>执行<code>./test.sh &gt; res1.log</code>结果为<br><img src="http://img.spotty.com.cn/sh_res1.jpg" alt="sh_res1"><br>我们发现stderr并没有被重定向到res1.log中，stderr被打印到了屏幕上。这也进一步证明了上面说的<code>./test.sh &gt; res1.log</code>等价于<code>./test.sh 1&gt;res1.log</code></p>
-<p>执行<code>./test.sh&gt;res2.log 2&gt;&amp;1</code>结果为<br><img src="http://img.spotty.com.cn/sh_res2.jpg" alt="sh_res2"><br>这次我们发现stdout和stderr都被重定向到了res2.log中了。上面我们未对stderr也就是2说明如何输出，stderr就输出到了屏幕上，这里我们不仅对stdout进行说明，重定向到res2.log中，对标准错误也进行了说明，让其重定向到res2.log的引用即res2.log的文件描述符中。</p>
-<h1 id="再思考一下">再思考一下</h1><p>为何2&gt;&amp;1要写在command&gt;1的后面，直接用2可以么。比如<code>ls 2&gt;a</code>。其实这种用法也是可以的，ls命令列出当前的目录，用stdout（1）表示，由于这个时候没有stderr(2)，这个时候执行<code>ls 2&gt;a</code>也会正常产生一个a的文件，但是a的文件中是空的，因为这时候执行ls并没有产生stderr(2)。</p>
+            <p>这里只记录下ubuntu14.04LTS 版本安装oracle版本的jdk</p>
+<ol>
+<li>到oracle的官网上<a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="external">下载jdk</a></li>
+<li><p>建jvm目录，拷贝jdk</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/lib</span><br><span class="line">sudo mkdir -<span class="tag">p</span> jvm</span><br><span class="line">cp path/to/jdk8u45_linux_x64<span class="class">.tar</span><span class="class">.gz</span> /usr/lib/jvm</span><br><span class="line">sudo tar xvf jdk8u45_linux_x64<span class="class">.tar</span><span class="class">.gz</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置path路径</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/profile</span><br><span class="line"></span><br><span class="line">// 在最后添加</span><br><span class="line">export JAVA_HOME=/usr/lib/jvm/jdk1.<span class="number">8.0_45</span></span><br><span class="line">export JRE_HOME=/usr/lib/jvm/jdk1.<span class="number">8.0_45</span>/jre</span><br><span class="line">export CLASSPATH=.:<span class="variable">$CLASSPATH</span>:<span class="variable">$JAVA</span>_HOME/lib:<span class="variable">$JRE</span>_HOME/lib</span><br><span class="line">export PATH=<span class="variable">$PATH</span>:<span class="variable">$JAVA</span>_HOME/bin:<span class="variable">$JRE</span>_HOME/bin</span><br><span class="line"></span><br><span class="line">// 设置生效</span><br><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure></li>
+</ol>
 
             
                 
@@ -211,7 +224,7 @@
             <div class="post-footer-tags">
                 <span class="text-color-light text-small">TAGGED IN</span><br/>
                 
-    <a class="tag tag--primary tag--small t-link" href="/devcat/tags/linux/">linux</a> <a class="tag tag--primary tag--small t-link" href="/devcat/tags/shell/">shell</a>
+    <a class="tag tag--primary tag--small t-link" href="/devcat/tags/tools/">tools</a> <a class="tag tag--primary tag--small t-link" href="/devcat/tags/记录/">记录</a>
 
             </div>
         
@@ -220,7 +233,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/11/19/ubuntu14-04安装oracle-jdk/"  data-tooltip="ubuntu14.04安装oracle jdk">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -228,7 +241,7 @@
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/11/02/linux下C结构体初始化/" data-tooltip="linux下C结构体初始化">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/11/09/2-1什么鬼/" data-tooltip=" 2&gt;&amp;1什么鬼">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                     <i class="fa fa-angle-right"></i>
@@ -243,17 +256,17 @@
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/11/09/2-1什么鬼/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/11/19/ubuntu14-04安装oracle-jdk/">
                 <i class="fa fa-google-plus"></i>
             </a>
         </li>
         <li class="post-action hide-xs" style="display:none">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/11/09/2-1什么鬼/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/11/19/ubuntu14-04安装oracle-jdk/">
                 <i class="fa fa-facebook-official"></i>
             </a>
         </li>
         <li class="post-action hide-xs" style="display:none">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/11/09/2-1什么鬼/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/11/19/ubuntu14-04安装oracle-jdk/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
@@ -276,7 +289,7 @@
 
 
         <!-- 多说评论框 start -->
-<div class="ds-thread" data-thread-key="post-2-1什么鬼" data-title=" 2&gt;&amp;1什么鬼" data-url="http://warjiang.github.io/devcat/2016/11/09/2-1什么鬼/"></div>
+<div class="ds-thread" data-thread-key="post-ubuntu14-04安装oracle-jdk" data-title="ubuntu14.04安装oracle jdk" data-url="http://warjiang.github.io/devcat/2016/11/19/ubuntu14-04安装oracle-jdk/"></div>
 <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">
@@ -311,7 +324,7 @@ var duoshuoQuery = {short_name:"devcat"};
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/11/19/ubuntu14-04安装oracle-jdk/"  data-tooltip="ubuntu14.04安装oracle jdk">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -319,7 +332,7 @@ var duoshuoQuery = {short_name:"devcat"};
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/11/02/linux下C结构体初始化/" data-tooltip="linux下C结构体初始化">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/11/09/2-1什么鬼/" data-tooltip=" 2&gt;&amp;1什么鬼">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                     <i class="fa fa-angle-right"></i>
@@ -334,17 +347,17 @@ var duoshuoQuery = {short_name:"devcat"};
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/11/09/2-1什么鬼/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/11/19/ubuntu14-04安装oracle-jdk/">
                 <i class="fa fa-google-plus"></i>
             </a>
         </li>
         <li class="post-action hide-xs" style="display:none">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/11/09/2-1什么鬼/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/11/19/ubuntu14-04安装oracle-jdk/">
                 <i class="fa fa-facebook-official"></i>
             </a>
         </li>
         <li class="post-action hide-xs" style="display:none">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/11/09/2-1什么鬼/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/11/19/ubuntu14-04安装oracle-jdk/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
@@ -370,17 +383,17 @@ var duoshuoQuery = {short_name:"devcat"};
                 <div id="share-options-bar" class="share-options-bar" data-behavior="4">
     <ul class="share-options">
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/11/09/2-1什么鬼/">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/11/19/ubuntu14-04安装oracle-jdk/">
                 <i class="fa fa-google-plus"></i><span class="">Share on Google Plus</span>
             </a>
         </li>
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/11/09/2-1什么鬼/">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/11/19/ubuntu14-04安装oracle-jdk/">
                 <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
             </a>
         </li>
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/11/09/2-1什么鬼/">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/11/19/ubuntu14-04安装oracle-jdk/">
                 <i class="fa fa-twitter"></i><span>Share on Twitter</span>
             </a>
         </li>
