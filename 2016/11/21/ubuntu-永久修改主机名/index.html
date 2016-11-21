@@ -26,7 +26,7 @@
 查看主机名
 打开终端，在命令提示符中就可以看到主机名，比如我的就是caffee@spotty，那么我的用户名就是caffee主机名就是spotty;
 在">
-<meta property="og:updated_time" content="2016-11-21T08:03:12.688Z">
+<meta property="og:updated_time" content="2016-11-21T08:05:14.063Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ubuntu 永久修改主机名">
 <meta name="twitter:description" content="Intro需要用到ssh免密码登录，虽然每次免密码登录可以简化为user_name@ip_address，但是还是嫌麻烦，希望可以实现ssh user_name@host_name的方式。
@@ -206,7 +206,10 @@
 <ol>
 <li>永久修改主机名<br>ubuntu的主机名存放在<code>/etc/hostname</code>中，直接<code>sudo vim /etc/hostname</code>，修改完毕保存后，重启电脑，使用上面的方法即可判断主机名是否修改成功.</li>
 </ol>
-<p>最后提一下<code>/etc/hostname</code>与<code>/etc/hosts</code>，<code>/etct/hostname</code>就存放在了当前主机名，<code>/etc/hosts</code>类似于windows下面的hosts文件，按照key-value的形式存放。</p>
+<p>最后提一下<code>/etc/hostname</code>与<code>/etc/hosts</code>，<code>/etct/hostname</code>就存放在了当前主机名，<code>/etc/hosts</code>类似于windows下面的hosts文件，按照key-value的形式存放。<br><code>/etc/hostname</code>的文件内容一般如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">controller</span><br></pre></td></tr></table></figure>
+<p><code>/etc/hosts</code>的文件内容一般如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">27.0</span><span class="number">.0</span><span class="number">.1</span>       localhost</span><br><span class="line"><span class="number">127.0</span><span class="number">.1</span><span class="number">.1</span>       spotty</span><br><span class="line"><span class="number">192.168</span><span class="number">.71</span><span class="number">.137</span>  mininet</span><br><span class="line"><span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>       abc</span><br><span class="line"><span class="preprocessor"># The following lines are desirable for IPv6 capable hosts</span></span><br><span class="line">::<span class="number">1</span>     ip6-localhost ip6-loopback</span><br><span class="line">fe00::<span class="number">0</span> ip6-localnet</span><br><span class="line">ff00::<span class="number">0</span> ip6-mcastprefix</span><br><span class="line">ff02::<span class="number">1</span> ip6-allnodes</span><br><span class="line">ff02::<span class="number">2</span> ip6-allrouters</span><br></pre></td></tr></table></figure>
 
             
                 
