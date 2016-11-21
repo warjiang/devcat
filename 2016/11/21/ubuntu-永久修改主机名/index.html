@@ -6,43 +6,34 @@
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="devCat">
-    <title>ubuntu14.04安装oracle jdk - devCat</title>
+    <title>ubuntu 永久修改主机名 - devCat</title>
     <meta name="author" content="warjiang">
     
         <link rel="icon" href="/devcat/assets/images/hexoFavico.ico">
     
     
-    <meta name="description" content="这里只记录下ubuntu14.04LTS 版本安装oracle版本的jdk
-
-到oracle的官网上下载jdk
-建jvm目录，拷贝jdk
-1234cd /usr/libsudo mkdir -p jvmcp path/to/jdk8u45_linux_x64.tar.gz /usr/lib/jvmsudo tar xvf jdk8u45_linux_x64.tar.gz
-
-设置path路径
-123">
+    <meta name="description" content="Intro需要用到ssh免密码登录，虽然每次免密码登录可以简化为user_name@ip_address，但是还是嫌麻烦，希望可以实现ssh user_name@host_name的方式。
+这里记录下ubuntu14.04LTS 修改主机名的方法
+查看主机名
+打开终端，在命令提示符中就可以看到主机名，比如我的就是caffee@spotty，那么我的用户名就是caffee主机名就是spotty;
+在">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="ubuntu14.04安装oracle jdk">
-<meta property="og:url" content="http://warjiang.github.io/devcat/2016/11/19/ubuntu14-04安装oracle-jdk/index.html">
+<meta property="og:title" content="ubuntu 永久修改主机名">
+<meta property="og:url" content="http://warjiang.github.io/devcat/2016/11/21/ubuntu-永久修改主机名/index.html">
 <meta property="og:site_name" content="devCat">
-<meta property="og:description" content="这里只记录下ubuntu14.04LTS 版本安装oracle版本的jdk
-
-到oracle的官网上下载jdk
-建jvm目录，拷贝jdk
-1234cd /usr/libsudo mkdir -p jvmcp path/to/jdk8u45_linux_x64.tar.gz /usr/lib/jvmsudo tar xvf jdk8u45_linux_x64.tar.gz
-
-设置path路径
-123">
-<meta property="og:updated_time" content="2016-11-20T08:36:52.315Z">
+<meta property="og:description" content="Intro需要用到ssh免密码登录，虽然每次免密码登录可以简化为user_name@ip_address，但是还是嫌麻烦，希望可以实现ssh user_name@host_name的方式。
+这里记录下ubuntu14.04LTS 修改主机名的方法
+查看主机名
+打开终端，在命令提示符中就可以看到主机名，比如我的就是caffee@spotty，那么我的用户名就是caffee主机名就是spotty;
+在">
+<meta property="og:updated_time" content="2016-11-21T08:03:12.688Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ubuntu14.04安装oracle jdk">
-<meta name="twitter:description" content="这里只记录下ubuntu14.04LTS 版本安装oracle版本的jdk
-
-到oracle的官网上下载jdk
-建jvm目录，拷贝jdk
-1234cd /usr/libsudo mkdir -p jvmcp path/to/jdk8u45_linux_x64.tar.gz /usr/lib/jvmsudo tar xvf jdk8u45_linux_x64.tar.gz
-
-设置path路径
-123">
+<meta name="twitter:title" content="ubuntu 永久修改主机名">
+<meta name="twitter:description" content="Intro需要用到ssh免密码登录，虽然每次免密码登录可以简化为user_name@ip_address，但是还是嫌麻烦，希望可以实现ssh user_name@host_name的方式。
+这里记录下ubuntu14.04LTS 修改主机名的方法
+查看主机名
+打开终端，在命令提示符中就可以看到主机名，比如我的就是caffee@spotty，那么我的用户名就是caffee主机名就是spotty;
+在">
     
     
     
@@ -188,13 +179,13 @@
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title" itemprop="headline">
-            ubuntu14.04安装oracle jdk
+            ubuntu 永久修改主机名
         </h1>
     
     <div class="post-meta">
-    <time itemprop="datePublished" content="Sat Nov 19 2016 00:10:48 GMT+0800">
+    <time itemprop="datePublished" content="Mon Nov 21 2016 15:46:30 GMT+0800">
 	
-		    11月 19, 2016
+		    11月 21, 2016
     	
     </time>
     
@@ -203,21 +194,19 @@
     
     <div class="post-content markdown" itemprop="articleBody">
         <div class="main-content-wrap">
-            <p>这里只记录下ubuntu14.04LTS 版本安装oracle版本的jdk</p>
-<ol>
-<li>到oracle的官网上<a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="external">下载jdk</a></li>
-<li><p>建jvm目录，拷贝jdk</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/lib</span><br><span class="line">sudo mkdir -<span class="tag">p</span> jvm</span><br><span class="line">cp path/to/jdk8u45_linux_x64<span class="class">.tar</span><span class="class">.gz</span> /usr/lib/jvm</span><br><span class="line">sudo tar xvf jdk8u45_linux_x64<span class="class">.tar</span><span class="class">.gz</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>设置path路径</p>
-<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/profile</span><br><span class="line"></span><br><span class="line">// 在最后添加</span><br><span class="line">export JAVA_HOME=/usr/lib/jvm/jdk1.<span class="number">8.0_45</span></span><br><span class="line">export JRE_HOME=/usr/lib/jvm/jdk1.<span class="number">8.0_45</span>/jre</span><br><span class="line">export CLASSPATH=.:<span class="variable">$CLASSPATH</span>:<span class="variable">$JAVA</span>_HOME/lib:<span class="variable">$JRE</span>_HOME/lib</span><br><span class="line">export PATH=<span class="variable">$PATH</span>:<span class="variable">$JAVA</span>_HOME/bin:<span class="variable">$JRE</span>_HOME/bin</span><br><span class="line"></span><br><span class="line">// 设置生效</span><br><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>检验</p>
-<figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 重新打开一个terminal</span></span><br><span class="line">执行java -<span class="built_in">version</span></span><br><span class="line"><span class="comment">// 当出现如下输出，表示jdk安装成功</span></span><br><span class="line">java <span class="built_in">version</span> <span class="string">"1.8.0_45"</span></span><br><span class="line">Java<span class="params">(TM)</span> SE Runtime Environment <span class="params">(build <span class="number">1.8</span>.<span class="number">0</span>_45-b14)</span></span><br><span class="line">Java HotSpot<span class="params">(TM)</span> <span class="number">64</span>-Bit Server VM <span class="params">(build <span class="number">25.45</span>-b02, mixed mode)</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>备注<br>低版本的ubuntu lts是自带gij的jvm实现，需要通过<code>update-alternatives</code>工具来完成多版本的jvm的选择(ubuntu 14版本是没有安装任何版本的jdk)，具体可以参考这篇<a href="https://segmentfault.com/a/1190000000684638" target="_blank" rel="external">文章</a></p>
-</li>
+            <h2 id="Intro">Intro</h2><p>需要用到ssh免密码登录，虽然每次免密码登录可以简化为user_name@ip_address，但是还是嫌麻烦，希望可以实现<code>ssh user_name@host_name</code>的方式。</p>
+<p>这里记录下ubuntu14.04LTS 修改主机名的方法</p>
+<h2 id="查看主机名">查看主机名</h2><ol>
+<li>打开终端，在命令提示符中就可以看到主机名，比如我的就是<code>caffee@spotty</code>，那么我的用户名就是<code>caffee</code>主机名就是<code>spotty</code>;</li>
+<li>在终端中输入<code>uname -n</code>或者<code>hostname</code>就可以看到当前主机的主机名</li>
 </ol>
+<h2 id="临时修改主机名">临时修改主机名</h2><p>终端中运行:<code>sudo hostname new_host_name</code>可以把当前主机名改为new_host_name，但是需要注意的是，new_host_name必须可以被resolve，也就是必须在<code>/etc/hosts</code>中按照key-value的形式注册过.比如这里我们注册一个abc的host</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor"># /etc/hosts</span></span><br><span class="line"><span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>       localhost</span><br><span class="line"><span class="number">127.0</span><span class="number">.1</span><span class="number">.1</span>       spotty</span><br><span class="line"><span class="number">192.168</span><span class="number">.71</span><span class="number">.137</span>  mininet</span><br><span class="line"><span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>       abc</span><br><span class="line"><span class="preprocessor"># The following lines are desirable for IPv6 capable hosts</span></span><br><span class="line">::<span class="number">1</span>     ip6-localhost ip6-loopback</span><br><span class="line">fe00::<span class="number">0</span> ip6-localnet</span><br><span class="line">ff00::<span class="number">0</span> ip6-mcastprefix</span><br><span class="line">ff02::<span class="number">1</span> ip6-allnodes</span><br><span class="line">ff02::<span class="number">2</span> ip6-allrouters</span><br></pre></td></tr></table></figure>
+<p>执行<code>sudo hostname abc</code>，这时候重新打开一个终端，就会出现临时主机名abc。</p>
+<ol>
+<li>永久修改主机名<br>ubuntu的主机名存放在<code>/etc/hostname</code>中，直接<code>sudo vim /etc/hostname</code>，修改完毕保存后，重启电脑，使用上面的方法即可判断主机名是否修改成功.</li>
+</ol>
+<p>最后提一下<code>/etc/hostname</code>与<code>/etc/hosts</code>，<code>/etct/hostname</code>就存放在了当前主机名，<code>/etc/hosts</code>类似于windows下面的hosts文件，按照key-value的形式存放。</p>
 
             
                 
@@ -239,7 +228,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/11/21/ubuntu-永久修改主机名/"  data-tooltip="ubuntu 永久修改主机名">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -247,7 +236,7 @@
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/11/09/2-1什么鬼/" data-tooltip=" 2&gt;&amp;1什么鬼">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/11/19/ubuntu14-04安装oracle-jdk/" data-tooltip="ubuntu14.04安装oracle jdk">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                     <i class="fa fa-angle-right"></i>
@@ -262,17 +251,17 @@
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/11/19/ubuntu14-04安装oracle-jdk/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/11/21/ubuntu-永久修改主机名/">
                 <i class="fa fa-google-plus"></i>
             </a>
         </li>
         <li class="post-action hide-xs" style="display:none">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/11/19/ubuntu14-04安装oracle-jdk/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/11/21/ubuntu-永久修改主机名/">
                 <i class="fa fa-facebook-official"></i>
             </a>
         </li>
         <li class="post-action hide-xs" style="display:none">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/11/19/ubuntu14-04安装oracle-jdk/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/11/21/ubuntu-永久修改主机名/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
@@ -295,7 +284,7 @@
 
 
         <!-- 多说评论框 start -->
-<div class="ds-thread" data-thread-key="post-ubuntu14-04安装oracle-jdk" data-title="ubuntu14.04安装oracle jdk" data-url="http://warjiang.github.io/devcat/2016/11/19/ubuntu14-04安装oracle-jdk/"></div>
+<div class="ds-thread" data-thread-key="post-ubuntu-永久修改主机名" data-title="ubuntu 永久修改主机名" data-url="http://warjiang.github.io/devcat/2016/11/21/ubuntu-永久修改主机名/"></div>
 <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">
@@ -330,7 +319,7 @@ var duoshuoQuery = {short_name:"devcat"};
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/11/21/ubuntu-永久修改主机名/"  data-tooltip="ubuntu 永久修改主机名">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -338,7 +327,7 @@ var duoshuoQuery = {short_name:"devcat"};
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/11/09/2-1什么鬼/" data-tooltip=" 2&gt;&amp;1什么鬼">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/11/19/ubuntu14-04安装oracle-jdk/" data-tooltip="ubuntu14.04安装oracle jdk">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                     <i class="fa fa-angle-right"></i>
@@ -353,17 +342,17 @@ var duoshuoQuery = {short_name:"devcat"};
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/11/19/ubuntu14-04安装oracle-jdk/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/11/21/ubuntu-永久修改主机名/">
                 <i class="fa fa-google-plus"></i>
             </a>
         </li>
         <li class="post-action hide-xs" style="display:none">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/11/19/ubuntu14-04安装oracle-jdk/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/11/21/ubuntu-永久修改主机名/">
                 <i class="fa fa-facebook-official"></i>
             </a>
         </li>
         <li class="post-action hide-xs" style="display:none">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/11/19/ubuntu14-04安装oracle-jdk/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/11/21/ubuntu-永久修改主机名/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
@@ -389,17 +378,17 @@ var duoshuoQuery = {short_name:"devcat"};
                 <div id="share-options-bar" class="share-options-bar" data-behavior="4">
     <ul class="share-options">
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/11/19/ubuntu14-04安装oracle-jdk/">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/11/21/ubuntu-永久修改主机名/">
                 <i class="fa fa-google-plus"></i><span class="">Share on Google Plus</span>
             </a>
         </li>
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/11/19/ubuntu14-04安装oracle-jdk/">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/11/21/ubuntu-永久修改主机名/">
                 <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
             </a>
         </li>
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/11/19/ubuntu14-04安装oracle-jdk/">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/11/21/ubuntu-永久修改主机名/">
                 <i class="fa fa-twitter"></i><span>Share on Twitter</span>
             </a>
         </li>
