@@ -14,27 +14,24 @@
     
     <meta name="description" content="intro最近在做ovs的实验，为了保持实验环境的一致性，我这边用了openvswitch-2.3.1这个版本，由于ovs与对应的内核版本有要求:
 这里为了安装ovs2.3.1，我需要让内核版本满足2.6.32到3.14的条件，当前ubuntu系统的内核版本是3.19.0-25-generic,目标内核版本是3.13.0-24-generic
-安装3.13.0-24-generic内核
-显示所有可">
+安装3.13.0-24-generic内核1.显示所有">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="ubuntu14.04下更换内核">
 <meta property="og:url" content="http://warjiang.github.io/devcat/2016/11/22/ubuntu14-04下更换内核/index.html">
 <meta property="og:site_name" content="devCat">
 <meta property="og:description" content="intro最近在做ovs的实验，为了保持实验环境的一致性，我这边用了openvswitch-2.3.1这个版本，由于ovs与对应的内核版本有要求:
 这里为了安装ovs2.3.1，我需要让内核版本满足2.6.32到3.14的条件，当前ubuntu系统的内核版本是3.19.0-25-generic,目标内核版本是3.13.0-24-generic
-安装3.13.0-24-generic内核
-显示所有可">
+安装3.13.0-24-generic内核1.显示所有">
 <meta property="og:image" content="http://img.spotty.com.cn/ovs-install-table-1-ovs%E4%B8%8Elinux%E5%86%85%E6%A0%B8%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB.jpg">
 <meta property="og:image" content="http://img.spotty.com.cn/grub_submenu_examples.png">
 <meta property="og:image" content="http://img.spotty.com.cn/grub_simple_configuration.png">
 <meta property="og:image" content="http://img.spotty.com.cn/etc-default-grub.png">
-<meta property="og:updated_time" content="2016-11-22T06:32:57.551Z">
+<meta property="og:updated_time" content="2016-11-22T06:37:27.490Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ubuntu14.04下更换内核">
 <meta name="twitter:description" content="intro最近在做ovs的实验，为了保持实验环境的一致性，我这边用了openvswitch-2.3.1这个版本，由于ovs与对应的内核版本有要求:
 这里为了安装ovs2.3.1，我需要让内核版本满足2.6.32到3.14的条件，当前ubuntu系统的内核版本是3.19.0-25-generic,目标内核版本是3.13.0-24-generic
-安装3.13.0-24-generic内核
-显示所有可">
+安装3.13.0-24-generic内核1.显示所有">
     
     
     
@@ -197,14 +194,10 @@
         <div class="main-content-wrap">
             <h1 id="intro">intro</h1><p>最近在做ovs的实验，为了保持实验环境的一致性，我这边用了openvswitch-2.3.1这个版本，由于ovs与对应的内核版本有要求:<br><img src="http://img.spotty.com.cn/ovs-install-table-1-ovs%E4%B8%8Elinux%E5%86%85%E6%A0%B8%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB.jpg" alt="ovs-install-table-1-ovs与linux内核对应关系"></p>
 <p>这里为了安装ovs2.3.1，我需要让内核版本满足2.6.32到3.14的条件，当前ubuntu系统的内核版本是<code>3.19.0-25-generic</code>,目标内核版本是<code>3.13.0-24-generic</code></p>
-<h1 id="安装3-13-0-24-generic内核">安装3.13.0-24-generic内核</h1><ol>
-<li><p>显示所有可以获取的内核版本</p>
+<h1 id="安装3-13-0-24-generic内核">安装3.13.0-24-generic内核</h1><p>1.显示所有可以获取的内核版本</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-<span class="operator"><span class="keyword">cache</span> <span class="keyword">search</span> linux</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>安装指定版本version内核<br>version一般为<code>x.x.x-x</code>的形式。</p>
+<p>2.安装指定版本version内核<br>version一般为<code>x.x.x-x</code>的形式。</p>
 <figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="keyword">get</span> install  -y linux-headers-<span class="property">version</span>-generic \</span><br><span class="line">					 	 linux-image-<span class="property">version</span>-generic \</span><br><span class="line">					 	 linux-image-extra-<span class="property">version</span>-generic</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
 <p>比如这里我要安装version为3.13.0-24的内核，这里就执行</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install  -y linux-headers-<span class="number">3.13</span><span class="number">.0</span>-<span class="number">24</span>-generic \</span><br><span class="line">					 	 linux-image-<span class="number">3.13</span><span class="number">.0</span>-<span class="number">24</span>-generic \</span><br><span class="line">					 	 linux-image-extra-<span class="number">3.13</span><span class="number">.0</span>-<span class="number">24</span>-generic</span><br></pre></td></tr></table></figure>
 <h1 id="[可选]修改GRUB，保证ubunu启动的时候使用的使新内核">[可选]修改GRUB，保证ubunu启动的时候使用的使新内核</h1><h2 id="修改默认grub启动菜单">修改默认grub启动菜单</h2><p>这里是一个可选的配置，如果不配置，每次在启动系统的时候，都需按下<code>ESC</code>键，进入<code>GRUB</code>菜单，选中新内核。这一重复的操作，我们可以在GRUB中进行配置。需要修改的文件是<code>/etc/default/grub</code><br><figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// /etc/default/grub</span></span><br><span class="line"><span class="constant">GRUB_DEFAULT</span>=<span class="number">0</span></span><br><span class="line"><span class="constant">GRUB_HIDDEN_TIMEOUT</span>=<span class="number">0</span></span><br><span class="line"><span class="constant">GRUB_HIDDEN_TIMEOUT_QUIET</span>=<span class="literal">true</span></span><br><span class="line"><span class="constant">GRUB_TIMEOUT</span>=<span class="number">10</span></span><br><span class="line"><span class="constant">GRUB_DISTRIBUTOR</span>=`lsb_release -i -s <span class="number">2</span>&gt; /dev/null || echo Debian`</span><br><span class="line"><span class="constant">GRUB_CMDLINE_LINUX_DEFAULT</span>=<span class="string">"quiet splash"</span></span><br><span class="line"><span class="constant">GRUB_CMDLINE_LINUX</span>=<span class="string">""</span></span><br></pre></td></tr></table></figure></p>
@@ -215,6 +208,9 @@
 <p>为了使用<code>3.13.0-24</code>版本的内核，修改GRUB_DEFAULT为<code>&quot;1&gt;2&quot;</code><br>如下:<br><img src="http://img.spotty.com.cn/etc-default-grub.png" alt="etc-default-grub"></p>
 <h2 id="使上面的配置生效">使上面的配置生效</h2><p>修改完<code>/etc/default/grub</code>之后，要使配置生效，还需要执行<code>sudo update-grub</code>，使得配置项可以更新到<code>/boot/grub/grub.cfg</code>文件中</p>
 <h1 id="验证">验证</h1><p>reboot,在终端中执行<code>uname -r</code>看看内核有没有改过来。</p>
+<blockquote>
+<p>参考<a href="http://blog.mtkfan.com/?p=431" target="_blank" rel="external">http://blog.mtkfan.com/?p=431</a></p>
+</blockquote>
 
             
                 
