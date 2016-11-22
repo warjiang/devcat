@@ -1,0 +1,439 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="devCat">
+    <title>ubuntu14.04下更换内核 - devCat</title>
+    <meta name="author" content="warjiang">
+    
+        <link rel="icon" href="/devcat/assets/images/hexoFavico.ico">
+    
+    
+    <meta name="description" content="intro最近在做ovs的实验，为了保持实验环境的一致性，我这边用了openvswitch-2.3.1这个版本，由于ovs与对应的内核版本有要求:
+这里为了安装ovs2.3.1，我需要让内核版本满足2.6.32到3.14的条件，当前ubuntu系统的内核版本是3.19.0-25-generic,目标内核版本是3.13.0-24-generic
+安装3.13.0-24-generic内核
+显示所有可">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="ubuntu14.04下更换内核">
+<meta property="og:url" content="http://warjiang.github.io/devcat/2016/11/22/ubuntu14-04下更换内核/index.html">
+<meta property="og:site_name" content="devCat">
+<meta property="og:description" content="intro最近在做ovs的实验，为了保持实验环境的一致性，我这边用了openvswitch-2.3.1这个版本，由于ovs与对应的内核版本有要求:
+这里为了安装ovs2.3.1，我需要让内核版本满足2.6.32到3.14的条件，当前ubuntu系统的内核版本是3.19.0-25-generic,目标内核版本是3.13.0-24-generic
+安装3.13.0-24-generic内核
+显示所有可">
+<meta property="og:image" content="http://img.spotty.com.cn/ovs-install-table-1-ovs%E4%B8%8Elinux%E5%86%85%E6%A0%B8%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB.jpg">
+<meta property="og:image" content="http://img.spotty.com.cn/grub_submenu_examples.png">
+<meta property="og:image" content="http://img.spotty.com.cn/grub_simple_configuration.png">
+<meta property="og:image" content="http://img.spotty.com.cn/etc-default-grub.png">
+<meta property="og:updated_time" content="2016-11-22T06:32:57.551Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ubuntu14.04下更换内核">
+<meta name="twitter:description" content="intro最近在做ovs的实验，为了保持实验环境的一致性，我这边用了openvswitch-2.3.1这个版本，由于ovs与对应的内核版本有要求:
+这里为了安装ovs2.3.1，我需要让内核版本满足2.6.32到3.14的条件，当前ubuntu系统的内核版本是3.19.0-25-generic,目标内核版本是3.13.0-24-generic
+安装3.13.0-24-generic内核
+显示所有可">
+    
+    
+    
+        <meta property="og:image" content="/devcat/assets/images/avatar.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/devcat/assets/css/style.min.css" type="text/css">
+    <!--STYLES END-->
+    
+    <meta name="baidu-site-verification" content="K5SGaxveG1" />
+
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?57b6d23a689855c11566203b2da0f5a7";
+        var s = document.getElementsByTagName("script")[0]; 
+        s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+</head>
+
+    <body>
+        <div id="blog">
+            <header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/devcat/ ">devCat</a>
+    </h1>
+    
+        <a class="header-right-picture" href="/#about">
+            <img class="header-picture" src="/devcat/assets/images/avatar.jpg"/>
+        </a>
+    
+</header>
+            <nav id="sidebar" data-behavior="4">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                
+                    <img class="sidebar-profile-picture" src="/devcat/assets/images/avatar.jpg"/>
+                
+            </a>
+            <span class="sidebar-profile-name">warjiang</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">主页</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/all-categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分类</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">存档</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="/devcat/#search"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                    <span class="sidebar-button-desc">搜索</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/#about"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                    <span class="sidebar-button-desc">关于</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            ubuntu14.04下更换内核
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Tue Nov 22 2016 11:50:20 GMT+0800">
+	
+		    11月 22, 2016
+    	
+    </time>
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <h1 id="intro">intro</h1><p>最近在做ovs的实验，为了保持实验环境的一致性，我这边用了openvswitch-2.3.1这个版本，由于ovs与对应的内核版本有要求:<br><img src="http://img.spotty.com.cn/ovs-install-table-1-ovs%E4%B8%8Elinux%E5%86%85%E6%A0%B8%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB.jpg" alt="ovs-install-table-1-ovs与linux内核对应关系"></p>
+<p>这里为了安装ovs2.3.1，我需要让内核版本满足2.6.32到3.14的条件，当前ubuntu系统的内核版本是<code>3.19.0-25-generic</code>,目标内核版本是<code>3.13.0-24-generic</code></p>
+<h1 id="安装3-13-0-24-generic内核">安装3.13.0-24-generic内核</h1><ol>
+<li><p>显示所有可以获取的内核版本</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-<span class="operator"><span class="keyword">cache</span> <span class="keyword">search</span> linux</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装指定版本version内核<br>version一般为<code>x.x.x-x</code>的形式。</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="keyword">get</span> install  -y linux-headers-<span class="property">version</span>-generic \</span><br><span class="line">					 	 linux-image-<span class="property">version</span>-generic \</span><br><span class="line">					 	 linux-image-extra-<span class="property">version</span>-generic</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>比如这里我要安装version为3.13.0-24的内核，这里就执行</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install  -y linux-headers-<span class="number">3.13</span><span class="number">.0</span>-<span class="number">24</span>-generic \</span><br><span class="line">					 	 linux-image-<span class="number">3.13</span><span class="number">.0</span>-<span class="number">24</span>-generic \</span><br><span class="line">					 	 linux-image-extra-<span class="number">3.13</span><span class="number">.0</span>-<span class="number">24</span>-generic</span><br></pre></td></tr></table></figure>
+<h1 id="[可选]修改GRUB，保证ubunu启动的时候使用的使新内核">[可选]修改GRUB，保证ubunu启动的时候使用的使新内核</h1><h2 id="修改默认grub启动菜单">修改默认grub启动菜单</h2><p>这里是一个可选的配置，如果不配置，每次在启动系统的时候，都需按下<code>ESC</code>键，进入<code>GRUB</code>菜单，选中新内核。这一重复的操作，我们可以在GRUB中进行配置。需要修改的文件是<code>/etc/default/grub</code><br><figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// /etc/default/grub</span></span><br><span class="line"><span class="constant">GRUB_DEFAULT</span>=<span class="number">0</span></span><br><span class="line"><span class="constant">GRUB_HIDDEN_TIMEOUT</span>=<span class="number">0</span></span><br><span class="line"><span class="constant">GRUB_HIDDEN_TIMEOUT_QUIET</span>=<span class="literal">true</span></span><br><span class="line"><span class="constant">GRUB_TIMEOUT</span>=<span class="number">10</span></span><br><span class="line"><span class="constant">GRUB_DISTRIBUTOR</span>=`lsb_release -i -s <span class="number">2</span>&gt; /dev/null || echo Debian`</span><br><span class="line"><span class="constant">GRUB_CMDLINE_LINUX_DEFAULT</span>=<span class="string">"quiet splash"</span></span><br><span class="line"><span class="constant">GRUB_CMDLINE_LINUX</span>=<span class="string">""</span></span><br></pre></td></tr></table></figure></p>
+<p>这里讲下GRUB_DEFAULT的配置，GRUB_DEFAULT表示了开机的时候的默认选项（包括二级菜单选项）。这边先盗个图说下内核顺序:<br>下面是一张GRUB的启动菜单<br><img src="http://img.spotty.com.cn/grub_submenu_examples.png" alt="grub_submenu_examples"><br>在配合一段grub的配置说明，如下：<br><img src="http://img.spotty.com.cn/grub_simple_configuration.png" alt="grub_simple_configuration"><br>意思就是一级菜单比如<code>Ubuntu,with Linux 3.2.0-24-generic-pae</code>、<code>Ubunut,with Linux 3.2.0-24-generic-pae(recovery mode)</code>、<code>Previous Linux versions</code>、<code>Memory test(memtest86+)</code>等等，一级菜单按照从0开始编号，如<code>Ubuntu,with Linux 3.2.0-24-generic-pae</code>对应0，<code>Ubunut,with Linux 3.2.0-24-generic-pae(recovery mode)</code>对应1，<code>Previous Linux versions</code>对应2，以此类推。对于二级菜单也是一样的道理，每个菜单项下的子菜单都是从0开始编号。<br>那么这里如果我要配置<code>Previous Linux versions</code>下的<code>Ubuntu, with Linux 3.2.0-18-generic-pae</code>，我们的内核顺序就应该是<code>2&gt;0</code>，这里注意在<strong>填写GRUB_DEFAULT的时候一定要加上有引号</strong>，如:<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="setting">GRUB_DEFAULT=<span class="value"><span class="string">"2&gt;0"</span></span></span></span><br></pre></td></tr></table></figure></p>
+<p>除了填写数字形式的内核顺序，还可以有其他的写法<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="setting">GRUB_DEFAULT=<span class="value"><span class="string">"Previous Linux versions&gt;Ubuntu, with Linux 3.2.0-18-generic-pae"</span></span></span></span><br><span class="line"><span class="setting">GRUB_DEFAULT=<span class="value"><span class="string">"Previous Linux versions&gt;0"</span></span></span></span><br><span class="line"><span class="setting">GRUB_DEFAULT=<span class="value"><span class="string">"2&gt;Ubuntu, with Linux 3.2.0-18-generic-pae"</span></span></span></span><br></pre></td></tr></table></figure></p>
+<p>ps：我这里并没有重新看一遍grub的启动内容，而是查看了<code>/boot/grub/grub.cfg</code>，如下：<br><figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line">menuentry <span class="string">'Ubuntu'</span> --class ubuntu --class gnu-linux --class gnu --class os <span class="variable">$menuentry</span>_id_option <span class="string">'gnulinux-simple-5723676a-712c-4518-a288-feea52c251b0'</span> &#123;</span><br><span class="line">	recordfail</span><br><span class="line">	load_video</span><br><span class="line">	gfxmode <span class="variable">$linux</span>_gfx_mode</span><br><span class="line">	insmod gzio</span><br><span class="line">	insmod part_msdos</span><br><span class="line">	insmod ext2</span><br><span class="line">	set root=<span class="string">'hd0,msdos1'</span></span><br><span class="line">	if [ x<span class="variable">$feature</span>_platform_search_hint = xy ]; then</span><br><span class="line">	  search --no-floppy --fs-uuid --set=root --hint-bios=hd<span class="number">0</span>,msdos1 --hint-efi=hd<span class="number">0</span>,msdos1 --hint-baremetal=ahci<span class="number">0</span>,msdos1  <span class="number">5723676</span>a-<span class="number">712</span>c-<span class="number">4518</span>-a288-feea52c251b<span class="number">0</span></span><br><span class="line">	else</span><br><span class="line">	  search --no-floppy --fs-uuid --set=root <span class="number">5723676</span>a-<span class="number">712</span>c-<span class="number">4518</span>-a288-feea52c251b<span class="number">0</span></span><br><span class="line">	fi</span><br><span class="line">	linux	/boot/vmlinuz-<span class="number">3.19</span>.<span class="number">0</span>-<span class="number">25</span>-generic root=UUID=<span class="number">5723676</span>a-<span class="number">712</span>c-<span class="number">4518</span>-a288-feea52c251b<span class="number">0</span> ro  quiet splash <span class="variable">$vt</span>_handoff</span><br><span class="line">	initrd	/boot/initrd.img-<span class="number">3.19</span>.<span class="number">0</span>-<span class="number">25</span>-generic</span><br><span class="line">&#125;</span><br><span class="line">submenu <span class="string">'Advanced options for Ubuntu'</span> <span class="variable">$menuentry</span>_id_option <span class="string">'gnulinux-advanced-5723676a-712c-4518-a288-feea52c251b0'</span> &#123;</span><br><span class="line">	menuentry <span class="string">'Ubuntu, with Linux 3.19.0-25-generic'</span> --class ubuntu --class gnu-linux --class gnu --class os <span class="variable">$menuentry</span>_id_option <span class="string">'gnulinux-3.19.0-25-generic-advanced-5723676a-712c-4518-a288-feea52c251b0'</span> &#123;</span><br><span class="line">		recordfail</span><br><span class="line">		load_video</span><br><span class="line">		gfxmode <span class="variable">$linux</span>_gfx_mode</span><br><span class="line">		insmod gzio</span><br><span class="line">		insmod part_msdos</span><br><span class="line">		insmod ext2</span><br><span class="line">		set root=<span class="string">'hd0,msdos1'</span></span><br><span class="line">		if [ x<span class="variable">$feature</span>_platform_search_hint = xy ]; then</span><br><span class="line">		  search --no-floppy --fs-uuid --set=root --hint-bios=hd<span class="number">0</span>,msdos1 --hint-efi=hd<span class="number">0</span>,msdos1 --hint-baremetal=ahci<span class="number">0</span>,msdos1  <span class="number">5723676</span>a-<span class="number">712</span>c-<span class="number">4518</span>-a288-feea52c251b<span class="number">0</span></span><br><span class="line">		else</span><br><span class="line">		  search --no-floppy --fs-uuid --set=root <span class="number">5723676</span>a-<span class="number">712</span>c-<span class="number">4518</span>-a288-feea52c251b<span class="number">0</span></span><br><span class="line">		fi</span><br><span class="line">		echo	<span class="string">'Loading Linux 3.19.0-25-generic ...'</span></span><br><span class="line">		linux	/boot/vmlinuz-<span class="number">3.19</span>.<span class="number">0</span>-<span class="number">25</span>-generic root=UUID=<span class="number">5723676</span>a-<span class="number">712</span>c-<span class="number">4518</span>-a288-feea52c251b<span class="number">0</span> ro  quiet splash <span class="variable">$vt</span>_handoff</span><br><span class="line">		echo	<span class="string">'Loading initial ramdisk ...'</span></span><br><span class="line">		initrd	/boot/initrd.img-<span class="number">3.19</span>.<span class="number">0</span>-<span class="number">25</span>-generic</span><br><span class="line">	&#125;</span><br><span class="line">	menuentry <span class="string">'Ubuntu, with Linux 3.19.0-25-generic (recovery mode)'</span> --class ubuntu --class gnu-linux --class gnu --class os <span class="variable">$menuentry</span>_id_option <span class="string">'gnulinux-3.19.0-25-generic-recovery-5723676a-712c-4518-a288-feea52c251b0'</span> &#123;</span><br><span class="line">		recordfail</span><br><span class="line">		load_video</span><br><span class="line">		insmod gzio</span><br><span class="line">		insmod part_msdos</span><br><span class="line">		insmod ext2</span><br><span class="line">		set root=<span class="string">'hd0,msdos1'</span></span><br><span class="line">		if [ x<span class="variable">$feature</span>_platform_search_hint = xy ]; then</span><br><span class="line">		  search --no-floppy --fs-uuid --set=root --hint-bios=hd<span class="number">0</span>,msdos1 --hint-efi=hd<span class="number">0</span>,msdos1 --hint-baremetal=ahci<span class="number">0</span>,msdos1  <span class="number">5723676</span>a-<span class="number">712</span>c-<span class="number">4518</span>-a288-feea52c251b<span class="number">0</span></span><br><span class="line">		else</span><br><span class="line">		  search --no-floppy --fs-uuid --set=root <span class="number">5723676</span>a-<span class="number">712</span>c-<span class="number">4518</span>-a288-feea52c251b<span class="number">0</span></span><br><span class="line">		fi</span><br><span class="line">		echo	<span class="string">'Loading Linux 3.19.0-25-generic ...'</span></span><br><span class="line">		linux	/boot/vmlinuz-<span class="number">3.19</span>.<span class="number">0</span>-<span class="number">25</span>-generic root=UUID=<span class="number">5723676</span>a-<span class="number">712</span>c-<span class="number">4518</span>-a288-feea52c251b<span class="number">0</span> ro recovery nomodeset </span><br><span class="line">		echo	<span class="string">'Loading initial ramdisk ...'</span></span><br><span class="line">		initrd	/boot/initrd.img-<span class="number">3.19</span>.<span class="number">0</span>-<span class="number">25</span>-generic</span><br><span class="line">	&#125;</span><br><span class="line">	menuentry <span class="string">'Ubuntu, with Linux 3.13.0-24-generic'</span> --class ubuntu --class gnu-linux --class gnu --class os <span class="variable">$menuentry</span>_id_option <span class="string">'gnulinux-3.13.0-24-generic-advanced-5723676a-712c-4518-a288-feea52c251b0'</span> &#123;</span><br><span class="line">		recordfail</span><br><span class="line">		load_video</span><br><span class="line">		gfxmode <span class="variable">$linux</span>_gfx_mode</span><br><span class="line">		insmod gzio</span><br><span class="line">		insmod part_msdos</span><br><span class="line">		insmod ext2</span><br><span class="line">		set root=<span class="string">'hd0,msdos1'</span></span><br><span class="line">		if [ x<span class="variable">$feature</span>_platform_search_hint = xy ]; then</span><br><span class="line">		  search --no-floppy --fs-uuid --set=root --hint-bios=hd<span class="number">0</span>,msdos1 --hint-efi=hd<span class="number">0</span>,msdos1 --hint-baremetal=ahci<span class="number">0</span>,msdos1  <span class="number">5723676</span>a-<span class="number">712</span>c-<span class="number">4518</span>-a288-feea52c251b<span class="number">0</span></span><br><span class="line">		else</span><br><span class="line">		  search --no-floppy --fs-uuid --set=root <span class="number">5723676</span>a-<span class="number">712</span>c-<span class="number">4518</span>-a288-feea52c251b<span class="number">0</span></span><br><span class="line">		fi</span><br><span class="line">		echo	<span class="string">'Loading Linux 3.13.0-24-generic ...'</span></span><br><span class="line">		linux	/boot/vmlinuz-<span class="number">3.13</span>.<span class="number">0</span>-<span class="number">24</span>-generic root=UUID=<span class="number">5723676</span>a-<span class="number">712</span>c-<span class="number">4518</span>-a288-feea52c251b<span class="number">0</span> ro  quiet splash <span class="variable">$vt</span>_handoff</span><br><span class="line">		echo	<span class="string">'Loading initial ramdisk ...'</span></span><br><span class="line">		initrd	/boot/initrd.img-<span class="number">3.13</span>.<span class="number">0</span>-<span class="number">24</span>-generic</span><br><span class="line">	&#125;</span><br><span class="line">	menuentry <span class="string">'Ubuntu, with Linux 3.13.0-24-generic (recovery mode)'</span> --class ubuntu --class gnu-linux --class gnu --class os <span class="variable">$menuentry</span>_id_option <span class="string">'gnulinux-3.13.0-24-generic-recovery-5723676a-712c-4518-a288-feea52c251b0'</span> &#123;</span><br><span class="line">		recordfail</span><br><span class="line">		load_video</span><br><span class="line">		insmod gzio</span><br><span class="line">		insmod part_msdos</span><br><span class="line">		insmod ext2</span><br><span class="line">		set root=<span class="string">'hd0,msdos1'</span></span><br><span class="line">		if [ x<span class="variable">$feature</span>_platform_search_hint = xy ]; then</span><br><span class="line">		  search --no-floppy --fs-uuid --set=root --hint-bios=hd<span class="number">0</span>,msdos1 --hint-efi=hd<span class="number">0</span>,msdos1 --hint-baremetal=ahci<span class="number">0</span>,msdos1  <span class="number">5723676</span>a-<span class="number">712</span>c-<span class="number">4518</span>-a288-feea52c251b<span class="number">0</span></span><br><span class="line">		else</span><br><span class="line">		  search --no-floppy --fs-uuid --set=root <span class="number">5723676</span>a-<span class="number">712</span>c-<span class="number">4518</span>-a288-feea52c251b<span class="number">0</span></span><br><span class="line">		fi</span><br><span class="line">		echo	<span class="string">'Loading Linux 3.13.0-24-generic ...'</span></span><br><span class="line">		linux	/boot/vmlinuz-<span class="number">3.13</span>.<span class="number">0</span>-<span class="number">24</span>-generic root=UUID=<span class="number">5723676</span>a-<span class="number">712</span>c-<span class="number">4518</span>-a288-feea52c251b<span class="number">0</span> ro recovery nomodeset </span><br><span class="line">		echo	<span class="string">'Loading initial ramdisk ...'</span></span><br><span class="line">		initrd	/boot/initrd.img-<span class="number">3.13</span>.<span class="number">0</span>-<span class="number">24</span>-generic</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>根据我这段从grub.cfg中摘取出来的菜单项，那么我的对应的菜单项为<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">|-----Ubuntu</span><br><span class="line">|-----Advanced options <span class="keyword">for</span> Ubuntu</span><br><span class="line">		|-----Ubuntu, with Linux <span class="number">3.19</span><span class="number">.0</span>-<span class="number">25</span>-generic</span><br><span class="line">		|-----Ubuntu, with Linux <span class="number">3.19</span><span class="number">.0</span>-<span class="number">25</span>-generic (recovery mode)</span><br><span class="line">		|-----Ubuntu, with Linux <span class="number">3.13</span><span class="number">.0</span>-<span class="number">24</span>-generic</span><br><span class="line">		|-----Ubuntu, with Linux <span class="number">3.13</span><span class="number">.0</span>-<span class="number">24</span>-generic (recovery mode)</span><br></pre></td></tr></table></figure></p>
+<p>为了使用<code>3.13.0-24</code>版本的内核，修改GRUB_DEFAULT为<code>&quot;1&gt;2&quot;</code><br>如下:<br><img src="http://img.spotty.com.cn/etc-default-grub.png" alt="etc-default-grub"></p>
+<h2 id="使上面的配置生效">使上面的配置生效</h2><p>修改完<code>/etc/default/grub</code>之后，要使配置生效，还需要执行<code>sudo update-grub</code>，使得配置项可以更新到<code>/boot/grub/grub.cfg</code>文件中</p>
+<h1 id="验证">验证</h1><p>reboot,在终端中执行<code>uname -r</code>看看内核有没有改过来。</p>
+
+            
+                
+
+            
+        </div>
+    </div>
+    <div class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/devcat/tags/tools/">tools</a> <a class="tag tag--primary tag--small t-link" href="/devcat/tags/记录/">记录</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/11/21/ubuntu-apt-cache使用说明/" data-tooltip="ubuntu apt-cache使用说明">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/11/22/ubuntu14-04下更换内核/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/11/22/ubuntu14-04下更换内核/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/11/22/ubuntu14-04下更换内核/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action" style="display:none">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        <!-- 多说评论框 start -->
+<div class="ds-thread" data-thread-key="post-ubuntu14-04下更换内核" data-title="ubuntu14.04下更换内核" data-url="http://warjiang.github.io/devcat/2016/11/22/ubuntu14-04下更换内核/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"devcat"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2016 warjiang. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/11/21/ubuntu-apt-cache使用说明/" data-tooltip="ubuntu apt-cache使用说明">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/11/22/ubuntu14-04下更换内核/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/11/22/ubuntu14-04下更换内核/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/11/22/ubuntu14-04下更换内核/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action" style="display:none">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/11/22/ubuntu14-04下更换内核/">
+                <i class="fa fa-google-plus"></i><span class="">Share on Google Plus</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/11/22/ubuntu14-04下更换内核/">
+                <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/11/22/ubuntu14-04下更换内核/">
+                <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        <div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/devcat/assets/images/avatar.jpg"/>
+        
+            <h4 id="about-card-name">warjiang</h4>
+        
+            <h5 id="about-card-bio"><h2 id="一只有狂想症的fullstack学生汪">一只有狂想症的fullstack学生汪</h2></h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <h2 id="学生汪">学生汪</h2>
+            </h5>
+        
+        
+    </div>
+</div>
+
+        <div id="cover" style="background-image:url('http://7xl7lt.com1.z0.glb.clouddn.com/v1.3.0-cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/devcat/assets/js/script.min.js" type="text/javascript"></script>
+<!--SCRIPTS END-->
+
+
+
+</html>
