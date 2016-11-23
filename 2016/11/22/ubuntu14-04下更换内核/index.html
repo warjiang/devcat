@@ -13,25 +13,21 @@
     
     
     <meta name="description" content="intro最近在做ovs的实验，为了保持实验环境的一致性，我这边用了openvswitch-2.3.1这个版本，由于ovs与对应的内核版本有要求:
-这里为了安装ovs2.3.1，我需要让内核版本满足2.6.32到3.14的条件，当前ubuntu系统的内核版本是3.19.0-25-generic,目标内核版本是3.13.0-24-generic
-安装3.13.0-24-generic内核1.显示所有">
+Open vSwitchLinux kernel1.4.x2.6.18 to 3.21.5.x2.6.18 to 3.21.6.x2.6.18 to 3.21.7.x2.6.18 to 3.31.8.x2.6.18 to 3.41.9.x2.6.18">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="ubuntu14.04下更换内核">
 <meta property="og:url" content="http://warjiang.github.io/devcat/2016/11/22/ubuntu14-04下更换内核/index.html">
 <meta property="og:site_name" content="devCat">
 <meta property="og:description" content="intro最近在做ovs的实验，为了保持实验环境的一致性，我这边用了openvswitch-2.3.1这个版本，由于ovs与对应的内核版本有要求:
-这里为了安装ovs2.3.1，我需要让内核版本满足2.6.32到3.14的条件，当前ubuntu系统的内核版本是3.19.0-25-generic,目标内核版本是3.13.0-24-generic
-安装3.13.0-24-generic内核1.显示所有">
-<meta property="og:image" content="http://img.spotty.com.cn/ovs-install-table-1-ovs%E4%B8%8Elinux%E5%86%85%E6%A0%B8%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB.jpg">
+Open vSwitchLinux kernel1.4.x2.6.18 to 3.21.5.x2.6.18 to 3.21.6.x2.6.18 to 3.21.7.x2.6.18 to 3.31.8.x2.6.18 to 3.41.9.x2.6.18">
 <meta property="og:image" content="http://img.spotty.com.cn/grub_submenu_examples.png">
 <meta property="og:image" content="http://img.spotty.com.cn/grub_simple_configuration.png">
 <meta property="og:image" content="http://img.spotty.com.cn/etc-default-grub.png">
-<meta property="og:updated_time" content="2016-11-22T06:37:27.490Z">
+<meta property="og:updated_time" content="2016-11-23T02:44:40.648Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ubuntu14.04下更换内核">
 <meta name="twitter:description" content="intro最近在做ovs的实验，为了保持实验环境的一致性，我这边用了openvswitch-2.3.1这个版本，由于ovs与对应的内核版本有要求:
-这里为了安装ovs2.3.1，我需要让内核版本满足2.6.32到3.14的条件，当前ubuntu系统的内核版本是3.19.0-25-generic,目标内核版本是3.13.0-24-generic
-安装3.13.0-24-generic内核1.显示所有">
+Open vSwitchLinux kernel1.4.x2.6.18 to 3.21.5.x2.6.18 to 3.21.6.x2.6.18 to 3.21.7.x2.6.18 to 3.31.8.x2.6.18 to 3.41.9.x2.6.18">
     
     
     
@@ -192,7 +188,9 @@
     
     <div class="post-content markdown" itemprop="articleBody">
         <div class="main-content-wrap">
-            <h1 id="intro">intro</h1><p>最近在做ovs的实验，为了保持实验环境的一致性，我这边用了openvswitch-2.3.1这个版本，由于ovs与对应的内核版本有要求:<br><img src="http://img.spotty.com.cn/ovs-install-table-1-ovs%E4%B8%8Elinux%E5%86%85%E6%A0%B8%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB.jpg" alt="ovs-install-table-1-ovs与linux内核对应关系"></p>
+            <h1 id="intro">intro</h1><p>最近在做ovs的实验，为了保持实验环境的一致性，我这边用了openvswitch-2.3.1这个版本，由于ovs与对应的内核版本有要求:</p>
+<table><thead valign="bottom"><tr><th>Open vSwitch</th><th>Linux kernel</th></tr></thead><tbody valign="top"><tr><td>1.4.x</td><td>2.6.18 to 3.2</td></tr><tr><td>1.5.x</td><td>2.6.18 to 3.2</td></tr><tr><td>1.6.x</td><td>2.6.18 to 3.2</td></tr><tr><td>1.7.x</td><td>2.6.18 to 3.3</td></tr><tr><td>1.8.x</td><td>2.6.18 to 3.4</td></tr><tr><td>1.9.x</td><td>2.6.18 to 3.8</td></tr><tr><td>1.10.x</td><td>2.6.18 to 3.8</td></tr><tr><td>1.11.x</td><td>2.6.18 to 3.8</td></tr><tr><td>2.0.x</td><td>2.6.32 to 3.10</td></tr><tr><td>2.1.x</td><td>2.6.32 to 3.11</td></tr><tr><td>2.3.x</td><td>2.6.32 to 3.14</td></tr><tr><td>2.4.x</td><td>2.6.32 to 4.0</td></tr><tr><td>2.5.x</td><td>2.6.32 to 4.3</td></tr><tr><td>2.6.x</td><td>3.10 to 4.7</td></tr></tbody></table>
+
 <p>这里为了安装ovs2.3.1，我需要让内核版本满足2.6.32到3.14的条件，当前ubuntu系统的内核版本是<code>3.19.0-25-generic</code>,目标内核版本是<code>3.13.0-24-generic</code></p>
 <h1 id="安装3-13-0-24-generic内核">安装3.13.0-24-generic内核</h1><p>1.显示所有可以获取的内核版本</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-<span class="operator"><span class="keyword">cache</span> <span class="keyword">search</span> linux</span></span><br></pre></td></tr></table></figure>
