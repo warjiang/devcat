@@ -1,0 +1,414 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="devCat">
+    <title>vmware暴露内网端口 - devCat</title>
+    <meta name="author" content="warjiang">
+    
+        <link rel="icon" href="/devcat/assets/images/hexoFavico.ico">
+    
+    
+    <meta name="description" content="intro最近在做OVS的实验,在台式机上安装了VMware Workstation，通过NAT的方式启动了一几台虚拟机，为了实验方面，我需要在笔记本上通过SSH的方式连接到虚拟机的通过NAT方式进行网络连接的虚拟机中。示意图如下：目标是希望从IP地址为192.168.1.100的客户机上通过SSH的方式连接到撞到IP地址为223.3.91.206中的虚拟机，由于虚拟机是通过NAT方式连接到宿主机">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="vmware暴露内网端口">
+<meta property="og:url" content="http://warjiang.github.io/devcat/2016/11/24/vmware暴露内网端口/index.html">
+<meta property="og:site_name" content="devCat">
+<meta property="og:description" content="intro最近在做OVS的实验,在台式机上安装了VMware Workstation，通过NAT的方式启动了一几台虚拟机，为了实验方面，我需要在笔记本上通过SSH的方式连接到虚拟机的通过NAT方式进行网络连接的虚拟机中。示意图如下：目标是希望从IP地址为192.168.1.100的客户机上通过SSH的方式连接到撞到IP地址为223.3.91.206中的虚拟机，由于虚拟机是通过NAT方式连接到宿主机">
+<meta property="og:image" content="http://img.spotty.com.cn/vmware-nat.png">
+<meta property="og:image" content="http://img.spotty.com.cn/vmware-网络编辑器.png">
+<meta property="og:image" content="http://img.spotty.com.cn/wmware-NAT设置.png">
+<meta property="og:image" content="http://img.spotty.com.cn/vmware-%E6%B7%BB%E5%8A%A0.png">
+<meta property="og:image" content="http://img.spotty.com.cn/vmware-nat配置.png">
+<meta property="og:updated_time" content="2016-11-24T08:43:57.304Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="vmware暴露内网端口">
+<meta name="twitter:description" content="intro最近在做OVS的实验,在台式机上安装了VMware Workstation，通过NAT的方式启动了一几台虚拟机，为了实验方面，我需要在笔记本上通过SSH的方式连接到虚拟机的通过NAT方式进行网络连接的虚拟机中。示意图如下：目标是希望从IP地址为192.168.1.100的客户机上通过SSH的方式连接到撞到IP地址为223.3.91.206中的虚拟机，由于虚拟机是通过NAT方式连接到宿主机">
+    
+    
+    
+        <meta property="og:image" content="/devcat/assets/images/avatar.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/devcat/assets/css/style.min.css" type="text/css">
+    <!--STYLES END-->
+    
+    <meta name="baidu-site-verification" content="K5SGaxveG1" />
+
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?57b6d23a689855c11566203b2da0f5a7";
+        var s = document.getElementsByTagName("script")[0]; 
+        s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+</head>
+
+    <body>
+        <div id="blog">
+            <header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/devcat/ ">devCat</a>
+    </h1>
+    
+        <a class="header-right-picture" href="/#about">
+            <img class="header-picture" src="/devcat/assets/images/avatar.jpg"/>
+        </a>
+    
+</header>
+            <nav id="sidebar" data-behavior="4">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                
+                    <img class="sidebar-profile-picture" src="/devcat/assets/images/avatar.jpg"/>
+                
+            </a>
+            <span class="sidebar-profile-name">warjiang</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">主页</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/all-categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分类</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">存档</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="/devcat/#search"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                    <span class="sidebar-button-desc">搜索</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/#about"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                    <span class="sidebar-button-desc">关于</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            vmware暴露内网端口
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Thu Nov 24 2016 15:53:00 GMT+0800">
+	
+		    11月 24, 2016
+    	
+    </time>
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <h1 id="intro">intro</h1><p>最近在做OVS的实验,在台式机上安装了VMware Workstation，通过NAT的方式启动了一几台虚拟机，为了实验方面，我需要在笔记本上通过SSH的方式连接到虚拟机的通过NAT方式进行网络连接的虚拟机中。示意图如下：<br><img src="http://img.spotty.com.cn/vmware-nat.png" alt="vmware-nat"><br>目标是希望从IP地址为192.168.1.100的客户机上通过SSH的方式连接到撞到IP地址为223.3.91.206中的虚拟机，由于虚拟机是通过NAT方式连接到宿主机，无法被外部的机器访问。我们就希望把虚拟机中的SSH端口22映射为宿主机中的另一个端口，以此暴露出去给我的客户端访问。</p>
+<h1 id="内网端口映射出去">内网端口映射出去</h1><p>1.网络编辑器<br><img src="http://img.spotty.com.cn/vmware-网络编辑器.png" alt=""><br>2.NAT设置<br><img src="http://img.spotty.com.cn/wmware-NAT设置.png" alt=""><br>3.添加NAT配置<br><img src="http://img.spotty.com.cn/vmware-%E6%B7%BB%E5%8A%A0.png" alt=""><br>4.按照图示填入需要暴露的虚拟机的IP地址、端口号以及宿主机的端口号<br><img src="http://img.spotty.com.cn/vmware-nat配置.png" alt=""></p>
+<p>确定之后，当我们访问<code>宿主机IP:宿主机port</code>就相当于访问了<code>虚拟机IP:虚拟机port</code>，比如这个时候，当访问了<code>223.3.91.206:8022</code>就相当于访问虚拟机中的<code>192.168.71.139:22</code></p>
+
+            
+                
+
+            
+        </div>
+    </div>
+    <div class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/devcat/tags/tools/">tools</a> <a class="tag tag--primary tag--small t-link" href="/devcat/tags/记录/">记录</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/11/22/ubuntu14-04下更换内核/" data-tooltip="ubuntu14.04下更换内核">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/11/24/vmware暴露内网端口/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/11/24/vmware暴露内网端口/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/11/24/vmware暴露内网端口/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action" style="display:none">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        <!-- 多说评论框 start -->
+<div class="ds-thread" data-thread-key="post-vmware暴露内网端口" data-title="vmware暴露内网端口" data-url="http://warjiang.github.io/devcat/2016/11/24/vmware暴露内网端口/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"devcat"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2016 warjiang. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/11/22/ubuntu14-04下更换内核/" data-tooltip="ubuntu14.04下更换内核">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/11/24/vmware暴露内网端口/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/11/24/vmware暴露内网端口/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/11/24/vmware暴露内网端口/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action" style="display:none">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/11/24/vmware暴露内网端口/">
+                <i class="fa fa-google-plus"></i><span class="">Share on Google Plus</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/11/24/vmware暴露内网端口/">
+                <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/11/24/vmware暴露内网端口/">
+                <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        <div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/devcat/assets/images/avatar.jpg"/>
+        
+            <h4 id="about-card-name">warjiang</h4>
+        
+            <h5 id="about-card-bio"><h2 id="一只有狂想症的fullstack学生汪">一只有狂想症的fullstack学生汪</h2></h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <h2 id="学生汪">学生汪</h2>
+            </h5>
+        
+        
+    </div>
+</div>
+
+        <div id="cover" style="background-image:url('http://7xl7lt.com1.z0.glb.clouddn.com/v1.3.0-cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/devcat/assets/js/script.min.js" type="text/javascript"></script>
+<!--SCRIPTS END-->
+
+
+
+</html>
