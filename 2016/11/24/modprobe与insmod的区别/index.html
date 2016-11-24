@@ -6,27 +6,23 @@
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="devCat">
-    <title>vmware暴露内网端口 - devCat</title>
+    <title>modprobe与insmod的区别 - devCat</title>
     <meta name="author" content="warjiang">
     
         <link rel="icon" href="/devcat/assets/images/hexoFavico.ico">
     
     
-    <meta name="description" content="intro最近在做OVS的实验,在台式机上安装了VMware Workstation，通过NAT的方式启动了一几台虚拟机，为了实验方面，我需要在笔记本上通过SSH的方式连接到虚拟机的通过NAT方式进行网络连接的虚拟机中。示意图如下：目标是希望从IP地址为192.168.1.100的客户机上通过SSH的方式连接到撞到IP地址为223.3.91.206中的虚拟机，由于虚拟机是通过NAT方式连接到宿主机">
+    <meta name="description" content="最近在做OVS相关的工作，安装完OVS后，没啥大问题，基本上也都可以按照流程走下去，但是重启机器后，当我重新启动OVS的时候，就出现了问题:大意就是说我在启动ovs-vswitchd进程的时候，没有提前加载Open vSwtich的内核模块。网上有人和我有类似的问题，按照别人的解决方案执行sudo modprobe openvswitch之后，重新启动ovsdb-server和ovs-vswitc">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="vmware暴露内网端口">
-<meta property="og:url" content="http://warjiang.github.io/devcat/2016/11/24/vmware暴露内网端口/index.html">
+<meta property="og:title" content="modprobe与insmod的区别">
+<meta property="og:url" content="http://warjiang.github.io/devcat/2016/11/24/modprobe与insmod的区别/index.html">
 <meta property="og:site_name" content="devCat">
-<meta property="og:description" content="intro最近在做OVS的实验,在台式机上安装了VMware Workstation，通过NAT的方式启动了一几台虚拟机，为了实验方面，我需要在笔记本上通过SSH的方式连接到虚拟机的通过NAT方式进行网络连接的虚拟机中。示意图如下：目标是希望从IP地址为192.168.1.100的客户机上通过SSH的方式连接到撞到IP地址为223.3.91.206中的虚拟机，由于虚拟机是通过NAT方式连接到宿主机">
-<meta property="og:image" content="http://img.spotty.com.cn/vmware-nat.png">
-<meta property="og:image" content="http://img.spotty.com.cn/vmware-网络编辑器.png">
-<meta property="og:image" content="http://img.spotty.com.cn/wmware-NAT设置.png">
-<meta property="og:image" content="http://img.spotty.com.cn/vmware-%E6%B7%BB%E5%8A%A0.png">
-<meta property="og:image" content="http://img.spotty.com.cn/vmware-nat配置.png">
-<meta property="og:updated_time" content="2016-11-24T09:35:48.650Z">
+<meta property="og:description" content="最近在做OVS相关的工作，安装完OVS后，没啥大问题，基本上也都可以按照流程走下去，但是重启机器后，当我重新启动OVS的时候，就出现了问题:大意就是说我在启动ovs-vswitchd进程的时候，没有提前加载Open vSwtich的内核模块。网上有人和我有类似的问题，按照别人的解决方案执行sudo modprobe openvswitch之后，重新启动ovsdb-server和ovs-vswitc">
+<meta property="og:image" content="http://img.spotty.com.cn/openvswitch-not-loaded.png">
+<meta property="og:updated_time" content="2016-11-24T14:28:34.464Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="vmware暴露内网端口">
-<meta name="twitter:description" content="intro最近在做OVS的实验,在台式机上安装了VMware Workstation，通过NAT的方式启动了一几台虚拟机，为了实验方面，我需要在笔记本上通过SSH的方式连接到虚拟机的通过NAT方式进行网络连接的虚拟机中。示意图如下：目标是希望从IP地址为192.168.1.100的客户机上通过SSH的方式连接到撞到IP地址为223.3.91.206中的虚拟机，由于虚拟机是通过NAT方式连接到宿主机">
+<meta name="twitter:title" content="modprobe与insmod的区别">
+<meta name="twitter:description" content="最近在做OVS相关的工作，安装完OVS后，没啥大问题，基本上也都可以按照流程走下去，但是重启机器后，当我重新启动OVS的时候，就出现了问题:大意就是说我在启动ovs-vswitchd进程的时候，没有提前加载Open vSwtich的内核模块。网上有人和我有类似的问题，按照别人的解决方案执行sudo modprobe openvswitch之后，重新启动ovsdb-server和ovs-vswitc">
     
     
     
@@ -172,11 +168,11 @@
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title" itemprop="headline">
-            vmware暴露内网端口
+            modprobe与insmod的区别
         </h1>
     
     <div class="post-meta">
-    <time itemprop="datePublished" content="Thu Nov 24 2016 15:53:00 GMT+0800">
+    <time itemprop="datePublished" content="Thu Nov 24 2016 21:52:30 GMT+0800">
 	
 		    11月 24, 2016
     	
@@ -187,9 +183,11 @@
     
     <div class="post-content markdown" itemprop="articleBody">
         <div class="main-content-wrap">
-            <h1 id="intro">intro</h1><p>最近在做OVS的实验,在台式机上安装了VMware Workstation，通过NAT的方式启动了一几台虚拟机，为了实验方面，我需要在笔记本上通过SSH的方式连接到虚拟机的通过NAT方式进行网络连接的虚拟机中。示意图如下：<br><img src="http://img.spotty.com.cn/vmware-nat.png" alt="vmware-nat"><br>目标是希望从IP地址为192.168.1.100的客户机上通过SSH的方式连接到撞到IP地址为223.3.91.206中的虚拟机，由于虚拟机是通过NAT方式连接到宿主机，无法被外部的机器访问。我们就希望把虚拟机中的SSH端口22映射为宿主机中的另一个端口，以此暴露出去给我的客户端访问。</p>
-<h1 id="内网端口映射出去">内网端口映射出去</h1><p>1.网络编辑器<br><img src="http://img.spotty.com.cn/vmware-网络编辑器.png" alt=""><br>2.NAT设置<br><img src="http://img.spotty.com.cn/wmware-NAT设置.png" alt=""><br>3.添加NAT配置<br><img src="http://img.spotty.com.cn/vmware-%E6%B7%BB%E5%8A%A0.png" alt=""><br>4.按照图示填入需要暴露的虚拟机的IP地址、端口号以及宿主机的端口号<br><img src="http://img.spotty.com.cn/vmware-nat配置.png" alt=""></p>
-<p>确定之后，当我们访问<code>宿主机IP:宿主机port</code>就相当于访问了<code>虚拟机IP:虚拟机port</code>，比如这个时候，当访问了<code>223.3.91.206:8022</code>就相当于访问虚拟机中的<code>192.168.71.139:22</code></p>
+            <p>最近在做OVS相关的工作，安装完OVS后，没啥大问题，基本上也都可以按照流程走下去，但是重启机器后，当我重新启动OVS的时候，就出现了问题:<br><img src="http://img.spotty.com.cn/openvswitch-not-loaded.png" alt="openvswitch-not-loaded"><br>大意就是说我在启动<code>ovs-vswitchd</code>进程的时候，没有提前加载<code>Open vSwtich</code>的内核模块。网上有人和我有类似的问题，按照别人的解决方案执行<code>sudo modprobe openvswitch</code>之后，重新启动<code>ovsdb-server</code>和<code>ovs-vswitchd</code>，<code>OVS</code>就可以正常使用了，但是也引发我开始考虑<code>modprobe</code>与之前了解过的<code>insmod</code>有什么区别</p>
+<h1 id="modprobe与insmod的区别"><code>modprobe</code>与<code>insmod</code>的区别</h1><p>在Linux系统中，modprobe和insmod都可以用来加载module，不过现在一般都是推荐modprobe而不是insmod。modprobe和insmod的区别在于<br>1.modprobe可以解决module加载过程中依赖关系问题，而insmod不行。举个例子，比如load moduleA，而moduleA依赖moduleB，那么这时候如果要使用insmod就得手动先去load moduleB，再去load moduleA.而用modprobe来load moduleA的话，modprobe会自动读取<code>/lib/modules/&lt;kernel-version&gt;/modules.dep</code>文件来自动查找moduleA依赖那些模块，先加载依赖模块moduleB,在加载moduleA.<br>比如我们可以手动到modules.dep文件中查看下openvswtich的依赖项<br><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ cat <span class="regexp">/lib/m</span>odules<span class="regexp">/`uname -r`/m</span>odules.dep|<span class="keyword">grep</span> openvswitch</span><br><span class="line"></span><br><span class="line">kernel<span class="regexp">/net/</span>openvswitch<span class="regexp">/openvswitch.ko: kernel/</span>net<span class="regexp">/ipv4/g</span>re.ko kernel<span class="regexp">/drivers/</span>net<span class="regexp">/vxlan.ko kernel/</span>net<span class="regexp">/ipv4/i</span>p_tunnel.ko kernel<span class="regexp">/lib/</span>libcrc32c.ko</span><br></pre></td></tr></table></figure></p>
+<p>这里可以看出<code>openvswitch.ko</code>依赖<code>vxlan.ko</code>、<code>ip_tunnel.ko</code>、<code>libcrc32c.ko</code>，modprobe会自动读取这些依赖，并加载</p>
+<p>2.modprobe与inmod查找的目录不一样。modprobe默认去<code>/lib/modules/&lt;kernel-version&gt;</code>下面查找module，而insmod只在给它的参数中去找module（默认情况在当前目录下查找）。<br>不过insmod也有它的有用之处,比如我们在/home/caffee/目录下有一个my-mod.ko这个module，如果我们这个cd到/home/caffee，执行inmod my-mod.ko就可以插入这个module，但是如果用modprobe my-mod.ko却会提示<code>FATAL:Module my-mod,ko not found</code>,这就是应为modprobe此时是到<code>/lib/module/&lt;kernel-version&gt;</code>下面去找module，没有找到就报错了</p>
+<p>ps:对于modprobe modulename 而言，modulename参数中<code>_</code>和<code>-</code>是不区分的。</p>
 
             
                 
@@ -211,7 +209,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/11/24/modprobe与insmod的区别/"  data-tooltip="modprobe与insmod的区别">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -219,7 +217,7 @@
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/11/22/ubuntu14-04下更换内核/" data-tooltip="ubuntu14.04下更换内核">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/11/24/vmware暴露内网端口/" data-tooltip="vmware暴露内网端口">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                     <i class="fa fa-angle-right"></i>
@@ -234,17 +232,17 @@
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/11/24/vmware暴露内网端口/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/11/24/modprobe与insmod的区别/">
                 <i class="fa fa-google-plus"></i>
             </a>
         </li>
         <li class="post-action hide-xs" style="display:none">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/11/24/vmware暴露内网端口/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/11/24/modprobe与insmod的区别/">
                 <i class="fa fa-facebook-official"></i>
             </a>
         </li>
         <li class="post-action hide-xs" style="display:none">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/11/24/vmware暴露内网端口/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/11/24/modprobe与insmod的区别/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
@@ -267,7 +265,7 @@
 
 
         <!-- 多说评论框 start -->
-<div class="ds-thread" data-thread-key="post-vmware暴露内网端口" data-title="vmware暴露内网端口" data-url="http://warjiang.github.io/devcat/2016/11/24/vmware暴露内网端口/"></div>
+<div class="ds-thread" data-thread-key="post-modprobe与insmod的区别" data-title="modprobe与insmod的区别" data-url="http://warjiang.github.io/devcat/2016/11/24/modprobe与insmod的区别/"></div>
 <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">
@@ -302,7 +300,7 @@ var duoshuoQuery = {short_name:"devcat"};
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/11/24/modprobe与insmod的区别/"  data-tooltip="modprobe与insmod的区别">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -310,7 +308,7 @@ var duoshuoQuery = {short_name:"devcat"};
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/11/22/ubuntu14-04下更换内核/" data-tooltip="ubuntu14.04下更换内核">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/11/24/vmware暴露内网端口/" data-tooltip="vmware暴露内网端口">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                     <i class="fa fa-angle-right"></i>
@@ -325,17 +323,17 @@ var duoshuoQuery = {short_name:"devcat"};
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/11/24/vmware暴露内网端口/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/11/24/modprobe与insmod的区别/">
                 <i class="fa fa-google-plus"></i>
             </a>
         </li>
         <li class="post-action hide-xs" style="display:none">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/11/24/vmware暴露内网端口/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/11/24/modprobe与insmod的区别/">
                 <i class="fa fa-facebook-official"></i>
             </a>
         </li>
         <li class="post-action hide-xs" style="display:none">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/11/24/vmware暴露内网端口/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/11/24/modprobe与insmod的区别/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
@@ -361,17 +359,17 @@ var duoshuoQuery = {short_name:"devcat"};
                 <div id="share-options-bar" class="share-options-bar" data-behavior="4">
     <ul class="share-options">
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/11/24/vmware暴露内网端口/">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/11/24/modprobe与insmod的区别/">
                 <i class="fa fa-google-plus"></i><span class="">Share on Google Plus</span>
             </a>
         </li>
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/11/24/vmware暴露内网端口/">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/11/24/modprobe与insmod的区别/">
                 <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
             </a>
         </li>
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/11/24/vmware暴露内网端口/">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/11/24/modprobe与insmod的区别/">
                 <i class="fa fa-twitter"></i><span>Share on Twitter</span>
             </a>
         </li>
