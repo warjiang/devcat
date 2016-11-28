@@ -6,23 +6,25 @@
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="devCat">
-    <title>modprobe与insmod的区别 - devCat</title>
+    <title>使用docker安装redis - devCat</title>
     <meta name="author" content="warjiang">
     
         <link rel="icon" href="/devcat/assets/images/hexoFavico.ico">
     
     
-    <meta name="description" content="最近在做OVS相关的工作，安装完OVS后，没啥大问题，基本上也都可以按照流程走下去，但是重启机器后，当我重新启动OVS的时候，就出现了问题:大意就是说我在启动ovs-vswitchd进程的时候，没有提前加载Open vSwtich的内核模块。网上有人和我有类似的问题，按照别人的解决方案执行sudo modprobe openvswitch之后，重新启动ovsdb-server和ovs-vswitc">
+    <meta name="description" content="intro最近需要用个redis做验证码校验功能，替代原来的利用session的方式做验证码校验的功能，考虑到部署的便捷性，这里就用docker部署一个redis,下面记录下
+安装docker这里我直接用的docker的一键安装脚本来安装,系统环境为Ubuntu 14.04.3 LTS,内核版本为3.13.0-24-generic，由于安装docker对内核版本有一定的要求，不清楚的话，可以执行l">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="modprobe与insmod的区别">
-<meta property="og:url" content="http://warjiang.github.io/devcat/2016/11/24/modprobe与insmod的区别/index.html">
+<meta property="og:title" content="使用docker安装redis">
+<meta property="og:url" content="http://warjiang.github.io/devcat/2016/11/28/使用docker安装redis/index.html">
 <meta property="og:site_name" content="devCat">
-<meta property="og:description" content="最近在做OVS相关的工作，安装完OVS后，没啥大问题，基本上也都可以按照流程走下去，但是重启机器后，当我重新启动OVS的时候，就出现了问题:大意就是说我在启动ovs-vswitchd进程的时候，没有提前加载Open vSwtich的内核模块。网上有人和我有类似的问题，按照别人的解决方案执行sudo modprobe openvswitch之后，重新启动ovsdb-server和ovs-vswitc">
-<meta property="og:image" content="http://img.spotty.com.cn/openvswitch-not-loaded.png">
-<meta property="og:updated_time" content="2016-11-24T14:28:34.464Z">
+<meta property="og:description" content="intro最近需要用个redis做验证码校验功能，替代原来的利用session的方式做验证码校验的功能，考虑到部署的便捷性，这里就用docker部署一个redis,下面记录下
+安装docker这里我直接用的docker的一键安装脚本来安装,系统环境为Ubuntu 14.04.3 LTS,内核版本为3.13.0-24-generic，由于安装docker对内核版本有一定的要求，不清楚的话，可以执行l">
+<meta property="og:updated_time" content="2016-11-28T08:41:24.010Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="modprobe与insmod的区别">
-<meta name="twitter:description" content="最近在做OVS相关的工作，安装完OVS后，没啥大问题，基本上也都可以按照流程走下去，但是重启机器后，当我重新启动OVS的时候，就出现了问题:大意就是说我在启动ovs-vswitchd进程的时候，没有提前加载Open vSwtich的内核模块。网上有人和我有类似的问题，按照别人的解决方案执行sudo modprobe openvswitch之后，重新启动ovsdb-server和ovs-vswitc">
+<meta name="twitter:title" content="使用docker安装redis">
+<meta name="twitter:description" content="intro最近需要用个redis做验证码校验功能，替代原来的利用session的方式做验证码校验的功能，考虑到部署的便捷性，这里就用docker部署一个redis,下面记录下
+安装docker这里我直接用的docker的一键安装脚本来安装,系统环境为Ubuntu 14.04.3 LTS,内核版本为3.13.0-24-generic，由于安装docker对内核版本有一定的要求，不清楚的话，可以执行l">
     
     
     
@@ -168,13 +170,13 @@
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title" itemprop="headline">
-            modprobe与insmod的区别
+            使用docker安装redis
         </h1>
     
     <div class="post-meta">
-    <time itemprop="datePublished" content="Thu Nov 24 2016 21:52:30 GMT+0800">
+    <time itemprop="datePublished" content="Mon Nov 28 2016 11:39:23 GMT+0800">
 	
-		    11月 24, 2016
+		    11月 28, 2016
     	
     </time>
     
@@ -183,11 +185,14 @@
     
     <div class="post-content markdown" itemprop="articleBody">
         <div class="main-content-wrap">
-            <p>最近在做OVS相关的工作，安装完OVS后，没啥大问题，基本上也都可以按照流程走下去，但是重启机器后，当我重新启动OVS的时候，就出现了问题:<br><img src="http://img.spotty.com.cn/openvswitch-not-loaded.png" alt="openvswitch-not-loaded"><br>大意就是说我在启动<code>ovs-vswitchd</code>进程的时候，没有提前加载<code>Open vSwtich</code>的内核模块。网上有人和我有类似的问题，按照别人的解决方案执行<code>sudo modprobe openvswitch</code>之后，重新启动<code>ovsdb-server</code>和<code>ovs-vswitchd</code>，<code>OVS</code>就可以正常使用了，但是也引发我开始考虑<code>modprobe</code>与之前了解过的<code>insmod</code>有什么区别</p>
-<h1 id="modprobe与insmod的区别"><code>modprobe</code>与<code>insmod</code>的区别</h1><p>在Linux系统中，modprobe和insmod都可以用来加载module，不过现在一般都是推荐modprobe而不是insmod。modprobe和insmod的区别在于<br>1.modprobe可以解决module加载过程中依赖关系问题，而insmod不行。举个例子，比如load moduleA，而moduleA依赖moduleB，那么这时候如果要使用insmod就得手动先去load moduleB，再去load moduleA.而用modprobe来load moduleA的话，modprobe会自动读取<code>/lib/modules/&lt;kernel-version&gt;/modules.dep</code>文件来自动查找moduleA依赖那些模块，先加载依赖模块moduleB,在加载moduleA.<br>比如我们可以手动到modules.dep文件中查看下openvswtich的依赖项<br><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ cat <span class="regexp">/lib/m</span>odules<span class="regexp">/`uname -r`/m</span>odules.dep|<span class="keyword">grep</span> openvswitch</span><br><span class="line"></span><br><span class="line">kernel<span class="regexp">/net/</span>openvswitch<span class="regexp">/openvswitch.ko: kernel/</span>net<span class="regexp">/ipv4/g</span>re.ko kernel<span class="regexp">/drivers/</span>net<span class="regexp">/vxlan.ko kernel/</span>net<span class="regexp">/ipv4/i</span>p_tunnel.ko kernel<span class="regexp">/lib/</span>libcrc32c.ko</span><br></pre></td></tr></table></figure></p>
-<p>这里可以看出<code>openvswitch.ko</code>依赖<code>vxlan.ko</code>、<code>ip_tunnel.ko</code>、<code>libcrc32c.ko</code>，modprobe会自动读取这些依赖，并加载</p>
-<p>2.modprobe与inmod查找的目录不一样。modprobe默认去<code>/lib/modules/&lt;kernel-version&gt;</code>下面查找module，而insmod只在给它的参数中去找module（默认情况在当前目录下查找）。<br>不过insmod也有它的有用之处,比如我们在/home/caffee/目录下有一个my-mod.ko这个module，如果我们这个cd到/home/caffee，执行inmod my-mod.ko就可以插入这个module，但是如果用modprobe my-mod.ko却会提示<code>FATAL:Module my-mod,ko not found</code>,这就是应为modprobe此时是到<code>/lib/module/&lt;kernel-version&gt;</code>下面去找module，没有找到就报错了</p>
-<p>ps:对于modprobe modulename 而言，modulename参数中<code>_</code>和<code>-</code>是不区分的。</p>
+            <h1 id="intro">intro</h1><p>最近需要用个redis做验证码校验功能，替代原来的利用session的方式做验证码校验的功能，考虑到部署的便捷性，这里就用docker部署一个redis,下面记录下</p>
+<h1 id="安装docker">安装docker</h1><p>这里我直接用的docker的一键安装脚本来安装,系统环境为Ubuntu 14.04.3 LTS,内核版本为3.13.0-24-generic，由于安装docker对内核版本有一定的要求，不清楚的话，可以执行<code>lsb_release -a</code>查看系统版本，执行<code>uname -r</code>查看内核版本,如果内核版本低于3.10的用户需要自行替换内核，可以参考这篇<a href="http://warjiang.github.io/devcat/2016/11/22/ubuntu14-04%E4%B8%8B%E6%9B%B4%E6%8D%A2%E5%86%85%E6%A0%B8/">替换内核的文章</a></p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#docker官方安装脚本</span></span><br><span class="line">curl -<span class="variable">sSL</span> <span class="keyword">https</span>://<span class="built_in">get</span>.docker.com/ | sh</span><br><span class="line"></span><br><span class="line"><span class="comment">#阿里云的安装脚本</span></span><br><span class="line">curl -<span class="variable">sSL</span> <span class="keyword">http</span>://acs-public-mirror.oss-cn-hangzhou.aliyuncs.com/docker-engine/<span class="keyword">internet</span> | sh</span><br><span class="line"></span><br><span class="line"><span class="comment">#DaoCloud 的安装脚本</span></span><br><span class="line">curl -<span class="variable">sSL</span> <span class="keyword">https</span>://<span class="built_in">get</span>.daocloud.io/docker | sh</span><br></pre></td></tr></table></figure>
+<p>执行之后，如果没啥问题，docker engine就安装好了</p>
+<h1 id="国内用户换docker的源">国内用户换docker的源</h1><p>国内用户访问docker老问题，速度慢,前段时间阿里云和docker也做了合作，我这里直接用了阿里云的的docker加速服务。关于使用阿里云docker源可以参考<a href="/devcat/2016/11/28/使用阿里云Docker镜像加速/">这篇文章</a>。这里我的系统是Ubuntu 14.04，我的阿里云docker加速地址为<code>https://2h3po24q.mirror.aliyuncs.com</code>,直接执行<br><figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo <span class="string">"DOCKER_OPTS=\"</span>\<span class="variable">$DOCKER</span>_OPTS --registry-mirror=https://<span class="number">2</span>h3po24q.mirror.aliyuncs.com\<span class="string">""</span> | sudo tee -a /etc/<span class="keyword">default</span>/docker</span><br><span class="line">sudo service docker restart</span><br></pre></td></tr></table></figure></p>
+<h1 id="通过docker安装redis">通过docker安装redis</h1><p>执行<code>sudo docker run -d --name redis -p 6379:6379 redis</code><br>这里首先docker会本地搜索<code>docker images</code>中理出来的镜像，如果没有则从docker hub(阿里云docker registry)拉取redis的docker镜像，然后启动一个名为<code>redis</code>容器，把本地的6379端口和容器中的6379端口映射起来，并让容器运行在后台.这样利用docker来安装redis就完成了。</p>
+<h1 id="测试redis的安装">测试redis的安装</h1><p>这里为了完成测试容器中的redis，首先我们需要一个redis-client，通过连接到本地的6379端口来达到连接到容器中的redis的目的<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//安装redis client</span></span><br><span class="line">$ apt-get install redis-tools</span><br><span class="line"><span class="comment">//启动redis-cli</span></span><br><span class="line">$ redis-cli -h localhost -p <span class="number">6379</span></span><br><span class="line"><span class="comment">//redis-cli</span></span><br><span class="line">localhost:<span class="number">6379</span>&gt; <span class="built_in">set</span> hello world</span><br><span class="line">localhost:<span class="number">6379</span>&gt; get hello</span><br><span class="line"><span class="string">"world"</span></span><br></pre></td></tr></table></figure></p>
+<p>PS：补充下，关于为什么redis选择使用6379作为他的默认端口,redis的作者antirez在twitter上提到为啥他用6379作为默认端口号，6379在手机按键上是MERZ，而MERZ取自意大利女歌手Alessia Merz的名字。MERZ长期以来被antirez及其朋友当做愚蠢的代名词.</p>
 
             
                 
@@ -200,7 +205,7 @@
             <div class="post-footer-tags">
                 <span class="text-color-light text-small">TAGGED IN</span><br/>
                 
-    <a class="tag tag--primary tag--small t-link" href="/devcat/tags/tools/">tools</a> <a class="tag tag--primary tag--small t-link" href="/devcat/tags/记录/">记录</a>
+    <a class="tag tag--primary tag--small t-link" href="/devcat/tags/docker/">docker</a> <a class="tag tag--primary tag--small t-link" href="/devcat/tags/tools/">tools</a> <a class="tag tag--primary tag--small t-link" href="/devcat/tags/记录/">记录</a>
 
             </div>
         
@@ -209,7 +214,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/11/28/使用docker安装redis/"  data-tooltip="使用docker安装redis">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/11/28/使用阿里云Docker镜像加速/"  data-tooltip="使用阿里云Docker镜像加速">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -217,7 +222,7 @@
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/11/24/vmware暴露内网端口/" data-tooltip="vmware暴露内网端口">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/11/24/modprobe与insmod的区别/" data-tooltip="modprobe与insmod的区别">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                     <i class="fa fa-angle-right"></i>
@@ -232,17 +237,17 @@
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/11/24/modprobe与insmod的区别/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/11/28/使用docker安装redis/">
                 <i class="fa fa-google-plus"></i>
             </a>
         </li>
         <li class="post-action hide-xs" style="display:none">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/11/24/modprobe与insmod的区别/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/11/28/使用docker安装redis/">
                 <i class="fa fa-facebook-official"></i>
             </a>
         </li>
         <li class="post-action hide-xs" style="display:none">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/11/24/modprobe与insmod的区别/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/11/28/使用docker安装redis/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
@@ -265,7 +270,7 @@
 
 
         <!-- 多说评论框 start -->
-<div class="ds-thread" data-thread-key="post-modprobe与insmod的区别" data-title="modprobe与insmod的区别" data-url="http://warjiang.github.io/devcat/2016/11/24/modprobe与insmod的区别/"></div>
+<div class="ds-thread" data-thread-key="post-使用docker安装redis" data-title="使用docker安装redis" data-url="http://warjiang.github.io/devcat/2016/11/28/使用docker安装redis/"></div>
 <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">
@@ -300,7 +305,7 @@ var duoshuoQuery = {short_name:"devcat"};
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/11/28/使用docker安装redis/"  data-tooltip="使用docker安装redis">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/11/28/使用阿里云Docker镜像加速/"  data-tooltip="使用阿里云Docker镜像加速">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -308,7 +313,7 @@ var duoshuoQuery = {short_name:"devcat"};
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/11/24/vmware暴露内网端口/" data-tooltip="vmware暴露内网端口">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/11/24/modprobe与insmod的区别/" data-tooltip="modprobe与insmod的区别">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                     <i class="fa fa-angle-right"></i>
@@ -323,17 +328,17 @@ var duoshuoQuery = {short_name:"devcat"};
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/11/24/modprobe与insmod的区别/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/11/28/使用docker安装redis/">
                 <i class="fa fa-google-plus"></i>
             </a>
         </li>
         <li class="post-action hide-xs" style="display:none">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/11/24/modprobe与insmod的区别/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/11/28/使用docker安装redis/">
                 <i class="fa fa-facebook-official"></i>
             </a>
         </li>
         <li class="post-action hide-xs" style="display:none">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/11/24/modprobe与insmod的区别/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/11/28/使用docker安装redis/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
@@ -359,17 +364,17 @@ var duoshuoQuery = {short_name:"devcat"};
                 <div id="share-options-bar" class="share-options-bar" data-behavior="4">
     <ul class="share-options">
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/11/24/modprobe与insmod的区别/">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/11/28/使用docker安装redis/">
                 <i class="fa fa-google-plus"></i><span class="">Share on Google Plus</span>
             </a>
         </li>
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/11/24/modprobe与insmod的区别/">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/11/28/使用docker安装redis/">
                 <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
             </a>
         </li>
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/11/24/modprobe与insmod的区别/">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/11/28/使用docker安装redis/">
                 <i class="fa fa-twitter"></i><span>Share on Twitter</span>
             </a>
         </li>

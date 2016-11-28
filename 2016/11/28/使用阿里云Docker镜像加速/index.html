@@ -1,0 +1,411 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="devCat">
+    <title>使用阿里云Docker镜像加速 - devCat</title>
+    <meta name="author" content="warjiang">
+    
+        <link rel="icon" href="/devcat/assets/images/hexoFavico.ico">
+    
+    
+    <meta name="description" content="使用docker官方的docker hub速度太慢，正好看到国内阿里云也做了docker镜像，于是想试试看阿里云的docker源。先附上阿里云docker hub地址.新用户需要注册成为开发者。打开http://dev.aliyun.com/search.html-&amp;gt;使用阿里云账号登录阿里云的docker hub-&amp;gt;进入管理中心按照要求注册就ok,注册成功之后，进入管理中心，首次登录会">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="使用阿里云Docker镜像加速">
+<meta property="og:url" content="http://warjiang.github.io/devcat/2016/11/28/使用阿里云Docker镜像加速/index.html">
+<meta property="og:site_name" content="devCat">
+<meta property="og:description" content="使用docker官方的docker hub速度太慢，正好看到国内阿里云也做了docker镜像，于是想试试看阿里云的docker源。先附上阿里云docker hub地址.新用户需要注册成为开发者。打开http://dev.aliyun.com/search.html-&amp;gt;使用阿里云账号登录阿里云的docker hub-&amp;gt;进入管理中心按照要求注册就ok,注册成功之后，进入管理中心，首次登录会">
+<meta property="og:updated_time" content="2016-11-28T08:36:07.921Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用阿里云Docker镜像加速">
+<meta name="twitter:description" content="使用docker官方的docker hub速度太慢，正好看到国内阿里云也做了docker镜像，于是想试试看阿里云的docker源。先附上阿里云docker hub地址.新用户需要注册成为开发者。打开http://dev.aliyun.com/search.html-&amp;gt;使用阿里云账号登录阿里云的docker hub-&amp;gt;进入管理中心按照要求注册就ok,注册成功之后，进入管理中心，首次登录会">
+    
+    
+    
+        <meta property="og:image" content="/devcat/assets/images/avatar.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/devcat/assets/css/style.min.css" type="text/css">
+    <!--STYLES END-->
+    
+    <meta name="baidu-site-verification" content="K5SGaxveG1" />
+
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?57b6d23a689855c11566203b2da0f5a7";
+        var s = document.getElementsByTagName("script")[0]; 
+        s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+</head>
+
+    <body>
+        <div id="blog">
+            <header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/devcat/ ">devCat</a>
+    </h1>
+    
+        <a class="header-right-picture" href="/#about">
+            <img class="header-picture" src="/devcat/assets/images/avatar.jpg"/>
+        </a>
+    
+</header>
+            <nav id="sidebar" data-behavior="4">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                
+                    <img class="sidebar-profile-picture" src="/devcat/assets/images/avatar.jpg"/>
+                
+            </a>
+            <span class="sidebar-profile-name">warjiang</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">主页</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/all-categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分类</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">存档</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="/devcat/#search"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                    <span class="sidebar-button-desc">搜索</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/#about"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                    <span class="sidebar-button-desc">关于</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            使用阿里云Docker镜像加速
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Mon Nov 28 2016 16:17:21 GMT+0800">
+	
+		    11月 28, 2016
+    	
+    </time>
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <p>使用docker官方的docker hub速度太慢，正好看到国内阿里云也做了docker镜像，于是想试试看阿里云的docker源。先附上<a href="http://dev.aliyun.com/search.html" target="_blank" rel="external">阿里云docker hub地址</a>.新用户需要注册成为开发者。打开<a href="http://dev.aliyun.com/search.html-&gt;使用阿里云账号登录阿里云的docker" target="_blank" rel="external">http://dev.aliyun.com/search.html-&gt;使用阿里云账号登录阿里云的docker</a> hub-&gt;进入管理中心按照要求注册就ok,注册成功之后，进入<code>管理中心</code>，首次登录会让用户设置密码。然后就会看到如下页面：</p>
+<p>阿里云会给每个用户分配一个加速地址，我的加速地址为<code>https://2h3po24q.mirror.aliyuncs.com</code><br>然后对于不同的系统、版本，在设置加速地址上都有些不同。如下<br>对于Ubuntu用户<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//ubuntu下docker一键安装脚本</span></span><br><span class="line">curl -sSL <span class="string">http:</span><span class="comment">//acs-public-mirror.oss-cn-hangzhou.aliyuncs.com/docker-engine/internet | sh -</span></span><br><span class="line"><span class="comment">//配置Docker加速器</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//如果系统是 Ubuntu 12.04 14.04，Docker 1.9 以上</span></span><br><span class="line"></span><br><span class="line">echo <span class="string">"DOCKER_OPTS=\"\$DOCKER_OPTS --registry-mirror=https://2h3po24q.mirror.aliyuncs.com\""</span> | sudo tee -a <span class="regexp">/etc/</span><span class="keyword">default</span>/docker</span><br><span class="line">sudo service docker restart</span><br><span class="line"></span><br><span class="line"><span class="comment">//如果您的系统是 Ubuntu 15.04 16.04，Docker 1.9 以上</span></span><br><span class="line"></span><br><span class="line">sudo mkdir -p <span class="regexp">/etc/</span>systemd<span class="regexp">/system/</span>docker.service.d</span><br><span class="line">sudo tee <span class="regexp">/etc/</span>systemd<span class="regexp">/system/</span>docker.service.d/mirror.conf &lt;&lt;-<span class="string">'EOF'</span></span><br><span class="line">[Service]</span><br><span class="line">ExecStart=</span><br><span class="line">ExecStart=<span class="regexp">/usr/</span>bin<span class="regexp">/docker daemon -H fd:/</span><span class="regexp">/ --registry-mirror=https:/</span>/<span class="number">2</span>h3po24q.mirror.aliyuncs.com</span><br><span class="line">EOF</span><br><span class="line">sudo systemctl daemon-reload</span><br><span class="line">sudo systemctl restart docker</span><br></pre></td></tr></table></figure></p>
+<p>对于Centos用户<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//centos下docker一键安装脚本</span></span><br><span class="line">curl -sSL http:<span class="comment">//acs-public-mirror.oss-cn-hangzhou.aliyuncs.com/docker-engine/internet | sh -</span></span><br><span class="line"><span class="comment">//配置Docker加速器</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//系统要求 CentOS 7 以上，Docker 1.9 以上。</span></span><br><span class="line">sudo cp -n /lib/systemd/system/docker<span class="class">.service</span> /etc/systemd/system/docker<span class="class">.service</span></span><br><span class="line">sudo sed -<span class="tag">i</span> <span class="string">"s|ExecStart=/usr/bin/docker daemon|ExecStart=/usr/bin/docker daemon --registry-mirror=https://2h3po24q.mirror.aliyuncs.com|g"</span> /etc/systemd/system/docker<span class="class">.service</span></span><br><span class="line">sudo systemctl daemon-reload</span><br><span class="line">sudo service docker restart</span><br></pre></td></tr></table></figure></p>
+<p>对于Windows用户<br><figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//推荐安装Docker Toolbox。</span></span><br><span class="line"><span class="comment">//Toolbox的介绍和帮助： mirrors.aliyun.com/help/docker-toolbox </span></span><br><span class="line"><span class="comment">//Windows系统的安装文件目录： mirrors.aliyun.com/docker-toolbox/windows</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 创建一台安装有Docker环境的Linux虚拟机，指定机器名称为default，同时配置Docker加速器地址。</span></span><br><span class="line">docker-machine create --engine-registry-mirror=https:<span class="comment">//2h3po24q.mirror.aliyuncs.com -d virtualbox default</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 查看机器的环境配置，并配置到本地。然后通过Docker客户端访问Docker服务。</span></span><br><span class="line">docker-machine env <span class="keyword">default</span></span><br><span class="line">eval <span class="string">"$(docker-machine env default)"</span></span><br><span class="line">docker info</span><br></pre></td></tr></table></figure></p>
+<p>对于Mac用户<br><figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//推荐安装Docker Toolbox。</span></span><br><span class="line"><span class="comment">//Toolbox的介绍和帮助： mirrors.aliyun.com/help/docker-toolbox </span></span><br><span class="line"><span class="comment">//Mac系统的安装文件目录： mirrors.aliyun.com/docker-toolbox/mac</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 创建一台安装有Docker环境的Linux虚拟机，指定机器名称为default，同时配置Docker加速器地址。</span></span><br><span class="line">docker-machine create --engine-registry-mirror=https:<span class="comment">//2h3po24q.mirror.aliyuncs.com -d virtualbox default</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 查看机器的环境配置，并配置到本地。然后通过Docker客户端访问Docker服务。</span></span><br><span class="line">docker-machine env <span class="keyword">default</span></span><br><span class="line">eval <span class="string">"$(docker-machine env default)"</span></span><br><span class="line">docker info</span><br></pre></td></tr></table></figure></p>
+
+            
+                
+
+            
+        </div>
+    </div>
+    <div class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/devcat/tags/docker/">docker</a> <a class="tag tag--primary tag--small t-link" href="/devcat/tags/tools/">tools</a> <a class="tag tag--primary tag--small t-link" href="/devcat/tags/记录/">记录</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/11/28/使用docker安装redis/" data-tooltip="使用docker安装redis">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/11/28/使用阿里云Docker镜像加速/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/11/28/使用阿里云Docker镜像加速/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/11/28/使用阿里云Docker镜像加速/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action" style="display:none">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        <!-- 多说评论框 start -->
+<div class="ds-thread" data-thread-key="post-使用阿里云Docker镜像加速" data-title="使用阿里云Docker镜像加速" data-url="http://warjiang.github.io/devcat/2016/11/28/使用阿里云Docker镜像加速/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"devcat"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2016 warjiang. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/11/28/使用docker安装redis/" data-tooltip="使用docker安装redis">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/11/28/使用阿里云Docker镜像加速/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/11/28/使用阿里云Docker镜像加速/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/11/28/使用阿里云Docker镜像加速/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action" style="display:none">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/11/28/使用阿里云Docker镜像加速/">
+                <i class="fa fa-google-plus"></i><span class="">Share on Google Plus</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/11/28/使用阿里云Docker镜像加速/">
+                <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/11/28/使用阿里云Docker镜像加速/">
+                <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        <div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/devcat/assets/images/avatar.jpg"/>
+        
+            <h4 id="about-card-name">warjiang</h4>
+        
+            <h5 id="about-card-bio"><h2 id="一只有狂想症的fullstack学生汪">一只有狂想症的fullstack学生汪</h2></h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <h2 id="学生汪">学生汪</h2>
+            </h5>
+        
+        
+    </div>
+</div>
+
+        <div id="cover" style="background-image:url('http://7xl7lt.com1.z0.glb.clouddn.com/v1.3.0-cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/devcat/assets/js/script.min.js" type="text/javascript"></script>
+<!--SCRIPTS END-->
+
+
+
+</html>
