@@ -1,0 +1,448 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="devCat">
+    <title>几种访问Docker容器的方法 - devCat</title>
+    <meta name="author" content="warjiang">
+    
+        <link rel="icon" href="/devcat/assets/images/hexoFavico.ico">
+    
+    
+    <meta name="description" content="概述使用docker创建了容器之后，大家比较关心的就是如何在宿主机中访问容器，进入docker容器的方法有好几种，这里就罗列下我知道的几种方式。进入docker容器的比较常见的方式如下:
+
+使用docker attach container
+使用ssh
+使用nsenter
+使用exec
+
+使用docker attach方式进入容器Docker提供了attach命令来进入容器.docker atta">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="几种访问Docker容器的方法">
+<meta property="og:url" content="http://warjiang.github.io/devcat/2016/11/28/几种访问Docker容器的方法/index.html">
+<meta property="og:site_name" content="devCat">
+<meta property="og:description" content="概述使用docker创建了容器之后，大家比较关心的就是如何在宿主机中访问容器，进入docker容器的方法有好几种，这里就罗列下我知道的几种方式。进入docker容器的比较常见的方式如下:
+
+使用docker attach container
+使用ssh
+使用nsenter
+使用exec
+
+使用docker attach方式进入容器Docker提供了attach命令来进入容器.docker atta">
+<meta property="og:image" content="http://img.spotty.com.cn/docker_attach_43bdf.png">
+<meta property="og:image" content="http://img.spotty.com.cn/docker_attach_same.png">
+<meta property="og:image" content="http://img.spotty.com.cn/docker_nsenter.png">
+<meta property="og:image" content="http://img.spotty.com.cn/docker_exec.png">
+<meta property="og:updated_time" content="2016-11-28T12:04:14.154Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="几种访问Docker容器的方法">
+<meta name="twitter:description" content="概述使用docker创建了容器之后，大家比较关心的就是如何在宿主机中访问容器，进入docker容器的方法有好几种，这里就罗列下我知道的几种方式。进入docker容器的比较常见的方式如下:
+
+使用docker attach container
+使用ssh
+使用nsenter
+使用exec
+
+使用docker attach方式进入容器Docker提供了attach命令来进入容器.docker atta">
+    
+    
+    
+        <meta property="og:image" content="/devcat/assets/images/avatar.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/devcat/assets/css/style.min.css" type="text/css">
+    <!--STYLES END-->
+    
+    <meta name="baidu-site-verification" content="K5SGaxveG1" />
+
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?57b6d23a689855c11566203b2da0f5a7";
+        var s = document.getElementsByTagName("script")[0]; 
+        s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+</head>
+
+    <body>
+        <div id="blog">
+            <header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/devcat/ ">devCat</a>
+    </h1>
+    
+        <a class="header-right-picture" href="/#about">
+            <img class="header-picture" src="/devcat/assets/images/avatar.jpg"/>
+        </a>
+    
+</header>
+            <nav id="sidebar" data-behavior="4">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                
+                    <img class="sidebar-profile-picture" src="/devcat/assets/images/avatar.jpg"/>
+                
+            </a>
+            <span class="sidebar-profile-name">warjiang</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">主页</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/all-categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分类</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">存档</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="/devcat/#search"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                    <span class="sidebar-button-desc">搜索</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/#about"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                    <span class="sidebar-button-desc">关于</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            几种访问Docker容器的方法
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Mon Nov 28 2016 16:47:21 GMT+0800">
+	
+		    11月 28, 2016
+    	
+    </time>
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <h1 id="概述">概述</h1><p>使用docker创建了容器之后，大家比较关心的就是如何在宿主机中访问容器，进入docker容器的方法有好几种，这里就罗列下我知道的几种方式。进入docker容器的比较常见的方式如下:</p>
+<ul>
+<li>使用<code>docker attach container</code></li>
+<li>使用<code>ssh</code></li>
+<li>使用<code>nsenter</code></li>
+<li>使用<code>exec</code></li>
+</ul>
+<h1 id="使用docker_attach方式进入容器">使用docker attach方式进入容器</h1><p>Docker提供了attach命令来进入容器.docker attach的help如下<br><figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Usage</span>: <span class="string"> docker attach [OPTIONS] CONTAINER</span></span><br><span class="line"></span><br><span class="line"><span class="vim">Attach <span class="keyword">to</span> <span class="keyword">a</span> running container</span><br><span class="line"></span><br><span class="line">Option<span class="variable">s:</span></span><br><span class="line">      --detach-<span class="built_in">keys</span> <span class="built_in">string</span>   Override the key sequence <span class="keyword">for</span> detaching <span class="keyword">a</span> container</span><br><span class="line">      --<span class="keyword">help</span>                 <span class="keyword">Print</span> usage</span><br><span class="line">      --<span class="keyword">no</span>-stdin             Do not attach STDIN</span><br><span class="line">      --<span class="keyword">sig</span>-proxy            Proxy <span class="keyword">all</span> received signals <span class="keyword">to</span> the process (default true)</span></span><br></pre></td></tr></table></figure></p>
+<p>我们首先创建一个运行在守护态的docker容器,然后使用docker attach命令进入该容器<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//启动一个docker容器</span></span><br><span class="line">docker run -itd saltstack/ubuntu-<span class="number">14.04</span> /bin/bash</span><br></pre></td></tr></table></figure></p>
+<p>//使用docker ps -a查看该容器的容器id，结果如下：<br>这里我们可以看到该容器的id为43bdf46c62e1，这时候我们就可以执行<code>docker attach 43bdf46c62e1</code>命令来进入刚刚启动的容器，如图所示：<br><img src="http://img.spotty.com.cn/docker_attach_43bdf.png" alt="docker_attach_43bdf"></p>
+<p>但是使用docker attach命令会有一个副作用。当多个窗口使用该命令进入43bdf46c62e1r容器的时候所有的窗口都会同步显示。如果有一个窗口阻塞了，那么其他的窗口再也无法进行其他的操作。多个窗口同步显示如图所示:<br><img src="http://img.spotty.com.cn/docker_attach_same.png" alt="docker_attach_same"></p>
+<h1 id="使用ssh的方式进入docker容器">使用ssh的方式进入docker容器</h1><p>对于容器的使用，除了attach命令之外，比较容易想到的就是使用ssh的方式连接容器，在容器中安装ssh server，这样就能保证多人进入容器且互不干扰。关于为什么不建议使用，请参考这篇文章：<a href="http://blog.docker.com/tag/nsenter/" target="_blank" rel="external">Why you don’t need to run SSHd in your Docker containers</a>。（英文不好可以看到<a href="http://www.oschina.net/translate/why-you-dont-need-to-run-sshd-in-docker?cmp" target="_blank" rel="external">中文版</a>）</p>
+<h1 id="使用nsenter进入Docker容器">使用nsenter进入Docker容器</h1><p>在上面两种方式都不适合的情况下，还有一种比较方便的方法，即使用nsenter进入Docker容器。关于什么是nsenter请参考<a href="https://github.com/jpetazzo/nsenter" target="_blank" rel="external">nsenter github repo</a>.<br>安装nsenter<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">wget https:<span class="comment">//www.kernel.org/pub/linux/utils/util-linux/v2.24/util-linux-2.24.tar.gz</span></span><br><span class="line">tar -xzvf util-linux-<span class="number">2.24</span><span class="class">.tar</span><span class="class">.gz</span></span><br><span class="line">cd util-linux-<span class="number">2.24</span>/</span><br><span class="line">./configure --without-ncurses</span><br><span class="line">make nsenter</span><br><span class="line">sudo cp nsenter /usr/local/bin</span><br></pre></td></tr></table></figure></p>
+<p>下面的话，我们需要使用nsenter进入容器内部。首先我们需要获取容器的PID号。这里如果通过执行<code>docker inspect 31ced27e1684</code> 来获取容器的PID号为44543。然后通过改PID号，执行<code>nsenter --target 44543 --mount --uts --ipc --net --pid</code><br>如下图所示：<br><img src="http://img.spotty.com.cn/docker_nsenter.png" alt="docker_nsenter"></p>
+<h1 id="使用exec进入容器">使用exec进入容器</h1><p>除了上面的做法之外，docker在1.3.x版本之后还提供了一种新的方式进入容器。这种方式相对简单<br><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">docker exec --help</span><br><span class="line"></span><br><span class="line">Usage:  docker exec [OPTIONS] CONTAINER COMMAND [ARG...]</span><br><span class="line"></span><br><span class="line">Run a command in a running container</span><br><span class="line"></span><br><span class="line">  -<span class="ruby">d, --detach         <span class="constant">Detached</span> <span class="symbol">mode:</span> run command <span class="keyword">in</span> the background</span><br><span class="line"></span>  -<span class="ruby">-detach-keys        <span class="constant">Override</span> the key sequence <span class="keyword">for</span> detaching a container</span><br><span class="line"></span>  -<span class="ruby">-help               <span class="constant">Print</span> usage</span><br><span class="line"></span>  -<span class="ruby">i, --interactive    <span class="constant">Keep</span> <span class="constant">STDIN</span> open even <span class="keyword">if</span> <span class="keyword">not</span> attached</span><br><span class="line"></span>  -<span class="ruby">-privileged         <span class="constant">Give</span> extended privileges to the command</span><br><span class="line"></span>  -<span class="ruby">t, --tty            <span class="constant">Allocate</span> a pseudo-<span class="constant">TTY</span></span><br><span class="line"></span>  -<span class="ruby">u, --user           <span class="constant">Username</span> <span class="keyword">or</span> <span class="constant">UID</span> (<span class="symbol">format:</span> &lt;name|uid&gt;[<span class="symbol">:&lt;group|gid&gt;</span>])</span></span><br></pre></td></tr></table></figure></p>
+<p>接下来，我们通过<code>exec</code>来进入一个已经在运行的容器<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//查看已经在运行的容器ID</span></span><br><span class="line">docker ps -<span class="tag">a</span></span><br><span class="line"><span class="comment">//通过exec命令对指定的容器执行bash</span></span><br><span class="line">docker exec -it <span class="number">31</span>ced27e1684 /bin/bash</span><br></pre></td></tr></table></figure></p>
+<p>如图所示：<br><img src="http://img.spotty.com.cn/docker_exec.png" alt="docker_exec"></p>
+
+            
+                
+
+            
+        </div>
+    </div>
+    <div class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/devcat/tags/docker/">docker</a> <a class="tag tag--primary tag--small t-link" href="/devcat/tags/tools/">tools</a> <a class="tag tag--primary tag--small t-link" href="/devcat/tags/记录/">记录</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/11/28/使用阿里云Docker镜像加速/" data-tooltip="使用阿里云Docker镜像加速">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/11/28/几种访问Docker容器的方法/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/11/28/几种访问Docker容器的方法/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/11/28/几种访问Docker容器的方法/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action" style="display:none">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        <!-- 多说评论框 start -->
+<div class="ds-thread" data-thread-key="post-几种访问Docker容器的方法" data-title="几种访问Docker容器的方法" data-url="http://warjiang.github.io/devcat/2016/11/28/几种访问Docker容器的方法/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"devcat"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2016 warjiang. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/11/28/使用阿里云Docker镜像加速/" data-tooltip="使用阿里云Docker镜像加速">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/11/28/几种访问Docker容器的方法/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/11/28/几种访问Docker容器的方法/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/11/28/几种访问Docker容器的方法/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action" style="display:none">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/11/28/几种访问Docker容器的方法/">
+                <i class="fa fa-google-plus"></i><span class="">Share on Google Plus</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/11/28/几种访问Docker容器的方法/">
+                <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/11/28/几种访问Docker容器的方法/">
+                <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        <div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/devcat/assets/images/avatar.jpg"/>
+        
+            <h4 id="about-card-name">warjiang</h4>
+        
+            <h5 id="about-card-bio"><h2 id="一只有狂想症的fullstack学生汪">一只有狂想症的fullstack学生汪</h2></h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <h2 id="学生汪">学生汪</h2>
+            </h5>
+        
+        
+    </div>
+</div>
+
+        <div id="cover" style="background-image:url('http://7xl7lt.com1.z0.glb.clouddn.com/v1.3.0-cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/devcat/assets/js/script.min.js" type="text/javascript"></script>
+<!--SCRIPTS END-->
+
+
+
+</html>
