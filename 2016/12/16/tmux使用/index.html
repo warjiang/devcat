@@ -1,0 +1,512 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="devCat">
+    <title>tmux使用 - devCat</title>
+    <meta name="author" content="warjiang">
+    
+        <link rel="icon" href="/devcat/assets/images/hexoFavico.ico">
+    
+    
+    <meta name="description" content="最近在linux大棚上，感觉有些东西对于自己而言，还是非常有用的。这里就简单介绍下tmux这款工具。
+tmux是什么?tmux是什么？tmux是linux中一种管理窗口的程序。那么问题来了：Mac自带的Iterm2很好用啊。既支持多标签，也支持窗体内部Panel的分割，为什么还要用tmux？其实，多标签和分割窗体只是tmux的部分功能。用tmux的主要原因是它提供了一个窗体组随时存储和恢复的功能。">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="tmux使用">
+<meta property="og:url" content="http://warjiang.github.io/devcat/2016/12/16/tmux使用/index.html">
+<meta property="og:site_name" content="devCat">
+<meta property="og:description" content="最近在linux大棚上，感觉有些东西对于自己而言，还是非常有用的。这里就简单介绍下tmux这款工具。
+tmux是什么?tmux是什么？tmux是linux中一种管理窗口的程序。那么问题来了：Mac自带的Iterm2很好用啊。既支持多标签，也支持窗体内部Panel的分割，为什么还要用tmux？其实，多标签和分割窗体只是tmux的部分功能。用tmux的主要原因是它提供了一个窗体组随时存储和恢复的功能。">
+<meta property="og:image" content="http://img.spotty.com.cn/tmux2.png">
+<meta property="og:image" content="http://img.spotty.com.cn/tmux3.png">
+<meta property="og:updated_time" content="2016-12-15T17:13:51.643Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="tmux使用">
+<meta name="twitter:description" content="最近在linux大棚上，感觉有些东西对于自己而言，还是非常有用的。这里就简单介绍下tmux这款工具。
+tmux是什么?tmux是什么？tmux是linux中一种管理窗口的程序。那么问题来了：Mac自带的Iterm2很好用啊。既支持多标签，也支持窗体内部Panel的分割，为什么还要用tmux？其实，多标签和分割窗体只是tmux的部分功能。用tmux的主要原因是它提供了一个窗体组随时存储和恢复的功能。">
+    
+    
+    
+        <meta property="og:image" content="/devcat/assets/images/avatar.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/devcat/assets/css/style.min.css" type="text/css">
+    <!--STYLES END-->
+    
+    <meta name="baidu-site-verification" content="K5SGaxveG1" />
+
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?57b6d23a689855c11566203b2da0f5a7";
+        var s = document.getElementsByTagName("script")[0]; 
+        s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+</head>
+
+    <body>
+        <div id="blog">
+            <header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/devcat/ ">devCat</a>
+    </h1>
+    
+        <a class="header-right-picture" href="/#about">
+            <img class="header-picture" src="/devcat/assets/images/avatar.jpg"/>
+        </a>
+    
+</header>
+            <nav id="sidebar" data-behavior="4">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                
+                    <img class="sidebar-profile-picture" src="/devcat/assets/images/avatar.jpg"/>
+                
+            </a>
+            <span class="sidebar-profile-name">warjiang</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">主页</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/all-categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分类</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">存档</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="/devcat/#search"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                    <span class="sidebar-button-desc">搜索</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/#about"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                    <span class="sidebar-button-desc">关于</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            tmux使用
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Fri Dec 16 2016 00:33:31 GMT+0800">
+	
+		    12月 16, 2016
+    	
+    </time>
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <p>最近在linux大棚上，感觉有些东西对于自己而言，还是非常有用的。这里就简单介绍下<code>tmux</code>这款工具。</p>
+<h1 id="tmux是什么?">tmux是什么?</h1><p>tmux是什么？tmux是linux中一种管理窗口的程序。那么问题来了：Mac自带的Iterm2很好用啊。既支持多标签，也支持窗体内部Panel的分割，为什么还要用tmux？其实，多标签和分割窗体只是tmux的部分功能。用tmux的主要原因是它提供了一个窗体组随时存储和恢复的功能。</p>
+<h1 id="为什么要用tmux?">为什么要用tmux?</h1><p>考虑下面两个场景：</p>
+<ol>
+<li>公司台式机开了一堆vim和log打印窗口。下班了，到家后灵感突发，想要继续coding，登陆VPN，SSH连上台式后发现又要重新打开各种窗口，瞬间没心情了。。。FUCK！这个时候你就可以在你的公司台式机上装个tmux。同一组工作环境，在多处共享。</li>
+<li>公司服务器上调试程序，开了一堆窗口。出去吃了个饭，发现SSH超时了，重头开始。。。FUCK！如果你之前使用了tmux就不会有这样的问题，attach就能找回原来打开的那些窗口。<br>看到了这里，无论是对于运维还是开发人员而言，tmux对于那些需要多会话、多窗口、多pane的同学而言，都是很有需求的。<h1 id="如何使用tmux?">如何使用tmux?</h1><h2 id="tmux中基本概念">tmux中基本概念</h2>我们先来理解下tmux的几个元素。tmux的主要元素分为三层：</li>
+</ol>
+<ul>
+<li>Session 一组窗口的集合，通常用来概括同一个任务。session可以有自己的名字便于任务之间的切换。</li>
+<li>Window 单个可见窗口。Windows有自己的编号，也可以认为和ITerm2中的Tab类似。</li>
+<li>Pane 窗格，被划分成小块的窗口，类似于Vim中 C-w +v 后的效果。<br>为了更好的理解，下面是三个元素在tmux中的具体展现。<br><img src="http://img.spotty.com.cn/tmux2.png" alt="tmux2.png"><br>这里只演示了一个window的情况，事实上，对于一个session而言，下面可以启动多个window,对于一个windows下面也可以启动多个pane.<h2 id="tmux安装">tmux安装</h2><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// debian系列</span></span><br><span class="line">apt-<span class="keyword">get</span> install tmux</span><br><span class="line"></span><br><span class="line"><span class="comment">// redhat系列</span></span><br><span class="line">yum install tmux</span><br><span class="line"></span><br><span class="line"><span class="comment">// macos系列</span></span><br><span class="line">brew install tmux</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="tmux基本使用">tmux基本使用</h2><p>对于tmux使用的话，有一个最basic的规则，对于任何命令，首先都要先按下<code>prefix</code>，这个prefix是可以配置的，用户可以根据自己的喜好来进行配置。这么说有点抽象，那么举个栗子。比如<br><figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 启动tmux</span></span><br><span class="line">tmux </span><br><span class="line"></span><br><span class="line"><span class="comment">// 默认情况下，这里会启动一个tmux的session，对于一个session，下面最少有一个window，这个时候比如我们要启动在这个session下启动第二个window</span></span><br><span class="line"><span class="comment">// 首先按下ctrl+b，再按下c。这样就会在当前的这个session下启动另外一个window</span></span><br></pre></td></tr></table></figure></p>
+<p>很简单吧，easy.</p>
+<h2 id="tmux常用快捷键">tmux常用快捷键</h2><p>tmux的快捷键是可配置的，tmux启动时，首先回去尝试搜索<code>~/.tmux.conf</code>,所有的key-binding都是在tmux下进行配置的。这里就大概展示下我这个比较搓的配置，这节看看就好，后面的话，会介绍第三方比较好点的配置。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 把默认的的ctrl-b换成ctrl-a</span></span><br><span class="line">unbind C-b</span><br><span class="line"><span class="built_in">set</span> -g prefix C<span class="operator">-a</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置一个重新载入配置文件的快捷键ctrl-r，修改配置文件之后，先按住ctrl-a,再按ctrl-r就会让配置文件不用重启tmux直接生效。</span></span><br><span class="line"><span class="built_in">bind</span> R <span class="built_in">source</span>-file ~/.tmux.conf ; display-message <span class="string">"Config reloaded.."</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="tmux常用快捷键(默认)">tmux常用快捷键(默认)</h2><p>这里之前我也是介绍过了，tmux快捷键都是prefix+key binding的形式，这里我也直接用prefix+key binding来表示快捷键.</p>
+<h3 id="Session相关操作">Session相关操作</h3><table>
+<thead>
+<tr>
+<th>操作</th>
+<th>快捷键</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>查看/切换session</td>
+<td>prefix s</td>
+</tr>
+<tr>
+<td>离开Session</td>
+<td>prefix d</td>
+</tr>
+<tr>
+<td>重命名当前Session</td>
+<td>prefix $</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Window相关操作">Window相关操作</h3><table>
+<thead>
+<tr>
+<th>操作</th>
+<th>快捷键</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>新建窗口</td>
+<td>prefix c</td>
+</tr>
+<tr>
+<td>切换到上一个活动的窗口</td>
+<td>prefix space</td>
+</tr>
+<tr>
+<td>关闭一个窗口</td>
+<td>prefix &amp;</td>
+</tr>
+<tr>
+<td>使用窗口号切换</td>
+<td>prefix 窗口号</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Pane相关操作">Pane相关操作</h3><table>
+<thead>
+<tr>
+<th>操作</th>
+<th>快捷键</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>切换到下一个窗格</td>
+<td>prefix o</td>
+</tr>
+<tr>
+<td>查看所有窗格的编号</td>
+<td>prefix q</td>
+</tr>
+<tr>
+<td>垂直拆分出一个新窗格</td>
+<td>prefix “</td>
+</tr>
+<tr>
+<td>水平拆分出一个新窗格</td>
+<td>prefix %</td>
+</tr>
+<tr>
+<td>关闭一个新窗格</td>
+<td>prefix x</td>
+</tr>
+<tr>
+<td>暂时把一个窗体放到最大</td>
+<td>prefix z</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tmux第三方配置">tmux第三方配置</h2><p>这里我就讲下我自己在用的一份<a href="https://github.com/tony/tmux-config" target="_blank" rel="external">配置</a><br>配置方法也简单<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clone https:<span class="comment">//github.com/tony/tmux-config.git ~/.tmux</span></span><br><span class="line">ln -s ~/.tmux/<span class="class">.tmux</span><span class="class">.conf</span> ~/<span class="class">.tmux</span><span class="class">.conf</span></span><br></pre></td></tr></table></figure></p>
+<p>配置好用起来大概是这样的<br><img src="http://img.spotty.com.cn/tmux3.png" alt="tmux3.png"><br>如果还需要加入系统状态比如内存、cpu使用率之类的，tmux-config也提供，不过需要自行配置。</p>
+
+            
+                
+
+            
+        </div>
+    </div>
+    <div class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/devcat/tags/tools/">tools</a> <a class="tag tag--primary tag--small t-link" href="/devcat/tags/ubuntu/">ubuntu</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/12/15/shell执行的两种方式/" data-tooltip="shell执行的两种方式">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/12/16/tmux使用/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/12/16/tmux使用/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/12/16/tmux使用/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action" style="display:none">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        <!-- 多说评论框 start -->
+<div class="ds-thread" data-thread-key="post-tmux使用" data-title="tmux使用" data-url="http://warjiang.github.io/devcat/2016/12/16/tmux使用/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"devcat"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2016 warjiang. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/12/15/shell执行的两种方式/" data-tooltip="shell执行的两种方式">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/12/16/tmux使用/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/12/16/tmux使用/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/12/16/tmux使用/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action" style="display:none">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/12/16/tmux使用/">
+                <i class="fa fa-google-plus"></i><span class="">Share on Google Plus</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/12/16/tmux使用/">
+                <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/12/16/tmux使用/">
+                <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        <div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/devcat/assets/images/avatar.jpg"/>
+        
+            <h4 id="about-card-name">warjiang</h4>
+        
+            <h5 id="about-card-bio"><h2 id="一只有狂想症的fullstack学生汪">一只有狂想症的fullstack学生汪</h2></h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <h2 id="学生汪">学生汪</h2>
+            </h5>
+        
+        
+    </div>
+</div>
+
+        <div id="cover" style="background-image:url('http://7xl7lt.com1.z0.glb.clouddn.com/v1.3.0-cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/devcat/assets/js/script.min.js" type="text/javascript"></script>
+<!--SCRIPTS END-->
+
+
+
+</html>
