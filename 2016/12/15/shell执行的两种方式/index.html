@@ -1,0 +1,438 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="devCat">
+    <title>shell执行的两种方式 - devCat</title>
+    <meta name="author" content="warjiang">
+    
+        <link rel="icon" href="/devcat/assets/images/hexoFavico.ico">
+    
+    
+    <meta name="description" content="linux下执行shell命令有两种方法
+在当前shell中执行shell命令
+在当前shell中产生一个subshell，在subshell中执行shell命令
+
+1.在当前shell中执行shell命令主要就是在命令行中通过交互方式方式直接输入shell命令，命令行直接执行给出结果.比如这样：
+2.在当前shell中产生一个subshell，在subshell中执行shell命令比如我们把sh">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="shell执行的两种方式">
+<meta property="og:url" content="http://warjiang.github.io/devcat/2016/12/15/shell执行的两种方式/index.html">
+<meta property="og:site_name" content="devCat">
+<meta property="og:description" content="linux下执行shell命令有两种方法
+在当前shell中执行shell命令
+在当前shell中产生一个subshell，在subshell中执行shell命令
+
+1.在当前shell中执行shell命令主要就是在命令行中通过交互方式方式直接输入shell命令，命令行直接执行给出结果.比如这样：
+2.在当前shell中产生一个subshell，在subshell中执行shell命令比如我们把sh">
+<meta property="og:image" content="http://img.spotty.com.cn/shell1.png">
+<meta property="og:image" content="http://img.spotty.com.cn/shell2.png">
+<meta property="og:image" content="http://img.spotty.com.cn/shell3.png">
+<meta property="og:image" content="http://img.spotty.com.cn/shell3.png">
+<meta property="og:image" content="http://img.spotty.com.cn/shell4.png">
+<meta property="og:image" content="http://img.spotty.com.cn/shell5.png">
+<meta property="og:updated_time" content="2016-12-15T09:01:29.400Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="shell执行的两种方式">
+<meta name="twitter:description" content="linux下执行shell命令有两种方法
+在当前shell中执行shell命令
+在当前shell中产生一个subshell，在subshell中执行shell命令
+
+1.在当前shell中执行shell命令主要就是在命令行中通过交互方式方式直接输入shell命令，命令行直接执行给出结果.比如这样：
+2.在当前shell中产生一个subshell，在subshell中执行shell命令比如我们把sh">
+    
+    
+    
+        <meta property="og:image" content="/devcat/assets/images/avatar.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/devcat/assets/css/style.min.css" type="text/css">
+    <!--STYLES END-->
+    
+    <meta name="baidu-site-verification" content="K5SGaxveG1" />
+
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?57b6d23a689855c11566203b2da0f5a7";
+        var s = document.getElementsByTagName("script")[0]; 
+        s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+</head>
+
+    <body>
+        <div id="blog">
+            <header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/devcat/ ">devCat</a>
+    </h1>
+    
+        <a class="header-right-picture" href="/#about">
+            <img class="header-picture" src="/devcat/assets/images/avatar.jpg"/>
+        </a>
+    
+</header>
+            <nav id="sidebar" data-behavior="4">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                
+                    <img class="sidebar-profile-picture" src="/devcat/assets/images/avatar.jpg"/>
+                
+            </a>
+            <span class="sidebar-profile-name">warjiang</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">主页</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/all-categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分类</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">存档</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="/devcat/#search"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                    <span class="sidebar-button-desc">搜索</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/#about"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                    <span class="sidebar-button-desc">关于</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            shell执行的两种方式
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Thu Dec 15 2016 14:12:03 GMT+0800">
+	
+		    12月 15, 2016
+    	
+    </time>
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <h1 id="linux下执行shell命令有两种方法">linux下执行shell命令有两种方法</h1><ol>
+<li>在当前shell中执行shell命令</li>
+<li>在当前shell中产生一个subshell，在subshell中执行shell命令</li>
+</ol>
+<h3 id="1-在当前shell中执行shell命令">1.在当前shell中执行shell命令</h3><p>主要就是在命令行中通过交互方式方式直接输入shell命令，命令行直接执行给出结果.比如这样：<br><img src="http://img.spotty.com.cn/shell1.png" alt="shell1.png"></p>
+<h3 id="2-在当前shell中产生一个subshell，在subshell中执行shell命令">2.在当前shell中产生一个subshell，在subshell中执行shell命令</h3><p>比如我们把shell写成shell脚本的方式来运行，这个时候会先启动一个subshell来代替当前的shell，然后执行shell脚本比如<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#demo.sh</span></span><br><span class="line"></span><br><span class="line"><span class="shebang">#!/bin/bash</span></span><br><span class="line"><span class="built_in">read</span> -p <span class="string">"please input your name:"</span> name</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"hello <span class="variable">$name</span>"</span></span><br></pre></td></tr></table></figure></p>
+<p>添加执行权限<code>chmod +x demo.sh</code>执行如下<br><img src="http://img.spotty.com.cn/shell2.png" alt="shell2.png"><br>这个脚本功能很简单，就是输出一行话，提示用户输入自己的名字，然后脚本输出hello xxx。我主要想说下执行结果及其分析。先来一张图:<br><img src="http://img.spotty.com.cn/shell3.png" alt="shell3.png"><br><strong>首先</strong>我这边是启动了两个shell，这个时候左右两个shell的pid号分别是2473和2505，并且这两个进程都是从一个叫做进程ID号为2465的进程中fork出来的子进程。<br><strong>当</strong>执行了<code>./demo.sh</code>之后，会看到有三个bash的进程，进程ID分别是2473、2505、2633.其中2473和2505的分别对应之前的两个shell的进程ID。多出了一个pid为2633的进程。这个进程其实就是我们说的subshell。看下这个pid为2633的进程的父进程的进程号是2473,就是说是从pid为2473的shell进程中启动一个subshell，subshell的进程ID号为2633。当我们输入完warjiang，之后，脚本继续执行，执行完毕之后，subshell进程退出。<br><strong>这个时候</strong>我们再去查看进程的时候，就会发现少了pid为2633的进程，也就是少了前面那个subshell。<br>讲到这里，对于在当前终端中执行shell与在当前终端中启动subshell执行shell两种方式执行shell也是有了一定程度的了解。下面将引出source命令与在终端中执行shell脚本的区别。</p>
+<h1 id="source与bash的区别">source与bash的区别</h1><p>严格的来说，我这个标题有毒，因为source命令本来就是属于bash中的一部分。我这里其实想说的是<code>source demo.sh</code>与<code>bash demo.sh</code>的区别。<br>相信大家但凡有linux下的开发、运维经验的codeframer都会配置过什么jdk等等之类的环境变量，大家一定都会记得自己都执行过<code>source ~/.bash.rc</code>,那么这个source到底是什么.先把这个问题放一放，我们先往下看.还是上面的那个demo.sh的脚本.下面我们来比较一下<code>bash demo.sh(或者先执行chmod +x demo.sh 再执行./demo.sh)</code>与<code>source demo.sh</code>的区别。</p>
+<p><img src="http://img.spotty.com.cn/shell3.png" alt="shell3.png"><br><img src="http://img.spotty.com.cn/shell4.png" alt="shell4.png"></p>
+<p>其中靠上面的一张图片是执行<code>./demo.sh</code>的截图，靠下面的一张是<code>source demo.sh</code>。比较两张图片，显然，两张图片最大的区别在于，上面一张图片多了一个subshell也就是pid为2633进程的出现再消失的过程。所以如果执行执行shell脚本，当前命令行会自动产生一个子进程，当执行完脚本之后，会自动把这个子进程关闭。但是souce命令不会产生新的子进程，而是在当前终端进程中读取并执行shell脚本。<br>所以<strong>source与bash的最大区别在于source不用启动新的shell，而bash需要启动新的shell</strong><br>再回到上面那个<code>source ~/.bashrc</code>，其实相当于在当前的终端中执行<code>~/.bashrc</code>，而.bashrc文件中的内容就是中关于export PATH部分的语句，也就是设置PATH变量，执行<code>source ~/.bashrc</code>让配置的新的环境变量PATH在当前终端中生效.</p>
+<h1 id="source与(-)">source与(.)</h1><p><img src="http://img.spotty.com.cn/shell5.png" alt="shell5.png"><br>这边的话，~/.bash_aliases一般用过alias的持久化，记录用户的alias记录。直观上来看，执行<code>. ~/.bash_aliases</code>应该是设置一些aliases中的变量别名。那么这个<code>.</code>是什么.其实这里的<code>.</code>与<code>source</code>的作用是一样，表示在当前的终端中执行脚本，这样就可以让当前的终端共享aliases中的alias配置信息</p>
+
+            
+                
+
+            
+        </div>
+    </div>
+    <div class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/devcat/tags/shell/">shell</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/12/14/learning-da-peng/" data-tooltip="learning_da_peng">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/12/15/shell执行的两种方式/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/12/15/shell执行的两种方式/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/12/15/shell执行的两种方式/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action" style="display:none">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        <!-- 多说评论框 start -->
+<div class="ds-thread" data-thread-key="post-shell执行的两种方式" data-title="shell执行的两种方式" data-url="http://warjiang.github.io/devcat/2016/12/15/shell执行的两种方式/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"devcat"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2016 warjiang. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/12/14/learning-da-peng/" data-tooltip="learning_da_peng">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/12/15/shell执行的两种方式/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/12/15/shell执行的两种方式/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/12/15/shell执行的两种方式/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action" style="display:none">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/12/15/shell执行的两种方式/">
+                <i class="fa fa-google-plus"></i><span class="">Share on Google Plus</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/12/15/shell执行的两种方式/">
+                <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/12/15/shell执行的两种方式/">
+                <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        <div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/devcat/assets/images/avatar.jpg"/>
+        
+            <h4 id="about-card-name">warjiang</h4>
+        
+            <h5 id="about-card-bio"><h2 id="一只有狂想症的fullstack学生汪">一只有狂想症的fullstack学生汪</h2></h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <h2 id="学生汪">学生汪</h2>
+            </h5>
+        
+        
+    </div>
+</div>
+
+        <div id="cover" style="background-image:url('http://7xl7lt.com1.z0.glb.clouddn.com/v1.3.0-cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/devcat/assets/js/script.min.js" type="text/javascript"></script>
+<!--SCRIPTS END-->
+
+
+
+</html>

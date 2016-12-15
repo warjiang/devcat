@@ -1,0 +1,449 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="devCat">
+    <title>php命令行模式 - devCat</title>
+    <meta name="author" content="warjiang">
+    
+        <link rel="icon" href="/devcat/assets/images/hexoFavico.ico">
+    
+    
+    <meta name="description" content="配置PHP环境变量这里以ubuntu下zsh的环境变量配置举例。笔者在ubuntu下直接安装了xampp，所以就不再单独安装php了。找到php的位置。如下：得到php的路径为/opt/lampp/bin,直接该路径添加到PATH中。我这里用的是zsh，需要编辑~/.zshrc.如果是bash，则编辑~/.bashrc如下图所示：编辑完后，执行source ~/.zshrc.执行php -v.如果">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="php命令行模式">
+<meta property="og:url" content="http://warjiang.github.io/devcat/2016/12/13/php命令行模式/index.html">
+<meta property="og:site_name" content="devCat">
+<meta property="og:description" content="配置PHP环境变量这里以ubuntu下zsh的环境变量配置举例。笔者在ubuntu下直接安装了xampp，所以就不再单独安装php了。找到php的位置。如下：得到php的路径为/opt/lampp/bin,直接该路径添加到PATH中。我这里用的是zsh，需要编辑~/.zshrc.如果是bash，则编辑~/.bashrc如下图所示：编辑完后，执行source ~/.zshrc.执行php -v.如果">
+<meta property="og:image" content="http://img.spotty.com.cn/php%E4%BD%8D%E7%BD%AE.png">
+<meta property="og:image" content="http://img.spotty.com.cn/%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F.jpg">
+<meta property="og:image" content="http://img.spotty.com.cn/php%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E6%B5%8B%E8%AF%95.jpg">
+<meta property="og:image" content="http://img.spotty.com.cn/windows%E4%B8%8Bphp%E7%9A%84%E4%BD%8D%E7%BD%AE.jpg">
+<meta property="og:image" content="http://img.spotty.com.cn/windows%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE.jpg">
+<meta property="og:updated_time" content="2016-12-13T13:57:24.578Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="php命令行模式">
+<meta name="twitter:description" content="配置PHP环境变量这里以ubuntu下zsh的环境变量配置举例。笔者在ubuntu下直接安装了xampp，所以就不再单独安装php了。找到php的位置。如下：得到php的路径为/opt/lampp/bin,直接该路径添加到PATH中。我这里用的是zsh，需要编辑~/.zshrc.如果是bash，则编辑~/.bashrc如下图所示：编辑完后，执行source ~/.zshrc.执行php -v.如果">
+    
+    
+    
+        <meta property="og:image" content="/devcat/assets/images/avatar.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/devcat/assets/css/style.min.css" type="text/css">
+    <!--STYLES END-->
+    
+    <meta name="baidu-site-verification" content="K5SGaxveG1" />
+
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?57b6d23a689855c11566203b2da0f5a7";
+        var s = document.getElementsByTagName("script")[0]; 
+        s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+</head>
+
+    <body>
+        <div id="blog">
+            <header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/devcat/ ">devCat</a>
+    </h1>
+    
+        <a class="header-right-picture" href="/#about">
+            <img class="header-picture" src="/devcat/assets/images/avatar.jpg"/>
+        </a>
+    
+</header>
+            <nav id="sidebar" data-behavior="4">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                
+                    <img class="sidebar-profile-picture" src="/devcat/assets/images/avatar.jpg"/>
+                
+            </a>
+            <span class="sidebar-profile-name">warjiang</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">主页</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/all-categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分类</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">存档</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="/devcat/#search"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                    <span class="sidebar-button-desc">搜索</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/#about"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                    <span class="sidebar-button-desc">关于</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            php命令行模式
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Tue Dec 13 2016 21:00:17 GMT+0800">
+	
+		    12月 13, 2016
+    	
+    </time>
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <h1 id="配置PHP环境变量">配置PHP环境变量</h1><p>这里以ubuntu下zsh的环境变量配置举例。<br>笔者在ubuntu下直接安装了xampp，所以就不再单独安装php了。找到php的位置。如下：<br><img src="http://img.spotty.com.cn/php%E4%BD%8D%E7%BD%AE.png" alt="php位置"><br>得到php的路径为<code>/opt/lampp/bin</code>,直接该路径添加到PATH中。我这里用的是zsh，需要编辑<code>~/.zshrc</code>.如果是bash，则编辑<code>~/.bashrc</code>如下图所示：<br><img src="http://img.spotty.com.cn/%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F.jpg" alt="配置环境变量"><br>编辑完后，执行<code>source ~/.zshrc</code>.<br>执行<code>php -v</code>.如果出现如下信息，则表示php环境变量配置成功.<br><img src="http://img.spotty.com.cn/php%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E6%B5%8B%E8%AF%95.jpg" alt="php环境变量测试"><br>对于windows下面，与ubuntu下的方法类似，只需要读者找到php.exe的位置，然后在系统的环境变量中将对应的路径配置到PATH最后即可。具体不再详述。<br><img src="http://img.spotty.com.cn/windows%E4%B8%8Bphp%E7%9A%84%E4%BD%8D%E7%BD%AE.jpg" alt="windows下php的位置"><br><img src="http://img.spotty.com.cn/windows%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE.jpg" alt="windows环境变量配置"></p>
+<h1 id="详解PHP命令行参数">详解PHP命令行参数</h1><p>这部分内容不少都是引用了php的官方文档，如果觉得我这里说的有问题的地方可以直接参考<a href="http://php.net/cli" target="_blank" rel="external">php官方文档</a></p>
+<h1 id="php_cli的由来">php cli的由来</h1><p>从版本 php 4.3.0 开始，PHP 提供了一种新类型的 <code>CLI SAPI（Server Application Programming Interface）</code>支持,该<code>CLI SAPI</code>模块主要用作 <strong>PHP 脚本程序的开发</strong>。除了CLI之外还有CGI也属于SAPI,尽管CLI和CGI之间有很多共同的行为，但是CLI和CGI是不同的 SAPI。<br>CLI和CGI的区别在于:</p>
+<ol>
+<li>CLI的输出没有任何(HTTP)头信息。CLI 默认以静默模式运行的，但为了保证兼容性，<code>-q</code> 和 <code>--no-header</code> 参数为了向后兼容仍然保留，使得可以使用旧的 CGI 脚本。CLI在运行时，不会把工作目录改为脚本的当前目录（可以使用 <code>-C</code> 和 <code>--no-chdir</code> 参数来兼容 CGI 模式）。CLI出错时输出纯文本的错误信息（非 HTML 格式）。</li>
+<li>CLI SAPI 强制覆盖了 php.ini 中的某些设置，因为这些设置在脚本环境下是没有意义的，如下:</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>设置选项</th>
+<th>CLI SAPI 默认值</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>html_errors</td>
+<td>FALSE</td>
+<td>无意义的 HTML 标记符会使得出错信息很凌乱，所以在脚本程序下阅读报错信息是十分困难的。因此将该选项的默认值改为 FALSE。</td>
+</tr>
+<tr>
+<td>implicit_flush</td>
+<td>TRUE</td>
+<td>在CLI模式下，所有来自 print 和 echo 的输出将被立即写到输出端，而不作任何地缓冲操作。如果希望延缓或控制标准输出，仍然可以使用 output buffering 设置项。</td>
+</tr>
+<tr>
+<td>max_execution_time</td>
+<td>0（无限值）</td>
+<td>鉴于在脚本环境下使用 PHP 的无穷的可能性，最大运行时间被设置为了无限值。为 web 开发的应用程序可能只需运行几秒钟时间，而脚本应用程序的运行时间可能会长的多。</td>
+</tr>
+<tr>
+<td>register_argc_argv</td>
+<td>TRUE</td>
+<td>由于该设置为 TRUE，将总是可以在 CLI SAPI 中访问到 argc（传送给应用程序参数的个数）和 argv（包含有实际参数的数组）。除了通过argc、argv之外也可以通过$_SERVER[‘argc’]、$_SERVER[‘argv’]来访问argc和argv</td>
+</tr>
+</tbody>
+</table>
+
+            
+                
+
+            
+        </div>
+    </div>
+    <div class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/devcat/tags/php/">php</a> <a class="tag tag--primary tag--small t-link" href="/devcat/tags/ubuntu/">ubuntu</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/12/14/learning-da-peng/"  data-tooltip="learning_da_peng">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/11/28/几种访问Docker容器的方法/" data-tooltip="几种访问Docker容器的方法">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/12/13/php命令行模式/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/12/13/php命令行模式/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/12/13/php命令行模式/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action" style="display:none">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        <!-- 多说评论框 start -->
+<div class="ds-thread" data-thread-key="post-php命令行模式" data-title="php命令行模式" data-url="http://warjiang.github.io/devcat/2016/12/13/php命令行模式/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"devcat"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2016 warjiang. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/12/14/learning-da-peng/"  data-tooltip="learning_da_peng">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/11/28/几种访问Docker容器的方法/" data-tooltip="几种访问Docker容器的方法">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/12/13/php命令行模式/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/12/13/php命令行模式/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/12/13/php命令行模式/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action" style="display:none">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/12/13/php命令行模式/">
+                <i class="fa fa-google-plus"></i><span class="">Share on Google Plus</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/12/13/php命令行模式/">
+                <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/12/13/php命令行模式/">
+                <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        <div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/devcat/assets/images/avatar.jpg"/>
+        
+            <h4 id="about-card-name">warjiang</h4>
+        
+            <h5 id="about-card-bio"><h2 id="一只有狂想症的fullstack学生汪">一只有狂想症的fullstack学生汪</h2></h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <h2 id="学生汪">学生汪</h2>
+            </h5>
+        
+        
+    </div>
+</div>
+
+        <div id="cover" style="background-image:url('http://7xl7lt.com1.z0.glb.clouddn.com/v1.3.0-cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/devcat/assets/js/script.min.js" type="text/javascript"></script>
+<!--SCRIPTS END-->
+
+
+
+</html>
