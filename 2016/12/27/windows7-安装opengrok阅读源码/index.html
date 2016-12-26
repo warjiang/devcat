@@ -1,0 +1,463 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="devCat">
+    <title>windows7 安装opengrok阅读源码 - devCat</title>
+    <meta name="author" content="warjiang">
+    
+        <link rel="icon" href="/devcat/assets/images/hexoFavico.ico">
+    
+    
+    <meta name="description" content="文章参考了别人的两篇文章 搭建大型源码阅读环境——使用 OpenGrokwin7本地电脑上搭建OpenGrok
+
+RTFSC (Read the Fucking Source Code )是程序员打怪升级路上避不开的功课，那营造一个舒适的环境来提升上课的体验就很有必要了。
+比如阅读 AOSP 这种大型源码，用什么姿势来阅读才能丝般顺滑，让 F**king Source Code 也变得不那么可恶呢">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="windows7 安装opengrok阅读源码">
+<meta property="og:url" content="http://warjiang.github.io/devcat/2016/12/27/windows7-安装opengrok阅读源码/index.html">
+<meta property="og:site_name" content="devCat">
+<meta property="og:description" content="文章参考了别人的两篇文章 搭建大型源码阅读环境——使用 OpenGrokwin7本地电脑上搭建OpenGrok
+
+RTFSC (Read the Fucking Source Code )是程序员打怪升级路上避不开的功课，那营造一个舒适的环境来提升上课的体验就很有必要了。
+比如阅读 AOSP 这种大型源码，用什么姿势来阅读才能丝般顺滑，让 F**king Source Code 也变得不那么可恶呢">
+<meta property="og:image" content="http://img.spotty.com.cn/c15b2a42dc98e106b590.png">
+<meta property="og:image" content="http://img.spotty.com.cn/ff5708d483a4bc5d51c1.png">
+<meta property="og:image" content="http://img.spotty.com.cn/jdk_cmd.png">
+<meta property="og:image" content="http://img.spotty.com.cn/tomcat8.png">
+<meta property="og:image" content="http://img.spotty.com.cn/tomcat8_service.png">
+<meta property="og:image" content="http://img.spotty.com.cn/apache_tomcat_service.png">
+<meta property="og:image" content="http://img.spotty.com.cn/net_start_stop_tomcat.png">
+<meta property="og:image" content="http://img.spotty.com.cn/ctags_version.png">
+<meta property="og:image" content="http://img.spotty.com.cn/edit_source_webxml.png">
+<meta property="og:image" content="http://img.spotty.com.cn/after_edit_source_webxml.png">
+<meta property="og:image" content="http://img.spotty.com.cn/opengrok_installed.png">
+<meta property="og:image" content="http://img.spotty.com.cn/opengrok_jquery.png">
+<meta property="og:updated_time" content="2016-12-26T17:57:33.955Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="windows7 安装opengrok阅读源码">
+<meta name="twitter:description" content="文章参考了别人的两篇文章 搭建大型源码阅读环境——使用 OpenGrokwin7本地电脑上搭建OpenGrok
+
+RTFSC (Read the Fucking Source Code )是程序员打怪升级路上避不开的功课，那营造一个舒适的环境来提升上课的体验就很有必要了。
+比如阅读 AOSP 这种大型源码，用什么姿势来阅读才能丝般顺滑，让 F**king Source Code 也变得不那么可恶呢">
+    
+    
+    
+        <meta property="og:image" content="/devcat/assets/images/avatar.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/devcat/assets/css/style.min.css" type="text/css">
+    <!--STYLES END-->
+    
+    <meta name="baidu-site-verification" content="K5SGaxveG1" />
+
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?57b6d23a689855c11566203b2da0f5a7";
+        var s = document.getElementsByTagName("script")[0]; 
+        s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+</head>
+
+    <body>
+        <div id="blog">
+            <header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/devcat/ ">devCat</a>
+    </h1>
+    
+        <a class="header-right-picture" href="/#about">
+            <img class="header-picture" src="/devcat/assets/images/avatar.jpg"/>
+        </a>
+    
+</header>
+            <nav id="sidebar" data-behavior="4">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                
+                    <img class="sidebar-profile-picture" src="/devcat/assets/images/avatar.jpg"/>
+                
+            </a>
+            <span class="sidebar-profile-name">warjiang</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">主页</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/all-categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分类</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">存档</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="/devcat/#search"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                    <span class="sidebar-button-desc">搜索</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/devcat/#about"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                    <span class="sidebar-button-desc">关于</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            windows7 安装opengrok阅读源码
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Tue Dec 27 2016 01:53:22 GMT+0800">
+	
+		    12月 27, 2016
+    	
+    </time>
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <blockquote>
+<p>文章参考了别人的两篇文章<br> <a href="https://gold.xitu.io/post/5850f0b1128fe1006b4e5e68" target="_blank" rel="external">搭建大型源码阅读环境——使用 OpenGrok</a><br><a href="https://my.oschina.net/kingfrog/blog/807410" target="_blank" rel="external">win7本地电脑上搭建OpenGrok</a></p>
+</blockquote>
+<p><code>RTFSC (Read the Fucking Source Code )</code>是程序员打怪升级路上避不开的功课，那营造一个舒适的环境来提升上课的体验就很有必要了。</p>
+<p>比如阅读 AOSP 这种大型源码，用什么姿势来阅读才能丝般顺滑，让 F**king Source Code 也变得不那么可恶呢？</p>
+<h1 id="OpenGrok_特点">OpenGrok 特点</h1><ol>
+<li>快速搜索代码的引擎<ul>
+<li>搜索全文、定义、符号、文件路径和修改历史</li>
+<li>搜索任意指定子目录（分层搜索）</li>
+<li>增量更新索引文件</li>
+<li>支持类似 Google 的查询语法，比如 path:Makefile defs:target</li>
+<li>搜索日期范围内修改的文件</li>
+<li>支持使用通配符搜索，如 * 表示多个字符，? 表示单个字符</li>
+<li>在搜索结果中展示匹配行</li>
+</ul>
+</li>
+<li>一个 Web 只读版的版本历史查看界面<ul>
+<li>文件的修改日志</li>
+<li>文件在两个版本间的 diff</li>
+<li>文件夹的历史记录</li>
+</ul>
+</li>
+<li>带语法高亮的交叉引用显示，可以使用 CSS 自定义样式</li>
+<li>可以开发插件支持新的语言和版本控制系统</li>
+</ol>
+<h1 id="安装OpenGrok">安装OpenGrok</h1><h2 id="OpenGrok概览">OpenGrok概览</h2><p>搜索功能和源码树：<br><img src="http://img.spotty.com.cn/c15b2a42dc98e106b590.png" alt="opengrok搜索功能和源码树"></p>
+<p>代码导航和版本历史记录：<br><img src="http://img.spotty.com.cn/ff5708d483a4bc5d51c1.png" alt="opengrok代码导航和版本历史记录"></p>
+<h2 id="OpenGrok安装">OpenGrok安装</h2><p>这里OpenGrok的安装是在windows7下安装的，如果想要在linux下安装可以参考<a href="https://gold.xitu.io/post/5850f0b1128fe1006b4e5e68" target="_blank" rel="external">搭建大型源码阅读环境——使用 OpenGrok</a>这篇文章。<br>1.安装JDK1.8。安装完成后配置环境变量。直到打开命令执行<code>jdk --version</code>出现如下结果所示：<br><img src="http://img.spotty.com.cn/jdk_cmd.png" alt="jdk_cmd"><br>2.安装tomcat。<a href="http://mirrors.hust.edu.cn/apache/tomcat/tomcat-8/v8.5.9/bin/apache-tomcat-8.5.9-windows-x64.zip" target="_blank" rel="external">tomcat下载地址</a>。直接解压，到bin目录下，用startup.bat脚本启动tomcat。如果访问<a href="http://localhost:8080能够看到如下结果，就表示tomcat安装成功。" target="_blank" rel="external">http://localhost:8080能够看到如下结果，就表示tomcat安装成功。</a><br> <img src="http://img.spotty.com.cn/tomcat8.png" alt="tomcat8"><br>这里除了安装tomcat之外，其实也不能称之为安装。因为考虑到后面需要让OpenGrok一直在后台运行，我就把tomcat注册成了一个windows的服务。具体方法为<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// windows7下一定要以管理员身份打开cmd命令行</span></span><br><span class="line"><span class="comment">// cd到tomcat8根目录下</span></span><br><span class="line">cd ./bin/</span><br><span class="line">service<span class="class">.bat</span> install</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://img.spotty.com.cn/tomcat8_service.png" alt="enter description here"><br>安装成功后可以通过 计算器-&gt;管理-&gt;服务 可以看到<code>Apache Tomcat 8.5</code>这个service.如下所示:<br><img src="http://img.spotty.com.cn/apache_tomcat_service.png" alt="enter description here"><br>后面启动tomcat可以通过windows服务自行开启或者通过命令行开关.<br><figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="winutils">net</span> tomcat8 <span class="built_in">start</span></span><br><span class="line"><span class="winutils">net</span> tomcat8 stop</span><br></pre></td></tr></table></figure></p>
+<p>如下：<br><img src="http://img.spotty.com.cn/net_start_stop_tomcat.png" alt="net_start_stop_tomcat"></p>
+<p>3.安装ctags。我直接用的官方推荐的<code>Universal Ctags</code>。<a href="https://github.com/universal-ctags/ctags" target="_blank" rel="external">Universal Ctags下载地址</a>。按照系统版本下载好ctags之后，需要把ctags配置到系统环境变量中。配置完成后，执行<code>ctags --version</code>出现如下所示，就表示安装成功了.<br><img src="http://img.spotty.com.cn/ctags_version.png" alt="enter description here"><br>4.配置下文件夹<br>其实到第三步的时候，该安装的软件都安装差不多了。这一步是为后面下载源码以及生成源码文件的索引做准备的.文件夹结构如下所示<br>opengrok<br>    |——- data    生成索引相关数据文件夹。<br>    |——- source  源码文件夹，我们把想看的源码就放在这里。<br>文件夹搞定之后就是下载源码，执行opengrok的jar包生成相关的索引。这里以jquery为例<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 下载jquery最新源码</span></span><br><span class="line">git clone <span class="string">https:</span><span class="comment">//github.com/jquery/jquery.git</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 执行opengrok.jar生成相关索引</span></span><br><span class="line"><span class="comment">// java -jar /path/to/opengrok.jar -P -S -v -s /path/to/source/root -d /path/to/data/root -W /path/to/configuration.xml</span></span><br><span class="line"><span class="comment">// 我这里的实际路径是c盘</span></span><br><span class="line">java -jar <span class="string">C:</span><span class="regexp">/opengrok-0.13-rc5/</span>lib<span class="regexp">/opengrok.jar -P -S -v -s C:/</span>opengrok<span class="regexp">/source -d C:/</span>opengrok<span class="regexp">/data -W C:/</span>opengrok<span class="regexp">/data/</span>configuration.xml</span><br><span class="line"></span><br><span class="line"><span class="comment">// -P 表示为 source root 目录下的每个一级子目录生成一个工程。</span></span><br><span class="line"><span class="comment">// -S 表示搜索并添加 "external" source repositories。</span></span><br><span class="line"><span class="comment">// -v 表示打印操作的进度信息。</span></span><br><span class="line"><span class="comment">// -s 表示指定 source root。</span></span><br><span class="line"><span class="comment">// -d 表示指定 data root。</span></span><br><span class="line"><span class="comment">// -W 表示指定将配置写到该文件。这个configuration.xml配置文件等会启动opengrok会用到</span></span><br></pre></td></tr></table></figure></p>
+<p>5.把opengrok中的source.war扔到tomcat中，启动opengrok的相关服务。直接把opengrok的lib目录下的source.war文件拷贝到tomcat的webapps目录下即可。这里大家还记得我们在第四步中生成的configuration.xml文件么。这里需要修改source.war中的web.xml文件，使得source.war启动的时候能够正确的找到我们上面生成的configuration.xml文件。这里我用的好压这款软件，右击source.war-&gt;用好压打开-&gt;在WEB-INF目录下有一个web.xml-&gt;然后右击选中用内部查看器打开。这个时候编辑红框区域</p>
+<p><img src="http://img.spotty.com.cn/edit_source_webxml.png" alt="enter description here"></p>
+<p>修改之后如图所示：<br><img src="http://img.spotty.com.cn/after_edit_source_webxml.png" alt="enter description here"></p>
+<h1 id="opengrok初体验">opengrok初体验</h1><p>一切准备就绪。下面就是启动tomcat，之前我们已经把tomcat安装成windows的一个系统服务。这里我们直接在系统的服务中打开tomcat。访问<a href="http://localhost:8080/source/就可以看到opengrok已经启动。" target="_blank" rel="external">http://localhost:8080/source/就可以看到opengrok已经启动。</a><br>opengrok启动画面如下，一个web的源码阅读工具<br><img src="http://img.spotty.com.cn/opengrok_installed.png" alt="enter description here"></p>
+<p>随便撸一发jquery源码，有图：<br><img src="http://img.spotty.com.cn/opengrok_jquery.png" alt="enter description here"></p>
+
+            
+                
+
+            
+        </div>
+    </div>
+    <div class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/devcat/tags/opengrok/">opengrok</a> <a class="tag tag--primary tag--small t-link" href="/devcat/tags/tools/">tools</a> <a class="tag tag--primary tag--small t-link" href="/devcat/tags/windows/">windows</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/12/16/tmux使用/" data-tooltip="tmux使用">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/12/27/windows7-安装opengrok阅读源码/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/12/27/windows7-安装opengrok阅读源码/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/12/27/windows7-安装opengrok阅读源码/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action" style="display:none">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        <!-- 多说评论框 start -->
+<div class="ds-thread" data-thread-key="post-windows7-安装opengrok阅读源码" data-title="windows7 安装opengrok阅读源码" data-url="http://warjiang.github.io/devcat/2016/12/27/windows7-安装opengrok阅读源码/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"devcat"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2016 warjiang. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/devcat/2016/12/16/tmux使用/" data-tooltip="tmux使用">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/12/27/windows7-安装opengrok阅读源码/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/12/27/windows7-安装opengrok阅读源码/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs" style="display:none">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/12/27/windows7-安装opengrok阅读源码/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action" style="display:none">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://warjiang.github.io/devcat/2016/12/27/windows7-安装opengrok阅读源码/">
+                <i class="fa fa-google-plus"></i><span class="">Share on Google Plus</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://warjiang.github.io/devcat/2016/12/27/windows7-安装opengrok阅读源码/">
+                <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://warjiang.github.io/devcat/2016/12/27/windows7-安装opengrok阅读源码/">
+                <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        <div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/devcat/assets/images/avatar.jpg"/>
+        
+            <h4 id="about-card-name">warjiang</h4>
+        
+            <h5 id="about-card-bio"><h2 id="一只有狂想症的fullstack学生汪">一只有狂想症的fullstack学生汪</h2></h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <h2 id="学生汪">学生汪</h2>
+            </h5>
+        
+        
+    </div>
+</div>
+
+        <div id="cover" style="background-image:url('http://7xl7lt.com1.z0.glb.clouddn.com/v1.3.0-cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/devcat/assets/js/script.min.js" type="text/javascript"></script>
+<!--SCRIPTS END-->
+
+
+
+</html>
