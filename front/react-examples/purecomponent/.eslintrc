@@ -1,0 +1,10 @@
+{
+    "extends": "eslint-config-yayajing",
+    "globals": {
+        "qq": true
+    },
+    "rules": {
+        "newIsCap": false,
+        "eqeqeq": "off"
+    }
+}

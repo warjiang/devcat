@@ -9,17 +9,16 @@ class App extends Component {
 
     _getLastMessage() {
         const lastMessage = this.state.messages[this.state.messages.length - 1]
-        return lastMessage == undefined ? "" : lastMessage
+        return lastMessage == undefined ? '' : lastMessage
     }
 
     _onMessageChange(event) {
-        //const messages = [...this.state.messages]
-        //messages.push(event.target.value)
-        //this.setState({ messages })
+        const messages = [...this.state.messages]
+        messages.push(event.target.value)
+        this.setState({ messages })
 
-        this.state.messages.push(event.target.value)
-        this.setState({ messages:this.state.messages })
-
+        // this.state.messages.push(event.target.value)
+        // this.setState({ messages:this.state.messages })
     }
 
     render() {
@@ -38,7 +37,7 @@ class MessageList extends Component {
     render() {
         return (
             <ul>
-                {this.props.messages.map((message,index) => <Message message={message} key={index}/>)}
+                {this.props.messages.map((message, index) => <Message message={message} key={index}/>)}
             </ul>
         )
     }
@@ -49,7 +48,6 @@ class Message extends Component {
         return <li style={{ margin: '10px' }}>{this.props.message}</li>
     }
 }
-
 
 render(
     <App />,

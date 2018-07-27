@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react'
+import React, { Component, PureComponent } from "react"
 import { render } from 'react-dom'
 import './demo.less'
 class App extends Component {
@@ -13,12 +13,12 @@ class App extends Component {
     }
 
     _onMessageChange(event) {
-        //const messages = [...this.state.messages]
-        //messages.push(event.target.value)
-        //this.setState({ messages })
+        const messages = [...this.state.messages]
+        messages.push(event.target.value)
+        this.setState({ messages })
 
-        this.state.messages.push(event.target.value)
-        this.setState({ messages: this.state.messages })
+        // this.state.messages.push(event.target.value)
+        // this.setState({ messages: this.state.messages })
 
     }
 
