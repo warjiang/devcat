@@ -24,8 +24,8 @@
 
 使用代理更新
 使用ali源作为替代附上ali源12345678910deb http://mirrors.ali">
-<meta property="og:image" content="http://7xl7lt.com1.z0.glb.clouddn.com/ubuntu_163source.png">
-<meta property="og:image" content="http://7xl7lt.com1.z0.glb.clouddn.com/source163updateerror.png">
+<meta property="og:image" content="http://devcat.spotty.com.cn/ubuntu_163source.png">
+<meta property="og:image" content="http://devcat.spotty.com.cn/source163updateerror.png">
 <meta property="og:updated_time" content="2015-12-17T14:49:58.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ubuntu使用国内源出现HashSummismatch错误">
@@ -193,10 +193,10 @@
     
     <div class="post-content markdown" itemprop="articleBody">
         <div class="main-content-wrap">
-            <p>国内用户使用国内的镜像源速度会快点.<br><img src="http://7xl7lt.com1.z0.glb.clouddn.com/ubuntu_163source.png" alt="ubuntu_163source"><br>但是在使用163等源替换系统的<code>/etc/apt/source.list</code>的源会出现hash sum mistach问题.主要就是GFW的问题，导致了我们获取到的文件和官方源上的文件大小不一致，所以出出现Hash Sum mismatch问题。解决方法</p>
+            <p>国内用户使用国内的镜像源速度会快点.<br><img src="http://devcat.spotty.com.cn/ubuntu_163source.png" alt="ubuntu_163source"><br>但是在使用163等源替换系统的<code>/etc/apt/source.list</code>的源会出现hash sum mistach问题.主要就是GFW的问题，导致了我们获取到的文件和官方源上的文件大小不一致，所以出出现Hash Sum mismatch问题。解决方法</p>
 <ul>
 <li>使用代理更新</li>
-<li>使用ali源作为替代<br><img src="http://7xl7lt.com1.z0.glb.clouddn.com/source163updateerror.png" alt="source163updateerror"><br>附上ali源<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">deb <span class="string">http:</span><span class="comment">//mirrors.aliyun.com/ubuntu/ trusty main restricted universe multiverse</span></span><br><span class="line">deb <span class="string">http:</span><span class="comment">//mirrors.aliyun.com/ubuntu/ trusty-security main restricted universe multiverse</span></span><br><span class="line">deb <span class="string">http:</span><span class="comment">//mirrors.aliyun.com/ubuntu/ trusty-updates main restricted universe multiverse</span></span><br><span class="line">deb <span class="string">http:</span><span class="comment">//mirrors.aliyun.com/ubuntu/ trusty-proposed main restricted universe multiverse</span></span><br><span class="line">deb <span class="string">http:</span><span class="comment">//mirrors.aliyun.com/ubuntu/ trusty-backports main restricted universe multiverse</span></span><br><span class="line">deb-src <span class="string">http:</span><span class="comment">//mirrors.aliyun.com/ubuntu/ trusty main restricted universe multiverse</span></span><br><span class="line">deb-src <span class="string">http:</span><span class="comment">//mirrors.aliyun.com/ubuntu/ trusty-security main restricted universe multiverse</span></span><br><span class="line">deb-src <span class="string">http:</span><span class="comment">//mirrors.aliyun.com/ubuntu/ trusty-updates main restricted universe multiverse</span></span><br><span class="line">deb-src <span class="string">http:</span><span class="comment">//mirrors.aliyun.com/ubuntu/ trusty-proposed main restricted universe multiverse</span></span><br><span class="line">deb-src <span class="string">http:</span><span class="comment">//mirrors.aliyun.com/ubuntu/ trusty-backports main restricted universe multiverse</span></span><br></pre></td></tr></table></figure>
+<li>使用ali源作为替代<br><img src="http://devcat.spotty.com.cn/source163updateerror.png" alt="source163updateerror"><br>附上ali源<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">deb <span class="string">http:</span><span class="comment">//mirrors.aliyun.com/ubuntu/ trusty main restricted universe multiverse</span></span><br><span class="line">deb <span class="string">http:</span><span class="comment">//mirrors.aliyun.com/ubuntu/ trusty-security main restricted universe multiverse</span></span><br><span class="line">deb <span class="string">http:</span><span class="comment">//mirrors.aliyun.com/ubuntu/ trusty-updates main restricted universe multiverse</span></span><br><span class="line">deb <span class="string">http:</span><span class="comment">//mirrors.aliyun.com/ubuntu/ trusty-proposed main restricted universe multiverse</span></span><br><span class="line">deb <span class="string">http:</span><span class="comment">//mirrors.aliyun.com/ubuntu/ trusty-backports main restricted universe multiverse</span></span><br><span class="line">deb-src <span class="string">http:</span><span class="comment">//mirrors.aliyun.com/ubuntu/ trusty main restricted universe multiverse</span></span><br><span class="line">deb-src <span class="string">http:</span><span class="comment">//mirrors.aliyun.com/ubuntu/ trusty-security main restricted universe multiverse</span></span><br><span class="line">deb-src <span class="string">http:</span><span class="comment">//mirrors.aliyun.com/ubuntu/ trusty-updates main restricted universe multiverse</span></span><br><span class="line">deb-src <span class="string">http:</span><span class="comment">//mirrors.aliyun.com/ubuntu/ trusty-proposed main restricted universe multiverse</span></span><br><span class="line">deb-src <span class="string">http:</span><span class="comment">//mirrors.aliyun.com/ubuntu/ trusty-backports main restricted universe multiverse</span></span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <p>这里我也自制了一个<a href="http://115.159.122.224/wechat/Demo/Demo/generateUbuntuSource" target="_blank" rel="external">阿里源的生成器</a></p>
@@ -413,7 +413,7 @@ var duoshuoQuery = {short_name:"devcat"};
     </div>
 </div>
 
-        <div id="cover" style="background-image:url('http://7xl7lt.com1.z0.glb.clouddn.com/v1.3.0-cover.jpg');"></div>
+        <div id="cover" style="background-image:url('http://devcat.spotty.com.cn/v1.3.0-cover.jpg');"></div>
     </body>
     <!--SCRIPTS-->
 <script src="/devcat/assets/js/script.min.js" type="text/javascript"></script>

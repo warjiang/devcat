@@ -18,14 +18,14 @@
 <meta property="og:url" content="http://warjiang.github.io/devcat/2015/12/18/idea14和tomcat8远程调试/index.html">
 <meta property="og:site_name" content="devCat">
 <meta property="og:description" content="在实际J2EE开发中，很多功能，我们在本地开发的时候调试成功,等到部署到平台，做线上测试的时候，经常出现一些不可预知的问题，比如在实际开发中，最近就碰到了用Java执行shell脚本，但是shell脚本执行过程中，可能由于shell脚本中存在sleep等语句，导致了shell脚本的执行时间非常长。同时由于在web应用中，对于超时控制很严格，这时候就会出现一些不可预知的问题，对于这些问题，我们平时开">
-<meta property="og:image" content="http://7xl7lt.com1.z0.glb.clouddn.com/tomcat%E8%B0%83%E8%AF%95%E5%8E%9F%E7%90%86%E5%9B%BE.jpg">
-<meta property="og:image" content="http://7xl7lt.com1.z0.glb.clouddn.com/tomcat远程调试intelliJStep1.jpg">
-<meta property="og:image" content="http://7xl7lt.com1.z0.glb.clouddn.com/tomcat远程调试intelliJStep2.jpg">
-<meta property="og:image" content="http://7xl7lt.com1.z0.glb.clouddn.com/tomcat远程调试intelliJStep3.jpg">
-<meta property="og:image" content="http://7xl7lt.com1.z0.glb.clouddn.com/catalina.shdebug配置.jpg">
-<meta property="og:image" content="http://7xl7lt.com1.z0.glb.clouddn.com/tomcat调试模式启动.jpg">
-<meta property="og:image" content="http://7xl7lt.com1.z0.glb.clouddn.com/本地连接信息.jpg">
-<meta property="og:image" content="http://7xl7lt.com1.z0.glb.clouddn.com/tomcat远程调试信息.jpg">
+<meta property="og:image" content="http://devcat.spotty.com.cn/tomcat%E8%B0%83%E8%AF%95%E5%8E%9F%E7%90%86%E5%9B%BE.jpg">
+<meta property="og:image" content="http://devcat.spotty.com.cn/tomcat远程调试intelliJStep1.jpg">
+<meta property="og:image" content="http://devcat.spotty.com.cn/tomcat远程调试intelliJStep2.jpg">
+<meta property="og:image" content="http://devcat.spotty.com.cn/tomcat远程调试intelliJStep3.jpg">
+<meta property="og:image" content="http://devcat.spotty.com.cn/catalina.shdebug配置.jpg">
+<meta property="og:image" content="http://devcat.spotty.com.cn/tomcat调试模式启动.jpg">
+<meta property="og:image" content="http://devcat.spotty.com.cn/本地连接信息.jpg">
+<meta property="og:image" content="http://devcat.spotty.com.cn/tomcat远程调试信息.jpg">
 <meta property="og:updated_time" content="2015-12-19T04:06:58.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="idea14和tomcat8远程调试">
@@ -190,7 +190,7 @@
     
     <div class="post-content markdown" itemprop="articleBody">
         <div class="main-content-wrap">
-            <p>在实际J2EE开发中，很多功能，我们在本地开发的时候调试成功,等到部署到平台，做线上测试的时候，经常出现一些不可预知的问题，比如在实际开发中，最近就碰到了用Java执行shell脚本，但是shell脚本执行过程中，可能由于shell脚本中存在sleep等语句，导致了shell脚本的执行时间非常长。同时由于在web应用中，对于超时控制很严格，这时候就会出现一些不可预知的问题，对于这些问题，我们平时开发的时候并不好测试，必须部署到线上才可以测试的功能，对于这些功能，我们可以利用remote debug技术来实现在线调试。<br>虽然可能我们的应用可能部署在不同的servelet容器上（tomcat, jetty），但是本质上都是运行在JVM之上。所以这里的远程调试本质上就是利用不同JVM之间通过socket通信，达到的远程调试的目的。调试的模型如下图所示<img src="http://7xl7lt.com1.z0.glb.clouddn.com/tomcat%E8%B0%83%E8%AF%95%E5%8E%9F%E7%90%86%E5%9B%BE.jpg" alt="tomcat调试原理图.jpg"><br>这里以intelliJ14,本地和远程都是tomcat8为例简单介绍调试过程。在IntelliJ的配置服务器的地方,新建一个tomcat-&gt;remote,如图所说<br><img src="http://7xl7lt.com1.z0.glb.clouddn.com/tomcat远程调试intelliJStep1.jpg" alt="tomcat远程调试intelliJStep1"><br><img src="http://7xl7lt.com1.z0.glb.clouddn.com/tomcat远程调试intelliJStep2.jpg" alt="tomcat远程调试intelliJStep2"><br><img src="http://7xl7lt.com1.z0.glb.clouddn.com/tomcat远程调试intelliJStep3.jpg" alt="tomcat远程调试intelliJStep3"><br>这里我们配置好之后IntelliJ给我们生成一个句<code>-agentlib:jdwp=transport=dt_socket,address=8000,suspend=n,server=y</code><br>解释一下这行配置的意思<br><code>jdwp=transport=dt_socket</code>表示应用程序与调试器之间的通信协议是<code>transport=dt_socket</code><br><code>address=8000</code>表示应用程序的调试端口是8000<br><code>suspend=n</code>表示服务器上的程序会不等待本地的debugger连接上来就先启动起来。但是如果设置成y的话，那么服务端的程序会等待本地的debugger连接上来才启动。这两者的区别在于设置成y可以比设置成n多获取一点启动的信息。对于有些远程程序启动不了的话，设置成y调试是比较好的。<br><code>server=y</code>区分服务端JVM和本地JVM如果是服务端JVM就设置为y，如果是客户端JVM就设置成n<br>这个时候我们需要先关闭服务端程序,把配置参数写到服务端的启动脚本中。<br>编辑tomcat根目录下的bin/catalina.sh脚本，增加我们刚刚得到配置<code>export CATALINA_OPTS=&quot;-agentlib:jdwp=transport=dt_socket,address=8000,suspend=n,server=y&quot;</code><br><img src="http://7xl7lt.com1.z0.glb.clouddn.com/catalina.shdebug配置.jpg" alt="catalina.shdebug配置"><br>到这里服务端和本地端我们都配置好了.下面执行<code>catalina.sh start</code>这个时候得到<br><img src="http://7xl7lt.com1.z0.glb.clouddn.com/tomcat调试模式启动.jpg" alt="tomcat调试模式启动"><br>这个时候要留意一下看看8000和8080端口起来没有，8000端口就是我们的调试端口,8080是服务端口，如果都启动的了，就可以进行调试了。<br>进入调试模式留意下本地的VM的连接信息<br><img src="http://7xl7lt.com1.z0.glb.clouddn.com/本地连接信息.jpg" alt="本地连接信息"><br>这个时候先在本地打一个断点，随便访问一个远端接口，如下图，后面调试工就跟本地一样了。<br><img src="http://7xl7lt.com1.z0.glb.clouddn.com/tomcat远程调试信息.jpg" alt="tomcat远程调试信息"><br>本文对于JPDA等并没有详细介绍如果有兴趣可以参考<br><a href="http://kyfxbl.iteye.com/blog/1697203" target="_blank" rel="external">http://kyfxbl.iteye.com/blog/1697203</a><br><a href="http://7xl7lt.com1.z0.glb.clouddn.com/blog_trifork_com_2014_07_14_how_to_remotely_debug_applicatio.pdf" target="_blank" rel="external">http://7xl7lt.com1.z0.glb.clouddn.com/blog_trifork_com_2014_07_14_how_to_remotely_debug_applicatio.pdf</a></p>
+            <p>在实际J2EE开发中，很多功能，我们在本地开发的时候调试成功,等到部署到平台，做线上测试的时候，经常出现一些不可预知的问题，比如在实际开发中，最近就碰到了用Java执行shell脚本，但是shell脚本执行过程中，可能由于shell脚本中存在sleep等语句，导致了shell脚本的执行时间非常长。同时由于在web应用中，对于超时控制很严格，这时候就会出现一些不可预知的问题，对于这些问题，我们平时开发的时候并不好测试，必须部署到线上才可以测试的功能，对于这些功能，我们可以利用remote debug技术来实现在线调试。<br>虽然可能我们的应用可能部署在不同的servelet容器上（tomcat, jetty），但是本质上都是运行在JVM之上。所以这里的远程调试本质上就是利用不同JVM之间通过socket通信，达到的远程调试的目的。调试的模型如下图所示<img src="http://devcat.spotty.com.cn/tomcat%E8%B0%83%E8%AF%95%E5%8E%9F%E7%90%86%E5%9B%BE.jpg" alt="tomcat调试原理图.jpg"><br>这里以intelliJ14,本地和远程都是tomcat8为例简单介绍调试过程。在IntelliJ的配置服务器的地方,新建一个tomcat-&gt;remote,如图所说<br><img src="http://devcat.spotty.com.cn/tomcat远程调试intelliJStep1.jpg" alt="tomcat远程调试intelliJStep1"><br><img src="http://devcat.spotty.com.cn/tomcat远程调试intelliJStep2.jpg" alt="tomcat远程调试intelliJStep2"><br><img src="http://devcat.spotty.com.cn/tomcat远程调试intelliJStep3.jpg" alt="tomcat远程调试intelliJStep3"><br>这里我们配置好之后IntelliJ给我们生成一个句<code>-agentlib:jdwp=transport=dt_socket,address=8000,suspend=n,server=y</code><br>解释一下这行配置的意思<br><code>jdwp=transport=dt_socket</code>表示应用程序与调试器之间的通信协议是<code>transport=dt_socket</code><br><code>address=8000</code>表示应用程序的调试端口是8000<br><code>suspend=n</code>表示服务器上的程序会不等待本地的debugger连接上来就先启动起来。但是如果设置成y的话，那么服务端的程序会等待本地的debugger连接上来才启动。这两者的区别在于设置成y可以比设置成n多获取一点启动的信息。对于有些远程程序启动不了的话，设置成y调试是比较好的。<br><code>server=y</code>区分服务端JVM和本地JVM如果是服务端JVM就设置为y，如果是客户端JVM就设置成n<br>这个时候我们需要先关闭服务端程序,把配置参数写到服务端的启动脚本中。<br>编辑tomcat根目录下的bin/catalina.sh脚本，增加我们刚刚得到配置<code>export CATALINA_OPTS=&quot;-agentlib:jdwp=transport=dt_socket,address=8000,suspend=n,server=y&quot;</code><br><img src="http://devcat.spotty.com.cn/catalina.shdebug配置.jpg" alt="catalina.shdebug配置"><br>到这里服务端和本地端我们都配置好了.下面执行<code>catalina.sh start</code>这个时候得到<br><img src="http://devcat.spotty.com.cn/tomcat调试模式启动.jpg" alt="tomcat调试模式启动"><br>这个时候要留意一下看看8000和8080端口起来没有，8000端口就是我们的调试端口,8080是服务端口，如果都启动的了，就可以进行调试了。<br>进入调试模式留意下本地的VM的连接信息<br><img src="http://devcat.spotty.com.cn/本地连接信息.jpg" alt="本地连接信息"><br>这个时候先在本地打一个断点，随便访问一个远端接口，如下图，后面调试工就跟本地一样了。<br><img src="http://devcat.spotty.com.cn/tomcat远程调试信息.jpg" alt="tomcat远程调试信息"><br>本文对于JPDA等并没有详细介绍如果有兴趣可以参考<br><a href="http://kyfxbl.iteye.com/blog/1697203" target="_blank" rel="external">http://kyfxbl.iteye.com/blog/1697203</a><br><a href="http://devcat.spotty.com.cn/blog_trifork_com_2014_07_14_how_to_remotely_debug_applicatio.pdf" target="_blank" rel="external">http://devcat.spotty.com.cn/blog_trifork_com_2014_07_14_how_to_remotely_debug_applicatio.pdf</a></p>
 
             
                 
@@ -404,7 +404,7 @@ var duoshuoQuery = {short_name:"devcat"};
     </div>
 </div>
 
-        <div id="cover" style="background-image:url('http://7xl7lt.com1.z0.glb.clouddn.com/v1.3.0-cover.jpg');"></div>
+        <div id="cover" style="background-image:url('http://devcat.spotty.com.cn/v1.3.0-cover.jpg');"></div>
     </body>
     <!--SCRIPTS-->
 <script src="/devcat/assets/js/script.min.js" type="text/javascript"></script>
