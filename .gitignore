@@ -47,3 +47,4 @@ node_modules/
 jscoverage_lib/
 yarn.lock
 package-lock.json
+target
