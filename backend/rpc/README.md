@@ -21,8 +21,8 @@ node client.js
 rpc的客户端和服务端均使用java
 ```
 // 将thrift IDL文件翻译成nodejs可用的JS文件
-cd /path/to/rpc
-thrift -r --gen js:nodejs ./tutorial/tutorial.thrift
+cd /path/to/backend/rpc
+thrift -r -out java/src/java  --gen java ./tutorial/tutorial.thrift
 // 启动rpc的服务端
 // 使用rpc的客户端
 ```
