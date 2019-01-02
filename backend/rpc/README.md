@@ -1,4 +1,4 @@
-# 安装thrift
+# 安装thrift-compiler
 mac上可以直接通过`brew install thrift`来安装thrift
 也可以从源码安装thrift
 
